@@ -11,7 +11,7 @@
         {
             for (int i = 1; i <= 10; i++)
             {
-                using var fileStream = File.OpenRead($".\\{i}");
+                using var fileStream = File.OpenRead($".\\files\\{i}");
                 var isRecognizableType = FileTypeValidator.IsTypeRecognizable(fileStream);
 
                 if (!isRecognizableType)
