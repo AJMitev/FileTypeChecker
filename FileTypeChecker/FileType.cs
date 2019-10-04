@@ -1,27 +1,88 @@
 ﻿namespace FileTypeChecker
 {
+    using System;
     using System.IO;
+    using System.Linq;
+    using Abstracts;
+    using Common;
 
-    public class FileType : IFileType
+    internal class FileType : IFileType
     {
-        private readonly IFileTypeMatcher _fileTypeMatcher;
+        private const string FileContentMustBeReadableErrorMessage = "File contents must be a readable stream";
 
-        public string Name { get; }
+        private string name;
+        private string extension;
+        private byte[] bytes;
 
-        public string Extension { get; }
-
-        public static IFileType Unknown { get; } = new FileType("unknown", string.Empty, null);
-
-        public FileType(string name, string extension, IFileTypeMatcher matcher)
+        internal FileType(string name, string extension, byte[] magicBytes)
         {
             this.Name = name;
             this.Extension = extension;
-            this._fileTypeMatcher = matcher;
+            this.Bytes = magicBytes;
         }
 
-        public bool Matches(Stream stream)
+        /// <inheritdoc />
+        public string Name
         {
-            return this._fileTypeMatcher == null || this._fileTypeMatcher.Matches(stream);
+            get => this.name;
+
+            private set
+            {
+                DataValidator.ThrowIfNullOrEmpty(value, nameof(Name));
+
+                this.name = value;
+            }
+        }
+
+        /// <inheritdoc />
+        public string Extension
+        {
+            get => this.extension;
+            private set
+            {
+                DataValidator.ThrowIfNullOrEmpty(value, nameof(Extension));
+
+                this.extension = value;
+            }
+        }
+
+
+        private byte[] Bytes
+        {
+            get => this.bytes;
+            set
+            {
+                DataValidator.ThrowIfNull(value, nameof(Bytes));
+
+                this.bytes = value;
+            }
+        }
+
+        /// <inheritdoc />
+        public bool DoesMatchWith(FileStream stream, bool resetPosition = true)
+        {
+            if (stream == null)
+            {
+                throw new ArgumentNullException(nameof(Stream));
+            }
+
+            if (!stream.CanRead || (stream.Position != 0 && !stream.CanSeek))
+            {
+                throw new ArgumentException(FileContentMustBeReadableErrorMessage, nameof(Stream));
+            }
+
+            if (stream.Position != 0 && resetPosition)
+            {
+                stream.Position = 0;
+            }
+
+            return CompareBytes(stream);
+        }
+
+
+        protected bool CompareBytes(Stream stream)
+        {
+            return this.Bytes.All(b => stream.ReadByte() == b);
         }
     }
 }
