@@ -59,7 +59,7 @@
         }
 
         /// <inheritdoc />
-        public bool DoesMatchWith(FileStream stream, bool resetPosition = true)
+        public bool DoesMatchWith(Stream stream, bool resetPosition = true)
         {
             if (stream == null)
             {

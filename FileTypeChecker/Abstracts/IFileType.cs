@@ -24,6 +24,6 @@
         /// <exception cref="System.ArgumentNullException"></exception>
         /// <exception cref="System.NotSupportedException"></exception>
         /// <exception cref="System.ObjectDisposedException"></exception>
-        bool DoesMatchWith(FileStream stream, bool resetPosition = true);
+        bool DoesMatchWith(Stream stream, bool resetPosition = true);
     }
 }

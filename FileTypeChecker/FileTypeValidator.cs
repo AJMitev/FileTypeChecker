@@ -50,7 +50,7 @@
         /// <exception cref="System.ArgumentNullException"></exception>
         /// <exception cref="System.NotSupportedException"></exception>
         /// <exception cref="System.ObjectDisposedException"></exception>
-        public static bool IsTypeRecognizable(FileStream fileContent)
+        public static bool IsTypeRecognizable(Stream fileContent)
         {
             return knownFileTypes.Any(type => type.DoesMatchWith(fileContent));
         }
@@ -64,7 +64,7 @@
         /// <exception cref="System.ArgumentNullException"></exception>
         /// <exception cref="System.NotSupportedException"></exception>
         /// <exception cref="System.ObjectDisposedException"></exception>
-        public static IFileType GetFileType(FileStream fileContent)
+        public static IFileType GetFileType(Stream fileContent)
         {
             return knownFileTypes.SingleOrDefault(fileType => fileType.DoesMatchWith(fileContent));
         }
