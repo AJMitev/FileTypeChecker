@@ -2,14 +2,13 @@
 {
     using System;
     using System.IO;
-
-    using FileTypeChecker.Abstracts;
+    using Abstracts;
 
     public class StartUp
     {
         public static void Main()
         {
-            for (int i = 1; i <= 10; i++)
+            for (int i = 1; i <= 12; i++)
             {
                 using var fileStream = File.OpenRead($".\\files\\{i}");
                 var isRecognizableType = FileTypeValidator.IsTypeRecognizable(fileStream);
