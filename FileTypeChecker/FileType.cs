@@ -61,10 +61,7 @@
         /// <inheritdoc />
         public bool DoesMatchWith(Stream stream, bool resetPosition = true)
         {
-            if (stream == null)
-            {
-                throw new ArgumentNullException(nameof(Stream));
-            }
+            DataValidator.ThrowIfNull(stream, nameof(Stream));
 
             if (!stream.CanRead || (stream.Position != 0 && !stream.CanSeek))
             {
