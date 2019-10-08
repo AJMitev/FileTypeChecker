@@ -1,6 +1,6 @@
 <h1><img src="https://raw.githubusercontent.com/AJMitev/FileTypeChecker/master/tools/FileTypeCheckerLogo-150.png" align="left" alt="FileTypeChecker" width="90">FileTypeChecker - Don't let users to inject you an invalid file</h1> 
 
-[![NuGet Badge](https://buildstats.info/nuget/File.TypeChecker)](https://www.nuget.org/packages/File.TypeChecker/)
+[![Build status](https://ci.appveyor.com/api/projects/status/jx9bcrxs95srhxsj?svg=true)](https://ci.appveyor.com/project/AJMitev/filetypechecker) [![NuGet Badge](https://buildstats.info/nuget/File.TypeChecker)](https://www.nuget.org/packages/File.TypeChecker/)
 
 FileTypeChecker is a easy to use library that allows you to read file and recognize its type. This will help you to validate all files that is provided by external sources. 
 
@@ -36,7 +36,6 @@ Currently FileTypeChecker recognizes following file types:
 - Portable Document Format
 - Microsoft Office Document
 - eXtensible Markup Language
-- Comma-separated Values
 - RAR archive version 1.50
 - RAR archive version 5.00
 - Photoshop Document file
