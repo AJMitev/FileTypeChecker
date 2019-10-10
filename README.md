@@ -2,10 +2,10 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/jx9bcrxs95srhxsj?svg=true)](https://ci.appveyor.com/project/AJMitev/filetypechecker) [![NuGet Badge](https://buildstats.info/nuget/File.TypeChecker)](https://www.nuget.org/packages/File.TypeChecker/)
 
-FileTypeChecker is a easy to use library that allows you to read file and recognize its type. This will help you to validate all files that is provided by external sources. 
+FileTypeChecker is a easy to use library that allows you to read file and recognize its type. This will help you to validate all files that are provided by external sources. 
 
 ## How it works?
-FileTypeChecker use file's "magic numbers" to identifying its type. [See more about Magic Numbers](https://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files)
+FileTypeChecker use file's "magic numbers" to identify its type. [See more about Magic Numbers](https://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files)
 
 ## How to use?
 ```c#
