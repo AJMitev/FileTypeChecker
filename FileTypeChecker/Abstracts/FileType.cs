@@ -13,14 +13,14 @@
         private string extension;
         private byte[][] bytes;
 
-        internal FileType(string name, string extension, byte[] magicBytes)
+        public FileType(string name, string extension, byte[] magicBytes)
         {
             this.Name = name;
             this.Extension = extension;
             this.Bytes = new byte[][] { magicBytes };
         }
 
-        internal FileType(string name, string extension, byte[][] magicBytesJaggedArray)
+        public FileType(string name, string extension, byte[][] magicBytesJaggedArray)
         {
             this.Name = name;
             this.Extension = extension;

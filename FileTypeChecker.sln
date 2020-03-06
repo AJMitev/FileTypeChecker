@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29318.209
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileTypeChecker", "FileTypeChecker\FileTypeChecker.csproj", "{3508F73C-16CA-46E2-9BAA-77B21B99AE5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileTypeChecker", "FileTypeChecker\FileTypeChecker.csproj", "{3508F73C-16CA-46E2-9BAA-77B21B99AE5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileTypeChecker.App", "FileTypeChecker.App\FileTypeChecker.App.csproj", "{9DF354A6-8C9F-4B46-88EF-21DF2ADD3E5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileTypeChecker.Tests", "FileTypeChecker.Tests\FileTypeChecker.Tests.csproj", "{DA502234-10C8-40F1-97FA-50D1361C4F80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileTypeChecker.Tests", "FileTypeChecker.Tests\FileTypeChecker.Tests.csproj", "{DA502234-10C8-40F1-97FA-50D1361C4F80}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{16730AA2-B6AA-4E29-BEA2-DDAB2DC69BE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileTypeChecker.App", "Samples\FileTypeChecker.App\FileTypeChecker.App.csproj", "{DC822814-FC8C-44B3-9BDE-377EE939A938}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileTypeChecker.App.MyCustomTypes", "Samples\FileTypeChecker.App.MyCustomTypes\FileTypeChecker.App.MyCustomTypes.csproj", "{2C49FF06-90FF-442B-8757-210521AB22EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,17 +23,25 @@ Global
 		{3508F73C-16CA-46E2-9BAA-77B21B99AE5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3508F73C-16CA-46E2-9BAA-77B21B99AE5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3508F73C-16CA-46E2-9BAA-77B21B99AE5A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9DF354A6-8C9F-4B46-88EF-21DF2ADD3E5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9DF354A6-8C9F-4B46-88EF-21DF2ADD3E5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9DF354A6-8C9F-4B46-88EF-21DF2ADD3E5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9DF354A6-8C9F-4B46-88EF-21DF2ADD3E5D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DA502234-10C8-40F1-97FA-50D1361C4F80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DA502234-10C8-40F1-97FA-50D1361C4F80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA502234-10C8-40F1-97FA-50D1361C4F80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA502234-10C8-40F1-97FA-50D1361C4F80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC822814-FC8C-44B3-9BDE-377EE939A938}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC822814-FC8C-44B3-9BDE-377EE939A938}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC822814-FC8C-44B3-9BDE-377EE939A938}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC822814-FC8C-44B3-9BDE-377EE939A938}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C49FF06-90FF-442B-8757-210521AB22EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C49FF06-90FF-442B-8757-210521AB22EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C49FF06-90FF-442B-8757-210521AB22EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C49FF06-90FF-442B-8757-210521AB22EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DC822814-FC8C-44B3-9BDE-377EE939A938} = {16730AA2-B6AA-4E29-BEA2-DDAB2DC69BE4}
+		{2C49FF06-90FF-442B-8757-210521AB22EE} = {16730AA2-B6AA-4E29-BEA2-DDAB2DC69BE4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AFF2EBA4-A45E-4B58-814E-CB8F2F1B0638}
