@@ -8,7 +8,7 @@
         private static readonly string extension = "elf";
         private static readonly byte[] magicBytes = new byte[] { 0x7F, 0x45, 0x4C, 0x46 };
 
-        internal ExecutableAndLinkableFormat() : base(name, extension, magicBytes)
+        public ExecutableAndLinkableFormat() : base(name, extension, magicBytes)
         {
         }
     }

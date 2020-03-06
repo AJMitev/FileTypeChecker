@@ -8,7 +8,7 @@
         private static readonly string extension = "iso";
         private static readonly byte[] magicBytes = new byte[] { 0x43, 0x44, 0x30, 0x30, 0x31 };
 
-        internal DiskImageFile() : base(name, extension, magicBytes)
+        public DiskImageFile() : base(name, extension, magicBytes)
         {
         }
     }

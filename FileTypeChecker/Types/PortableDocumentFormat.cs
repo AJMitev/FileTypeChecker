@@ -8,7 +8,7 @@
         private static readonly string extension =  "pdf";
         private static readonly byte[] magicBytes = new byte[] { 0x25, 0x50, 0x44, 0x46, 0x2D };
 
-        internal PortableDocumentFormat() : base(name, extension, magicBytes)
+        public PortableDocumentFormat() : base(name, extension, magicBytes)
         {
         }
     }

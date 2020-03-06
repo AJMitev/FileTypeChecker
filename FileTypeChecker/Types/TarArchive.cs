@@ -8,7 +8,7 @@
         private static readonly string extension = "tar";
         private static readonly byte[] magicBytes = new byte[] { 0x75, 0x73, 0x74, 0x61, 0x72 };
 
-        internal TarArchive() : base(name, extension, magicBytes)
+        public TarArchive() : base(name, extension, magicBytes)
         {
         }
     }

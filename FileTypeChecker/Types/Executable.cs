@@ -8,7 +8,7 @@
         private static readonly string extension = "exe";
         private static readonly byte[] magicBytes = new byte[] { 0x4D, 0x5A };
 
-        internal Executable() : base(name, extension, magicBytes)
+        public Executable() : base(name, extension, magicBytes)
         {
         }
     }

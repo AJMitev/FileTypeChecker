@@ -8,7 +8,7 @@
         private static readonly string extension = "jpg";
         private static readonly byte[] magicBytes = new byte[] { 0xFF, 0xD8, 0xFF };
 
-        internal JointPhotographicExpertsGroup() : base(name, extension, magicBytes)
+        public JointPhotographicExpertsGroup() : base(name, extension, magicBytes)
         {
         }
     }

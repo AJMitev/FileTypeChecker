@@ -8,7 +8,7 @@
         private static readonly string extension = "avi";
         private static readonly byte[] magicBytes = new byte[] { 0x52, 0x49, 0x46, 0x46 };
 
-        internal AudioVideoInterleaveVideoFormat() : base(name, extension, magicBytes)
+        public AudioVideoInterleaveVideoFormat() : base(name, extension, magicBytes)
         {
         }
     }

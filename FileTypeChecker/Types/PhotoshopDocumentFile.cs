@@ -8,7 +8,7 @@
         private static readonly string extension = "psd";
         private static readonly byte[] magicBytes = new byte[] { 0x38, 0x42, 0x50, 0x53};
 
-        internal PhotoshopDocumentFile() : base(name, extension, magicBytes)
+        public PhotoshopDocumentFile() : base(name, extension, magicBytes)
         {
         }
     }

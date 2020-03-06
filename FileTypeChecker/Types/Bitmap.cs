@@ -8,7 +8,7 @@
         private static readonly string extension = "bmp";
         private static readonly byte[] magicBytes = new byte[] { 0x42, 0x4d };
 
-        internal Bitmap() : base(name, extension, magicBytes)
+        public Bitmap() : base(name, extension, magicBytes)
         {
         }
     }
