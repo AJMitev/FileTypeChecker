@@ -1,24 +1,30 @@
-﻿namespace FileTypeChecker
+﻿namespace FileTypeChecker.Abstracts
 {
     using System;
     using System.IO;
     using System.Linq;
-    using Abstracts;
     using Common;
 
-    internal class FileType : IFileType
+    public abstract class FileType : IFileType
     {
         private const string FileContentMustBeReadableErrorMessage = "File contents must be a readable stream";
 
         private string name;
         private string extension;
-        private byte[] bytes;
+        private byte[][] bytes;
 
         internal FileType(string name, string extension, byte[] magicBytes)
         {
             this.Name = name;
             this.Extension = extension;
-            this.Bytes = magicBytes;
+            this.Bytes = new byte[][] { magicBytes };
+        }
+
+        internal FileType(string name, string extension, byte[][] magicBytesJaggedArray)
+        {
+            this.Name = name;
+            this.Extension = extension;
+            this.Bytes = magicBytesJaggedArray;
         }
 
         /// <inheritdoc />
@@ -47,7 +53,7 @@
         }
 
 
-        private byte[] Bytes
+        private byte[][] Bytes
         {
             get => this.bytes;
             set
@@ -78,8 +84,6 @@
 
 
         protected bool CompareBytes(Stream stream)
-        {
-            return this.Bytes.All(b => stream.ReadByte() == b);
-        }
+            => this.Bytes.Any(x => x.All(b => stream.ReadByte() == b));
     }
 }
