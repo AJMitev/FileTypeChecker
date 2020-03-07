@@ -5,7 +5,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class FIleTypeValidatorTests
+    public class FileTypeValidatorTests
     {
         [Test]
         public void IsTypeRecognizable_ShouldThrowArgumentNullExceptionIfStreamIsNull()
@@ -51,7 +51,7 @@
         [TestCase("./files/test.jpg", "jpg")]
         [TestCase("./files/test.png", "png")]
         [TestCase("./files/test.gif", "gif")]
-        [TestCase("./files/test.tif", "tif")]
+        [TestCase("./files/test.tif", "tif/tiff")]
         [TestCase("./files/test.psd", "psd")]
         [TestCase("./files/test.pdf", "pdf")]
         [TestCase("./files/test.doc", "doc")]
