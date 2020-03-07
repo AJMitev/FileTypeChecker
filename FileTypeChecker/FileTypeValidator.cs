@@ -2,6 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
     using FileTypeChecker.Common;
+    using FileTypeChecker.Extensions;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -20,7 +21,6 @@
 
         private static bool isInitialized;
         private static readonly List<IFileType> types = new List<IFileType>();
-
 
         private static ICollection<IFileType> Types
         {
@@ -79,6 +79,15 @@
             RegisterTypes();
         }
 
+        /// <summary>
+        /// Validates that the file is from certain type
+        /// </summary>
+        /// <typeparam name="T">Type that implements FileType</typeparam>
+        /// <param name="fileContent">File as stream</param>
+        /// <returns>True if file match the desired type otherwise returns false.</returns>
+        public static bool Is<T>(Stream fileContent) where T : FileType, IFileType 
+            => fileContent.Is<T>();
+
         private static void RegisterTypes()
         {
             foreach (Assembly assembly in typesAssemblies)
@@ -90,13 +99,11 @@
             isInitialized = true;
         }
 
-        private static IEnumerable<IFileType> GetTypesInstance(Assembly assembly)
-        {
-            return assembly.GetTypes()
+        private static IEnumerable<IFileType> GetTypesInstance(Assembly assembly) 
+            => assembly.GetTypes()
                     .Where(type => typeof(IFileType).IsAssignableFrom(type)
                                  && !type.IsAbstract
                                  && !type.IsInterface)
                 .Select(selectedType => (IFileType)Activator.CreateInstance(selectedType));
-        }
     }
 }
