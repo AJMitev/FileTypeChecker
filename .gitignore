@@ -331,3 +331,4 @@ ASALocalRun/
 
 # Nuget
 nuget.exe
+.nuspec
