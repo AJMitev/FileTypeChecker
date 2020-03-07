@@ -2,7 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
 
-    internal class SevenZipFile : FileType, IFileType
+    public class SevenZipFile : FileType, IFileType
     {
         private static readonly string name = "7-Zip File Format";
         private static readonly string extension = "7z";

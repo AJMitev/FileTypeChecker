@@ -2,7 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
 
-    internal class RarArchive : FileType, IFileType
+    public class RarArchive : FileType, IFileType
     {
         private static readonly string name = "RAR archive";
         private static readonly string extension = "rar";

@@ -2,7 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
 
-    internal class DiskImageFile : FileType, IFileType
+    public class DiskImageFile : FileType, IFileType
     {
         private static readonly string name = "ISO9660 CD/DVD image file";
         private static readonly string extension = "iso";

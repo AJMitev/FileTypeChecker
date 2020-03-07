@@ -2,7 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
 
-    internal class Bitmap : FileType, IFileType
+    public class Bitmap : FileType, IFileType
     {
         private static readonly string name = "Bitmap";
         private static readonly string extension = "bmp";

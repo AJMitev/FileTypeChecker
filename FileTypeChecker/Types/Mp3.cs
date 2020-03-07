@@ -1,7 +1,7 @@
 ﻿namespace FileTypeChecker.Types
 {
     using FileTypeChecker.Abstracts;
-    internal class Mp3 : FileType, IFileType
+    public class Mp3 : FileType, IFileType
     {
         private static readonly string name = "MP3 file";
         private static readonly string extension = "mp3";

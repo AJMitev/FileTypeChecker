@@ -2,7 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
 
-    internal class TaggedImageFileFormat : FileType, IFileType
+    public class TaggedImageFileFormat : FileType, IFileType
     {
         private static readonly string name = "Tagged Image File Format";
         private static readonly string extension = "tif/tiff";

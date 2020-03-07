@@ -2,7 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
 
-    internal class ZipFile : FileType, IFileType
+    public class ZipFile : FileType, IFileType
     {
         private static readonly string name = "ZIP file";
         private static readonly string extension = "zip";

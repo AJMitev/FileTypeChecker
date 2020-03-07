@@ -2,7 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
 
-    internal class PortableNetworkGraphic : FileType, IFileType
+    public class PortableNetworkGraphic : FileType, IFileType
     {
         private static readonly string name = "Portable Network Graphic";
         private static readonly string extension = "png";

@@ -2,7 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
 
-    internal class TarArchive : FileType, IFileType
+    public class TarArchive : FileType, IFileType
     {
         private static readonly string name = "TAR Archive";
         private static readonly string extension = "tar";

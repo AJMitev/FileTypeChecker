@@ -2,7 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
 
-    internal class ExtensibleArchive : FileType, IFileType
+    public class ExtensibleArchive : FileType, IFileType
     {
         private static readonly string name = "eXtensible ARchive format";
         private static readonly string extension = "xar";

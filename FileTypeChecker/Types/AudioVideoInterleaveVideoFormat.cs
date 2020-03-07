@@ -2,7 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
 
-    internal class AudioVideoInterleaveVideoFormat : FileType, IFileType
+    public class AudioVideoInterleaveVideoFormat : FileType, IFileType
     {
         private static readonly string name = "Audio Video Interleave video format";
         private static readonly string extension = "avi";
