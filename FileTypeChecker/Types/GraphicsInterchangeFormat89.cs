@@ -2,7 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
 
-    internal class GraphicsInterchangeFormat89 : FileType, IFileType
+    public class GraphicsInterchangeFormat89 : FileType, IFileType
     {
         private static readonly string name = "Graphics Interchange Format 89a";
         private static readonly string extension = "gif";

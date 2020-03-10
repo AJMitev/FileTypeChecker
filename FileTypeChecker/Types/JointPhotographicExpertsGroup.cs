@@ -2,7 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
 
-    internal class JointPhotographicExpertsGroup : FileType, IFileType
+    public class JointPhotographicExpertsGroup : FileType, IFileType
     {
         private static readonly string name = "JPEG";
         private static readonly string extension = "jpg";

@@ -2,7 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
 
-    internal class PortableDocumentFormat : FileType, IFileType
+    public class PortableDocumentFormat : FileType, IFileType
     {
         private static readonly string name = "Portable Document Format";
         private static readonly string extension =  "pdf";

@@ -2,7 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
 
-    internal class MicrosoftOfficeDocument : FileType, IFileType
+    public class MicrosoftOfficeDocument : FileType, IFileType
     {
         private static readonly string name = "Microsoft Office Document 97-2003";
         private static readonly string extension = "doc";

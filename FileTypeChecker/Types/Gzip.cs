@@ -2,7 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
 
-    internal class Gzip : FileType, IFileType
+    public class Gzip : FileType, IFileType
     {
         private static readonly string name = "GZIP compressed file";
         private static readonly string extension = "gz";

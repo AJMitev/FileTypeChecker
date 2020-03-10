@@ -2,7 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
 
-    internal class Executable : FileType, IFileType
+    public class Executable : FileType, IFileType
     {
         private static readonly string name = "DOS MZ executable";
         private static readonly string extension = "exe";

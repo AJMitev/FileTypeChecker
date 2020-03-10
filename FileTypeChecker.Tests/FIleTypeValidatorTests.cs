@@ -2,6 +2,8 @@
 {
     using System;
     using System.IO;
+    using FileTypeChecker.Abstracts;
+    using FileTypeChecker.Types;
     using NUnit.Framework;
 
     [TestFixture]
@@ -51,7 +53,7 @@
         [TestCase("./files/test.jpg", "jpg")]
         [TestCase("./files/test.png", "png")]
         [TestCase("./files/test.gif", "gif")]
-        [TestCase("./files/test.tif", "tif/tiff")]
+        [TestCase("./files/test.tif", "tif")]
         [TestCase("./files/test.psd", "psd")]
         [TestCase("./files/test.pdf", "pdf")]
         [TestCase("./files/test.doc", "doc")]
@@ -91,5 +93,29 @@
         [Test]
         public void GetFileType_ShouldThrowArgumentNullExceptionIfStreamIsNull()
             => Assert.Catch<ArgumentNullException>(() => FileTypeValidator.GetFileType(null));
+
+        [Test]
+        public void Is_ShouldThrowExceptionIfStreamIsNull()
+            => Assert.Catch<ArgumentNullException>(() => FileTypeValidator.Is<Bitmap>(null));
+
+        [Test]
+        public void Is_ShouldReturnTrueIfTheTypesMatch()
+        {
+            using var fileStream = File.OpenRead("./files/test.bmp");
+            var expected = true;
+            var actual = FileTypeValidator.Is<Bitmap>(fileStream);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void Is_ShouldReturnFalseIfTypesDidNotMatch()
+        {
+             using var fileStream = File.OpenRead("./files/test.bmp");
+            var expected = false;
+            var actual = FileTypeValidator.Is<Gzip>(fileStream);
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

@@ -2,7 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
 
-    internal class PhotoshopDocumentFile : FileType, IFileType
+    public class PhotoshopDocumentFile : FileType, IFileType
     {
         private static readonly string name = "Photoshop Document file";
         private static readonly string extension = "psd";

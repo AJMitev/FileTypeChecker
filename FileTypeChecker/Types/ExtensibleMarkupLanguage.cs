@@ -2,7 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
 
-    internal class ExtensibleMarkupLanguage : FileType, IFileType
+    public class ExtensibleMarkupLanguage : FileType, IFileType
     {
         private static readonly string name = "eXtensible Markup Language";
         private static readonly string extension = "xml";

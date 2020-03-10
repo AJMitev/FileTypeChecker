@@ -2,7 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
 
-    internal class ExecutableAndLinkableFormat : FileType, IFileType
+    public class ExecutableAndLinkableFormat : FileType, IFileType
     {
         private static readonly string name = "Executable and Linkable Format";
         private static readonly string extension = "elf";
