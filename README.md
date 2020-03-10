@@ -27,29 +27,7 @@ using (var fileStream = File.OpenRead("myFileLocation"))
 }
 ```
 
-## What types of file are supported?
-Currently FileTypeChecker recognizes following file types:
+If you are interested in finding more samples please use our [wiki page](./samples).
 
-- JPEG
-- Bitmap
-- Portable Network Graphic
-- Graphics Interchange Format 87a
-- Graphics Interchange Format 89a
-- Tagged Image File Format
-- Portable Document Format
-- Microsoft Office Document
-- eXtensible Markup Language
-- RAR archive version 1.50
-- RAR archive version 5.00
-- Photoshop Document file
-- ZIP file
-- eXtensible ARchive format
-- TAR Archive
-- 7-Zip File Format
-- GZIP compressed file
-- DOS MZ executable
-- Executable and Linkable Format
-- Audio Video Interleave video format
-- MPEG-1 Layer 3 file
-- MP3 file with an ID3v2 container
-- ISO9660 CD/DVD image file
+## What types of file are supported?
+Currently FileTypeChecker is able to identify 22 different types but also you are able to register your own types. For more information please visit our [wiki page](./What-types-of-file-are-supported)
