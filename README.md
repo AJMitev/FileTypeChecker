@@ -32,8 +32,8 @@ using (var fileStream = File.OpenRead("myFileLocation"))
 }
 ```
 
-If you are interested in finding more samples please use our [wiki page](./wiki/How-to-use%3F).
+If you are interested in finding more samples please use our [wiki page](https://github.com/AJMitev/FileTypeChecker/wiki/How-to-use%3F).
 
 ## What types of file are supported?
 
-Currently FileTypeChecker is able to identify 22 different types but also you are able to register your own types. For more information please visit our [wiki page](./wiki/What-types-of-file-are-supported)
+Currently FileTypeChecker is able to identify 22 different types but also you are able to register your own types. For more information please visit our [wiki page](https://github.com/AJMitev/FileTypeChecker/wiki/What-types-of-file-are-supported%3F)
