@@ -2,6 +2,20 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
+    <PackageId>File.TypeChecker</PackageId>
+    <Version>1.2.0</Version>
+    <Title>FileTypeChecker</Title>
+    <Authors>Aleksandar J. Mitev</Authors>
+    <Company>Aleksandar J. Mitev</Company>
+    <Owners>Aleksandar J. Mitev</Owners>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/AJMitev/FileTypeChecker</RepositoryUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/AJMitev/FileTypeChecker/master/tools/FileTypeCheckerLogo-150.png</PackageIconUrl>
+    <Description>Don't let users to inject you an invalid file! FileTypeChecker is a easy to use library that allows you to read file and recognize its type. This will help you to validate all files that is provided by external sources.</Description>
+    <Copyright>Copyright 2019</Copyright>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>Type,Type Checking ,Files, FileChecking, FileValidation, Validation, Magic Bytes</PackageTags>
+    <NuspecFile>./FileTypeChecker.nuspec</NuspecFile>
+  </PropertyGroup> 
 
 </Project>
