@@ -12,6 +12,20 @@ Have you ever had a requirement for users to be able to upload files of a certai
 
 FileTypeChecker use file's "magic numbers" to identify the type. According to Wikipedia this term ("magic numbers") was used for a specific set of 2-byte identifiers at the beginnings of files, but since any binary sequence can be regarded as a number, any feature of a file format which uniquely distinguishes it can be used for identification. This approach offers better guarantees that the format will be identified correctly, and can often determine more precise information about the file. [See more about Magic Numbers](https://en.wikipedia.org/wiki/File_format#Magic_number)
 
+## How to install?
+
+You can install this library using NuGet into your project.
+
+```nuget
+Install-Package File.TypeChecker -Version 1.2.0
+```
+
+or by using dotnet CLI
+
+```
+dotnet add package File.TypeChecker --version 1.2.0
+```
+
 ## How to use?
 
 ```c#
