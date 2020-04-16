@@ -2,6 +2,8 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/jx9bcrxs95srhxsj?svg=true)](https://ci.appveyor.com/project/AJMitev/filetypechecker) [![NuGet Badge](https://buildstats.info/nuget/File.TypeChecker)](https://www.nuget.org/packages/File.TypeChecker/)
 
+## Project Description
+
 FileTypeChecker is a easy to use library that allows you to identify type of file. This will help you to validate all files that are provided by external sources.
 
 ## Why to use it?
@@ -17,13 +19,13 @@ FileTypeChecker use file's "magic numbers" to identify the type. According to Wi
 You can install this library using NuGet into your project.
 
 ```nuget
-Install-Package File.TypeChecker -Version 1.2.0
+Install-Package File.TypeChecker
 ```
 
 or by using dotnet CLI
 
 ```
-dotnet add package File.TypeChecker --version 1.2.0
+dotnet add package File.TypeChecker
 ```
 
 ## How to use?
@@ -51,3 +53,9 @@ If you are interested in finding more samples please use our [wiki page](https:/
 ## What types of file are supported?
 
 Currently FileTypeChecker is able to identify 22 different types but also you are able to register your own types. For more information please visit our [wiki page](https://github.com/AJMitev/FileTypeChecker/wiki/What-types-of-file-are-supported%3F)
+
+## Support the project
+
+- If you like this library, ⭐️ the repository and show it to your friends!
+- If you find this library usefull and it helps you please consider to support the project, you can do by buying me a cup of cofee.
+  <a href="https://www.buymeacoffee.com/ajmitev" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
