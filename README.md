@@ -58,4 +58,5 @@ Currently FileTypeChecker is able to identify 22 different types but also you ar
 
 - If you like this library, ⭐️ the repository and show it to your friends!
 - If you find this library usefull and it helps you please consider to support the project, you can do by buying me a cup of cofee.
-  <a href="https://www.buymeacoffee.com/ajmitev" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
+
+<a href="https://www.buymeacoffee.com/ajmitev" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
