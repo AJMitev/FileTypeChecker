@@ -54,6 +54,12 @@ If you are interested in finding more samples please use our [wiki page](https:/
 
 Currently FileTypeChecker is able to identify 22 different types but also you are able to register your own types. For more information please visit our [wiki page](https://github.com/AJMitev/FileTypeChecker/wiki/What-types-of-file-are-supported%3F)
 
+## Credits
+
+Based on [mjolka](https://github.com/mjolka)'s answer to the Stack Overflow question [Guessing a file type based on its content](http://codereview.stackexchange.com/questions/85054/guessing-a-file-type-based-on-its-content).
+
+This repo is inspired from [0xbrock](https://github.com/0xbrock/FileTypeChecker) and the original code can be found in the "original" branch. I re-writed the all project with goal to make it Object oriented, with fluent API and easy to extend.
+
 ## Support the project
 
 - If you like this library, ⭐️ the repository and show it to your friends!
