@@ -332,3 +332,4 @@ ASALocalRun/
 # Nuget
 nuget.exe
 .nuspec
+.DS_Store

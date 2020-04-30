@@ -37,6 +37,8 @@
         [TestCase("./files/test.xml")]
         [TestCase("./files/test.zip")]
         [TestCase("./files/test.7z")]
+        [TestCase("./files/test.bz2")]
+        [TestCase("./files/test.gz")]
         public void IsTypeRecognizable_ShouldReturnTrueIfFileIsRecognized(string filePath)
         {
             using var fileStream = File.OpenRead(filePath);
@@ -60,6 +62,8 @@
         [TestCase("./files/test.xml", "xml")]
         [TestCase("./files/test.zip", "zip")]
         [TestCase("./files/test.7z", "7z")]
+        [TestCase("./files/test.bz2", "bz2")]
+        [TestCase("./files/test.gz", "gz")]
         public void GetFileType_ShouldReturnFileExtension(string filePath, string expectedFileExtension)
         {
             using var fileStream = File.OpenRead(filePath);
@@ -81,6 +85,8 @@
         [TestCase("./files/test.xml", "eXtensible Markup Language")]
         [TestCase("./files/test.zip", "ZIP file")]
         [TestCase("./files/test.7z", "7-Zip File Format")]
+        [TestCase("./files/test.bz2", "BZIP2 file")]
+        [TestCase("./files/test.gz", "GZIP compressed file")]
         public void GetFileType_ShouldReturnFileName(string filePath, string expectedFileTypeName)
         {
             using var fileStream = File.OpenRead(filePath);
