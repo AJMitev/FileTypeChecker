@@ -32,7 +32,8 @@
             || fileContent.Is<JointPhotographicExpertsGroup>()
             || fileContent.Is<GraphicsInterchangeFormat87>()
             || fileContent.Is<GraphicsInterchangeFormat89>()
-            || fileContent.Is<PortableNetworkGraphic>();
+            || fileContent.Is<PortableNetworkGraphic>()
+            || fileContent.Is<TaggedImageFileFormat>();
         /// <summary>
         /// Validates that the current file is archive.
         /// </summary>
@@ -44,6 +45,9 @@
             || fileContent.Is<RarArchive>()
             || fileContent.Is<SevenZipFile>()
             || fileContent.Is<TarArchive>()
-            || fileContent.Is<ZipFile>();
+            || fileContent.Is<ZipFile>()
+            || fileContent.Is<BZip2File>()
+            || fileContent.Is<LZipFile>()
+            || fileContent.Is<XzFile>();
     }
 }
