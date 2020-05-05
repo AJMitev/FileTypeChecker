@@ -19,7 +19,7 @@
             typeof(FileType).Assembly
         };
 
-        private static bool isInitialized;
+        private static bool isInitialized = false;
         private static readonly List<IFileType> types = new List<IFileType>();
 
         private static ICollection<IFileType> Types
@@ -116,7 +116,6 @@
             {
                 types.AddRange(GetTypesInstance(assembly));
             }
-
 
             isInitialized = true;
         }
