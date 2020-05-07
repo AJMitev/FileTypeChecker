@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>File.TypeChecker</id>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
     <title>FileTypeChecker</title>
     <authors>Aleksandar J. Mitev</authors>
     <owners>Aleksandar J. Mitev</owners>
@@ -11,8 +11,8 @@
     <iconUrl>https://raw.githubusercontent.com/AJMitev/FileTypeChecker/master/tools/FileTypeCheckerLogo-150.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Don't let users to inject you an invalid file! FileTypeChecker is a easy to use library that allows you to read file and recognize its type. This will help you to validate all files that is provided by external sources.</description>
-    <copyright>Copyright 2019</copyright>
-    <tags>TypeChecking Files FileChecking FileValidation Validation</tags>
+    <copyright>2019-2020</copyright>
+    <tags>TypeChecking TypeValidating Files FileChecking FileValidation Validation File Type Validator Checker Magic Numbers Identifying Bytes</tags>
   </metadata>
 
   <files>
