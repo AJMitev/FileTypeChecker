@@ -1,6 +1,6 @@
 ﻿namespace FileTypeChecker
 {
-    public static class FileExtensions
+    public static class FileExtension
     {
         public const string Avi = "avi";
         public const string Bitmap = "bmp";

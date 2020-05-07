@@ -49,5 +49,13 @@
             || fileContent.Is<BZip2File>()
             || fileContent.Is<LZipFile>()
             || fileContent.Is<XzFile>();
+        /// <summary>
+        /// Validates taht the current file is executable or executable and linkable.
+        /// </summary>
+        /// <param name="fileContent"></param>
+        /// <returns></returns>
+        public static bool IsExecutable(this Stream fileContent)
+            => fileContent.Is<Executable>()
+            || fileContent.Is<ExecutableAndLinkableFormat>();
     }
 }
