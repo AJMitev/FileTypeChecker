@@ -1,6 +1,11 @@
 <h1><img src="https://raw.githubusercontent.com/AJMitev/FileTypeChecker/master/tools/FileTypeCheckerLogo-150.png" align="left" alt="FileTypeChecker" width="90">FileTypeChecker - Don't let users to inject you an invalid file</h1>
 
-[![Build status](https://ci.appveyor.com/api/projects/status/jx9bcrxs95srhxsj?svg=true)](https://ci.appveyor.com/project/AJMitev/filetypechecker) [![NuGet Badge](https://buildstats.info/nuget/File.TypeChecker)](https://www.nuget.org/packages/File.TypeChecker/)
+
+| Project             | Build Status | Nuget Package |
+|---------------------|--------------|---------------|
+| FileTypeChecker     |  [![Build status](https://ci.appveyor.com/api/projects/status/jx9bcrxs95srhxsj?svg=true)](https://ci.appveyor.com/project/AJMitev/filetypechecker) | [![NuGet Badge](https://buildstats.info/nuget/File.TypeChecker)](https://www.nuget.org/packages/File.TypeChecker/)  |
+| FileTypeChecker.Web |              |               |
+ 
 
 ## Project Description
 
@@ -52,7 +57,7 @@ If you are interested in finding more samples please use our [wiki page](https:/
 
 ## What types of file are supported?
 
-Currently FileTypeChecker is able to identify 22 different types but also you are able to register your own types. For more information please visit our [wiki page](https://github.com/AJMitev/FileTypeChecker/wiki/What-types-of-file-are-supported%3F)
+FileTypeChecker is able to identify different types but also you are able to register your own types. For more information please visit our [wiki page](https://github.com/AJMitev/FileTypeChecker/wiki/What-types-of-file-are-supported%3F)
 
 ## Credits
 
