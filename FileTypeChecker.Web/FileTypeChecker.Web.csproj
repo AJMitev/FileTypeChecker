@@ -1,8 +1,21 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>8.0</LangVersion>
+    <PackageId>File.TypeChecker.Web</PackageId>
+    <Version>1.0.0</Version>
+    <Title>FileTypeChecker.Web</Title>
+    <Authors>Aleksandar J. Mitev</Authors>
+    <Company>Aleksandar J. Mitev</Company>
+    <Owners>Aleksandar J. Mitev</Owners>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/AJMitev/FileTypeChecker</RepositoryUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/AJMitev/FileTypeChecker/master/tools/FileTypeCheckerLogo-150.png</PackageIconUrl>
+    <Description>Don't let users to inject you an invalid file! FileTypeChecker is a easy to use library that allows you to read file and recognize its type. This will help you to validate all files that is provided by external sources.</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>TypeChecking TypeValidating Files FileChecking FileValidation Validation File Type Validator Checker Magic Numbers Identifying Bytes</PackageTags>
+    <NuspecFile>./FileTypeChecker.Web.nuspec</NuspecFile>
   </PropertyGroup>
 
   <ItemGroup>

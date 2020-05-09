@@ -4,7 +4,7 @@
 | Project             | Build Status | Nuget Package |
 |---------------------|--------------|---------------|
 | FileTypeChecker     |  [![Build status](https://ci.appveyor.com/api/projects/status/jx9bcrxs95srhxsj?svg=true)](https://ci.appveyor.com/project/AJMitev/filetypechecker) | [![NuGet Badge](https://buildstats.info/nuget/File.TypeChecker)](https://www.nuget.org/packages/File.TypeChecker/)  |
-| FileTypeChecker.Web |              |               |
+| FileTypeChecker.Web |  [![Build status](https://ci.appveyor.com/api/projects/status/jx9bcrxs95srhxsj?svg=true)](https://ci.appveyor.com/project/AJMitev/filetypechecker) | [![NuGet Badge](https://buildstats.info/nuget/File.TypeChecker.Web)](https://www.nuget.org/packages/File.TypeChecker.Web/)  |
  
 
 ## Project Description
