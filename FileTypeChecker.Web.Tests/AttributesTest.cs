@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Http.Internal;
     using NUnit.Framework;
+    using System;
     using System.IO;
 
     [TestFixture]
@@ -27,6 +28,18 @@
         }
 
         [Test]
+        [TestCase("test.zip", null)]
+        [TestCase("test.zip", new string[] { })]
+        public void AllowTypesAttributeShouldThrowExceptionIfNoExtensionsProvided(string fileName, string[] allowedExtensions)
+        {
+            var stream = ReadFile(fileName);
+
+            var attributeToTest = new AllowedTypesAttribute(allowedExtensions);
+
+            Assert.Throws<InvalidOperationException>(() => attributeToTest.IsValid(stream));
+        }
+
+        [Test]
         [TestCase("test.zip", new[] { FileExtension.Zip }, false)]
         [TestCase("test.png", new[] { FileExtension.Zip }, true)]
         [TestCase("test.png", new[] { FileExtension.Zip, FileExtension.Xar, FileExtension.Jpg }, true)]
@@ -41,6 +54,19 @@
         }
 
         [Test]
+        [TestCase("test.zip", null)]
+        [TestCase("test.zip", new string[] { })]
+        public void ForbidTypesAttributeShouldThrowExceptionIfNoExtensionsProvided(string fileName, string[] allowedExtensions)
+        {
+            var stream = ReadFile(fileName);
+
+            var attributeToTest = new ForbidTypesAttribute(allowedExtensions);
+
+            Assert.Throws<InvalidOperationException>(() => attributeToTest.IsValid(stream));
+        }
+
+
+        [Test]
         [TestCase("test.png", false)]
         [TestCase("test.jpg", false)]
         [TestCase("test.bmp", false)]
@@ -52,7 +78,7 @@
         {
             var stream = ReadFile(fileName);
 
-            var attributeToTest = new OnlyArchiveAttribute();
+            var attributeToTest = new AllowArchiveOnlyAttribute();
 
             Assert.AreEqual(expectedResult, attributeToTest.IsValid(stream));
         }
@@ -66,7 +92,7 @@
         {
             var stream = ReadFile(fileName);
 
-            var attributeToTest = new OnlyImageAttribute();
+            var attributeToTest = new AllowImageOnlyAttribute();
 
             Assert.AreEqual(expectedResult, attributeToTest.IsValid(stream));
         }
