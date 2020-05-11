@@ -1,0 +1,56 @@
+﻿@model InputModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="text-center">
+                <h1 class="display-4">FileTypeChecker</h1>
+                <p>Hello to our simple MVC demo and thank you for using FileTypeChecker. Here you will found a simple demo how to use FileTypeChecker.Web package into your ASP.NET project</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 offset-md-3">
+            @if (TempData.ContainsKey("Error"))
+            {
+                <div class="text-center">
+                    <div class="alert alert-danger"><strong>Attention!</strong> @TempData["Error"]</div>
+                </div>
+            }
+            @if (TempData.ContainsKey("Success"))
+            {
+                <div class="text-center">
+                    <div class="alert alert-success"><strong>Successfully!</strong> Either there is no invalid files or the form was send empty!</div>
+                </div>
+            }
+            <div class="form-wraper">
+                <form action="/filesUpload" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="exampleFileOne">In this filed you can upload <strong>only images</strong>.</label>
+                        <input asp-for="@Model.FirstFile" type="file" class="form-control-file" id="exampleFileOne">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFileTwo">In this filed you can upload <strong>only archives</strong>.</label>
+                        <input asp-for="@Model.SecondFile" type="file" class="form-control-file" id="exampleFileTwo">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFileThree">In this filed you can upload <strong>only Bitmaps</strong>.</label>
+                        <input asp-for="@Model.ThirdFile" type="file" class="form-control-file" id="exampleFileThree">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFileFour">In this filed you <strong>can't upload exe files</strong>.</label>
+                        <input asp-for="@Model.FourthFile" type="file" class="form-control-file" id="exampleFileFour">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFileFive">In this filed you <strong>can't upload Doc files</strong>.</label>
+                        <input asp-for="@Model.FifthFile" type="file" class="form-control-file" id="exampleFileFive">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Try upload file</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

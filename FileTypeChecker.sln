@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileTypeChecker.App", "Samp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileTypeChecker.App.MyCustomTypes", "Samples\FileTypeChecker.App.MyCustomTypes\FileTypeChecker.App.MyCustomTypes.csproj", "{2C49FF06-90FF-442B-8757-210521AB22EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileTypeChecker.Web", "FileTypeChecker.Web\FileTypeChecker.Web.csproj", "{E2301A13-0664-4520-8A63-8130F9F82AE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileTypeChecker.Web", "FileTypeChecker.Web\FileTypeChecker.Web.csproj", "{E2301A13-0664-4520-8A63-8130F9F82AE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileTypeChecker.Web.Tests", "FileTypeChecker.Web.Tests\FileTypeChecker.Web.Tests.csproj", "{AA17B437-1C25-44D4-9A2F-95853321F5EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileTypeChecker.Web.Tests", "FileTypeChecker.Web.Tests\FileTypeChecker.Web.Tests.csproj", "{AA17B437-1C25-44D4-9A2F-95853321F5EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileTypeChecker.WebApp", "Samples\FileTypeChecker.WebApp\FileTypeChecker.WebApp.csproj", "{6BC96171-7E51-4F72-AF1E-9993D4716FA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{AA17B437-1C25-44D4-9A2F-95853321F5EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA17B437-1C25-44D4-9A2F-95853321F5EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA17B437-1C25-44D4-9A2F-95853321F5EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BC96171-7E51-4F72-AF1E-9993D4716FA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BC96171-7E51-4F72-AF1E-9993D4716FA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BC96171-7E51-4F72-AF1E-9993D4716FA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BC96171-7E51-4F72-AF1E-9993D4716FA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +60,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{DC822814-FC8C-44B3-9BDE-377EE939A938} = {16730AA2-B6AA-4E29-BEA2-DDAB2DC69BE4}
 		{2C49FF06-90FF-442B-8757-210521AB22EE} = {16730AA2-B6AA-4E29-BEA2-DDAB2DC69BE4}
+		{6BC96171-7E51-4F72-AF1E-9993D4716FA0} = {16730AA2-B6AA-4E29-BEA2-DDAB2DC69BE4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AFF2EBA4-A45E-4B58-814E-CB8F2F1B0638}
