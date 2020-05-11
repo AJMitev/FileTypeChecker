@@ -1,15 +1,13 @@
 <h1><img src="https://raw.githubusercontent.com/AJMitev/FileTypeChecker/master/tools/FileTypeCheckerLogo-150.png" align="left" alt="FileTypeChecker" width="90">FileTypeChecker - Don't let users to inject you an invalid file</h1>
 
-
-| Project             | Build Status | Nuget Package |
-|---------------------|--------------|---------------|
-| FileTypeChecker     |  [![Build status](https://ci.appveyor.com/api/projects/status/jx9bcrxs95srhxsj?svg=true)](https://ci.appveyor.com/project/AJMitev/filetypechecker) | [![NuGet Badge](https://buildstats.info/nuget/File.TypeChecker)](https://www.nuget.org/packages/File.TypeChecker/)  |
-| FileTypeChecker.Web |  [![Build status](https://ci.appveyor.com/api/projects/status/jx9bcrxs95srhxsj?svg=true)](https://ci.appveyor.com/project/AJMitev/filetypechecker) | [![NuGet Badge](https://buildstats.info/nuget/File.TypeChecker.Web)](https://www.nuget.org/packages/File.TypeChecker.Web/)  |
- 
-
 ## Project Description
 
-FileTypeChecker is a easy to use library that allows you to identify type of file. This will help you to validate all files that are provided by external sources.
+FileTypeChecker is a easy to use library that provides quality identification of a file type. This will help you to secure your applications and validate all files that are provided by external sources with few lines of code.
+
+| Project             | Build Status                                                                                                                                      | Nuget Package                                                                                                              |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| FileTypeChecker     | [![Build status](https://ci.appveyor.com/api/projects/status/jx9bcrxs95srhxsj?svg=true)](https://ci.appveyor.com/project/AJMitev/filetypechecker) | [![NuGet Badge](https://buildstats.info/nuget/File.TypeChecker)](https://www.nuget.org/packages/File.TypeChecker/)         |
+| FileTypeChecker.Web | [![Build status](https://ci.appveyor.com/api/projects/status/jx9bcrxs95srhxsj?svg=true)](https://ci.appveyor.com/project/AJMitev/filetypechecker) | [![NuGet Badge](https://buildstats.info/nuget/File.TypeChecker.Web)](https://www.nuget.org/packages/File.TypeChecker.Web/) |
 
 ## Why to use it?
 
@@ -33,6 +31,20 @@ or by using dotnet CLI
 dotnet add package File.TypeChecker
 ```
 
+If you are working on a web project like MVC or WebApi use [File.TypeChecker.Web](https://www.nuget.org/packages/File.TypeChecker.Web/). This web library will provide you with all validation attributes you needed for easy data validation. Again You can install it by using NuGet
+
+You can install this library using NuGet into your project.
+
+```nuget
+Install-Package File.TypeChecker.Web
+```
+
+or by using dotnet CLI
+
+```
+dotnet add package File.TypeChecker.Web
+```
+
 ## How to use?
 
 ```c#
@@ -50,6 +62,40 @@ using (var fileStream = File.OpenRead("myFileLocation"))
     Console.WriteLine("Type Extension: {0}", fileType.Extension);
     Console.WriteLine("Is Image?: {0}", fileStream.IsImage());
     Console.WriteLine("Is Bitmap?: {0}", fileStream.Is<Bitmap>());
+}
+```
+
+### Web Application
+
+With web package you will recive access to our validation attributes that will gives you easy and powerfull way to allow or forbid file types. For example you can restrict your users to be able to upload only images or only archives just by setting an attribute into your method or class.
+
+```c#
+[HttpPost("filesUpload")]
+public IActionResult UploadFiles([AllowImageOnly] IFormFile imageFile, [AllowArchiveOnly] IFormFilarchiveFile)
+{
+    // Some cool stuf here ...
+}
+```
+
+```c#
+using FileTypeChecker.Web.Attributes;
+
+public class InputModel
+{
+    [AllowImageOnly]
+    public IFormFile FirstFile { get; set; }
+
+    [AllowArchiveOnly]
+    public IFormFile SecondFile { get; set; }
+
+    [AllowedTypes(FileExtension.Bitmap)]
+    public IFormFile ThirdFile { get; set; }
+
+    [ForbidExecutableFile]
+    public IFormFile FourthFile { get; set; }
+
+    [ForbidTypes(FileExtension.Doc)]
+    public IFormFile FifthFile { get; set; }
 }
 ```
 
