@@ -14,6 +14,16 @@
         public AllowedTypesAttribute(params string[] extensions)
             => this.extensions = extensions;
 
+        /// <summary>
+        /// Determines whether a specified object is valid. (Overrides <see cref = "ValidationAttribute.IsValid(object)" />)
+        /// </summary>
+        /// <remarks>
+        /// This method returns <c>true</c> if the <paramref name = "value" /> is null.  
+        /// It is assumed the <see cref = "RequiredAttribute" /> is used if the value may not be null.
+        /// </remarks>
+        /// <param name = "value">The object to validate.</param>
+        /// <returns><c>true</c> if the value is null or valid, otherwise <c>false</c></returns>
+        /// <exception cref = "InvalidOperationException"></exception>
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             if (!(value is IFormFile file))
