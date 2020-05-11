@@ -26,7 +26,7 @@ All validation attributes should be used over IFormFile interface and can be use
 
 ```c#
 [HttpPost("filesUpload")]
-public IActionResult UploadFiles([AllowImageOnly] IFormFile imageFile, [AllowArchiveOnly] IFormFilarchiveFile)
+public IActionResult UploadFiles([AllowImageOnly] IFormFile imageFile, [AllowArchiveOnly] IFormFile archiveFile)
 {
     // Some cool stuf here ...
 }

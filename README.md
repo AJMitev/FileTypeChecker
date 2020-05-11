@@ -71,7 +71,7 @@ With web package you will recive access to our validation attributes that will g
 
 ```c#
 [HttpPost("filesUpload")]
-public IActionResult UploadFiles([AllowImageOnly] IFormFile imageFile, [AllowArchiveOnly] IFormFilarchiveFile)
+public IActionResult UploadFiles([AllowImageOnly] IFormFile imageFile, [AllowArchiveOnly] IFormFile archiveFile)
 {
     // Some cool stuf here ...
 }
