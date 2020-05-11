@@ -7,8 +7,7 @@
     using System.IO;
     using System.Linq;
 
-    [AttributeUsage(AttributeTargets.Property)]
-    public class AllowedTypesAttribute : ValidationAttribute
+    public class AllowedTypesAttribute : FileTypeValidationBaseAttribute
     {
         private readonly string[] extensions;
 
@@ -22,19 +21,29 @@
                 return ValidationResult.Success;
             }
 
+            if (this.extensions == null)
+            {
+                throw new InvalidOperationException(Constants.ErrorMessages.NullParameterErrorMessage);
+            }
+
+            if (this.extensions.Length == 0)
+            {
+                throw new InvalidOperationException(Constants.ErrorMessages.InvalidParameterLengthErrorMessage);
+            }
+
             using var stream = new MemoryStream();
             file.CopyTo(stream);
 
             if (!FileTypeValidator.IsTypeRecognizable(stream))
             {
-                return new ValidationResult(Constants.ErrorMessages.UnsupportedFileErrorMessage);
+                return new ValidationResult(this.UnsupportedFileErrorMessage);
             }
 
             var fileType = FileTypeValidator.GetFileType(stream);
 
             if (!extensions.Contains(fileType.Extension.ToLower()))
             {
-                return new ValidationResult(Constants.ErrorMessages.InvalidFileTypeErrorMessage);
+                return new ValidationResult(this.ErrorMessage ?? this.InvalidFileTypeErrorMessage);
             }
 
             return ValidationResult.Success;

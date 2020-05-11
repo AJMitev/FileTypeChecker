@@ -1,15 +1,13 @@
 ﻿namespace FileTypeChecker.Web.Attributes
 {
     using FileTypeChecker.Extensions;
-    using FileTypeChecker.Web.Infrastructure;
     using Microsoft.AspNetCore.Http;
-    using System;
     using System.ComponentModel.DataAnnotations;
     using System.IO;
 
-    [AttributeUsage(AttributeTargets.Property)]
-    public class OnlyImageAttribute : ValidationAttribute
+    public class AllowArchiveOnlyAttribute : FileTypeValidationBaseAttribute
     {
+
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             if (!(value is IFormFile file))
@@ -22,12 +20,12 @@
 
             if (!FileTypeValidator.IsTypeRecognizable(stream))
             {
-                return new ValidationResult(Constants.ErrorMessages.UnsupportedFileErrorMessage);
+                return new ValidationResult(this.UnsupportedFileErrorMessage);
             }
 
-            if (!stream.IsImage())
+            if (!stream.IsArchive())
             {
-                return new ValidationResult(Constants.ErrorMessages.InvalidFileTypeErrorMessage);
+                return new ValidationResult(this.ErrorMessage ?? this.InvalidFileTypeErrorMessage);
             }
 
             return ValidationResult.Success;
