@@ -20,6 +20,7 @@
         };
 
         private static bool isInitialized = false;
+        private static object initializationLock = new object();
         private static readonly List<IFileType> types = new List<IFileType>();
 
         private static ICollection<IFileType> Types
@@ -28,7 +29,13 @@
             {
                 if (!isInitialized)
                 {
-                    RegisterTypes();
+                    lock (initializationLock)
+                    {
+                        if (!isInitialized)
+                        {
+                            RegisterTypes();
+                        }
+                    }
                 }
 
                 return types;
