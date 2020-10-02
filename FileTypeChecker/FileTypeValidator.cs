@@ -48,7 +48,7 @@
         /// <param name="fileContent">File to check as stream.</param>
         /// <returns>If current type is supported</returns>
         /// <exception cref="System.ArgumentException"></exception>
-        /// <exception cref="System.A rgumentNullException"></exception>
+        /// <exception cref="System.ArgumentNullException"></exception>
         /// <exception cref="System.NotSupportedException"></exception>
         /// <exception cref="System.ObjectDisposedException"></exception>
         public static bool IsTypeRecognizable(Stream fileContent)
