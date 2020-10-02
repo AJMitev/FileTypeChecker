@@ -85,16 +85,10 @@
 
             var buffer = new byte[20];
             stream.Read(buffer, 0, buffer.Length);
-            return CompareBytes(buffer);
+            return DoesMatchWith(buffer);
         }
         
         public bool DoesMatchWith(byte[] buffer)
-        {
-            return CompareBytes(buffer);
-        }
-
-
-        protected bool CompareBytes(byte[] buffer)
         {
             foreach (var x in this.Bytes)
             {
