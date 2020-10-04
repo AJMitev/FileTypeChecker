@@ -7,7 +7,7 @@
     using System;
     using System.IO;
 
-    public class StartUp
+    public static class StartUp
     {
         public static void Main()
         {

@@ -13,7 +13,7 @@
         private string extension;
         private byte[][] bytes;
 
-        public FileType(string name, string extension, byte[] magicBytes, int skipBytes = 0)
+        protected FileType(string name, string extension, byte[] magicBytes, int skipBytes = 0)
         {
             this.Name = name;
             this.Extension = extension;
@@ -21,7 +21,7 @@
             SkipBytes = skipBytes;
         }
 
-        public FileType(string name, string extension, byte[][] magicBytesJaggedArray, int skipBytes = 0)
+        protected FileType(string name, string extension, byte[][] magicBytesJaggedArray, int skipBytes = 0)
         {
             this.Name = name;
             this.Extension = extension;
