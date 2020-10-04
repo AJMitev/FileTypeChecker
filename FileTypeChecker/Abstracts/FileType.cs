@@ -13,19 +13,23 @@
         private string extension;
         private byte[][] bytes;
 
-        public FileType(string name, string extension, byte[] magicBytes)
+        public FileType(string name, string extension, byte[] magicBytes, int skipBytes = 0)
         {
             this.Name = name;
             this.Extension = extension;
-            this.Bytes = new byte[][] { magicBytes };
+            this.Bytes = new[] { magicBytes };
+            SkipBytes = skipBytes;
         }
 
-        public FileType(string name, string extension, byte[][] magicBytesJaggedArray)
+        public FileType(string name, string extension, byte[][] magicBytesJaggedArray, int skipBytes = 0)
         {
             this.Name = name;
             this.Extension = extension;
             this.Bytes = magicBytesJaggedArray;
+            SkipBytes = skipBytes;
         }
+        
+        public int SkipBytes { get; }
 
         /// <inheritdoc />
         public string Name
@@ -79,11 +83,21 @@
                 stream.Position = 0;
             }
 
-            return CompareBytes(stream);
+            var buffer = new byte[20];
+            stream.Read(buffer, 0, buffer.Length);
+            return DoesMatchWith(buffer);
         }
-
-
-        protected bool CompareBytes(Stream stream)
-            => this.Bytes.Any(x => x.All(b => stream.ReadByte() == b));
+        
+        public bool DoesMatchWith(byte[] buffer)
+        {
+            foreach (var x in this.Bytes)
+            {
+                if (buffer.Skip(SkipBytes).Take(x.Length).SequenceEqual(x)) 
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

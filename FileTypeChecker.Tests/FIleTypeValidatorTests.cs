@@ -87,6 +87,7 @@
         [TestCase("./files/test.7z", "7-Zip File Format")]
         [TestCase("./files/test.bz2", "BZIP2 file")]
         [TestCase("./files/test.gz", "GZIP compressed file")]
+        [TestCase("./files/test.mp4", "MP4 file")]
         public void GetFileType_ShouldReturnFileName(string filePath, string expectedFileTypeName)
         {
             using var fileStream = File.OpenRead(filePath);
