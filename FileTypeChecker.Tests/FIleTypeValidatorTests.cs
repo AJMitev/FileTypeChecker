@@ -2,7 +2,6 @@
 {
     using System;
     using System.IO;
-    using FileTypeChecker.Abstracts;
     using FileTypeChecker.Types;
     using NUnit.Framework;
 
