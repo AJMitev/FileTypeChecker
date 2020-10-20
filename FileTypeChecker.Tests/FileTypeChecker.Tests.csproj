@@ -19,6 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="files\test-bom.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="files\test">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

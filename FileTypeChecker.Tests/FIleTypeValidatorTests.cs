@@ -39,6 +39,7 @@
         [TestCase("./files/test.7z")]
         [TestCase("./files/test.bz2")]
         [TestCase("./files/test.gz")]
+        [TestCase("./files/test-bom.xml")]
         public void IsTypeRecognizable_ShouldReturnTrueIfFileIsRecognized(string filePath)
         {
             using var fileStream = File.OpenRead(filePath);
