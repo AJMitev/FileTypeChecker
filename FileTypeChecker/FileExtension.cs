@@ -14,6 +14,8 @@
         public const string Jpg = "jpg";
         public const string Doc = "doc";
         public const string Mp3 = "mp3";
+        public const string Mp4 = "mp4";
+        public const string M4v = "M4v";
         public const string Psd = "psd";
         public const string Pdf = "pdf";
         public const string Png = "png";
