@@ -26,7 +26,7 @@
         /// Validates that the current file is image.
         /// </summary>
         /// <param name="fileContent">File to check as stream.</param>
-        /// <returns>Returns true if the provided file is image otherwise returns false. Supported image types are: Bitmap, JPEG, GIF and PNG.</returns>
+        /// <returns>Returns true if the provided file is image otherwise returns false. Supported image types are: Bitmap, JPEG, GIF, PNG, and TIF.</returns>
         public static bool IsImage(this Stream fileContent)
             => fileContent.Is<Bitmap>()
             || fileContent.Is<JointPhotographicExpertsGroup>()
@@ -38,7 +38,7 @@
         /// Validates that the current file is archive.
         /// </summary>
         /// <param name="fileContent"File to check as stream.></param>
-        /// <returns>Returns true if the provided file is archive otherwise returns false. Supported archive types are: Extensible archive, Gzip, Rar, 7Zip, Tar and Zip.</returns>
+        /// <returns>Returns true if the provided file is archive otherwise returns false. Supported archive types are: Extensible archive, Gzip, Rar, 7Zip, Tar, Zip, BZip2, LZip, and Xz.</returns>
         public static bool IsArchive(this Stream fileContent)
             => fileContent.Is<ExtensibleArchive>()
             || fileContent.Is<Gzip>()
