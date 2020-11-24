@@ -67,6 +67,7 @@
         /// <exception cref="System.ArgumentNullException"></exception>
         /// <exception cref="System.NotSupportedException"></exception>
         /// <exception cref="System.ObjectDisposedException"></exception>
+        /// <exception cref="System.InvalidOperationException"></exception>
         public static IFileType GetFileType(Stream fileContent)
         {
             DataValidator.ThrowIfNull(fileContent, nameof(Stream));

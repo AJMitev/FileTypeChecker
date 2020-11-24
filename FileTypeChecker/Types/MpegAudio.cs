@@ -2,7 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
 
-    public class Mpeg : FileType, IFileType
+    public class MpegAudio : FileType, IFileType
     {
         private const string name = "MPEG audio file frame synch pattern";
         private const string extension = FileExtension.Mp3;
@@ -15,7 +15,7 @@
         };
 
 
-        public Mpeg() : base(name, extension, magicBytesJaggedArray)
+        public MpegAudio() : base(name, extension, magicBytesJaggedArray)
         {
         }
     }

@@ -29,5 +29,15 @@
         public const string Bz2 = "bz2";
         public const string Fits = "fits";
         public const string Gks = "gks";
+        public const string Ras = "ras";
+        public const string Xcf = "xcf";
+        public const string Ai = "ai";
+        public const string Wav = "wav";
+        public const string Wmf = "wmf";
+        public const string Ico = "ico";
+        public const string Wmv = "Wmv";
+        public const string Wma = "wma";
+        public const string Msi = "msi";
+        public const string Excel= "xls";
     }
 }

@@ -6,9 +6,9 @@
     {
         private const string name = "BZIP2 file";
         private const string extension = FileExtension.Bz2;
-        private static readonly byte[][] magicBytesJaggedArray = { new [] { (byte)'B', (byte)'Z' } };
+        private static readonly byte[] magicBytes = new byte[] { 0x42, 0x5A };
 
-        public BZip2File() : base(name, extension, magicBytesJaggedArray)
+        public BZip2File() : base(name, extension, magicBytes)
         {
         }
     }
