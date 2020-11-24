@@ -94,7 +94,7 @@
         /// <returns>True if file match the desired type otherwise returns false.</returns>
         public static bool Is<T>(Stream fileContent) where T : FileType, IFileType
             => fileContent.Is<T>();
-         /// <summary>
+        /// <summary>
         /// Validates that the current file is image.
         /// </summary>
         /// <param name="fileContent">File to check as stream.</param>

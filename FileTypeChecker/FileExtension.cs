@@ -27,5 +27,7 @@
         public const string Xz = "xz";
         public const string Lz = "lz";
         public const string Bz2 = "bz2";
+        public const string Fits = "fits";
+        public const string Gks = "gks";
     }
 }

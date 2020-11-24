@@ -39,6 +39,7 @@
         [TestCase("./files/test.bz2")]
         [TestCase("./files/test.gz")]
         [TestCase("./files/test-bom.xml")]
+        [TestCase("./files/blob.mp3")]
         public void IsTypeRecognizable_ShouldReturnTrueIfFileIsRecognized(string filePath)
         {
             using var fileStream = File.OpenRead(filePath);
@@ -64,11 +65,12 @@
         [TestCase("./files/test.7z", "7z")]
         [TestCase("./files/test.bz2", "bz2")]
         [TestCase("./files/test.gz", "gz")]
+        [TestCase("./files/blob.mp3", "mp3")]
         public void GetFileType_ShouldReturnFileExtension(string filePath, string expectedFileExtension)
         {
             using var fileStream = File.OpenRead(filePath);
 
-            var actualFileTypeExtension = FileTypeValidator.GetFileType(fileStream).Extension;
+            var actualFileTypeExtension = FileTypeValidator.GetFileType(fileStream)?.Extension;
 
             Assert.AreEqual(expectedFileExtension, actualFileTypeExtension);
         }
@@ -88,6 +90,7 @@
         [TestCase("./files/test.bz2", "BZIP2 file")]
         [TestCase("./files/test.gz", "GZIP compressed file")]
         [TestCase("./files/test.mp4", "MP4 file")]
+        [TestCase("./files/blob.mp3", "MPEG audio file frame synch pattern")]
         public void GetFileType_ShouldReturnFileName(string filePath, string expectedFileTypeName)
         {
             using var fileStream = File.OpenRead(filePath);

@@ -21,7 +21,7 @@
         [Test]
         public void Is_ShouldReturnFalseIfTypesDidNotMatch()
         {
-             using var fileStream = File.OpenRead("./files/test.bmp");
+            using var fileStream = File.OpenRead("./files/test.bmp");
             var expected = false;
             var actual = fileStream.Is<Gzip>();
 
