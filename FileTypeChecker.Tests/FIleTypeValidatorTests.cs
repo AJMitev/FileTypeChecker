@@ -40,6 +40,8 @@
         [TestCase("./files/test.gz")]
         [TestCase("./files/test-bom.xml")]
         [TestCase("./files/blob.mp3")]
+        [TestCase("./files/test.wmf")]
+        [TestCase("./files/test.ico")]
         public void IsTypeRecognizable_ShouldReturnTrueIfFileIsRecognized(string filePath)
         {
             using var fileStream = File.OpenRead(filePath);
@@ -52,25 +54,27 @@
         }
 
         [Test]
-        [TestCase("./files/test.bmp", "bmp")]
-        [TestCase("./files/test.jpg", "jpg")]
-        [TestCase("./files/test.png", "png")]
-        [TestCase("./files/test.gif", "gif")]
-        [TestCase("./files/test.tif", "tif")]
-        [TestCase("./files/test.psd", "psd")]
-        [TestCase("./files/test.pdf", "pdf")]
-        [TestCase("./files/test.doc", "doc")]
-        [TestCase("./files/test.xml", "xml")]
-        [TestCase("./files/test.zip", "zip")]
-        [TestCase("./files/test.7z", "7z")]
-        [TestCase("./files/test.bz2", "bz2")]
-        [TestCase("./files/test.gz", "gz")]
-        [TestCase("./files/blob.mp3", "mp3")]
+        [TestCase("./files/test.bmp", FileExtension.Bitmap)]
+        [TestCase("./files/test.jpg", FileExtension.Jpg)]
+        [TestCase("./files/test.png", FileExtension.Png)]
+        [TestCase("./files/test.gif", FileExtension.Gif)]
+        [TestCase("./files/test.tif", FileExtension.Tif)]
+        [TestCase("./files/test.psd", FileExtension.Psd)]
+        [TestCase("./files/test.pdf", FileExtension.Pdf)]
+        [TestCase("./files/test.doc", FileExtension.Doc)]
+        [TestCase("./files/test.xml", FileExtension.Xml)]
+        [TestCase("./files/test.zip", FileExtension.Zip)]
+        [TestCase("./files/test.7z", FileExtension.SevenZ)]
+        [TestCase("./files/test.bz2", FileExtension.Bz2)]
+        [TestCase("./files/test.gz", FileExtension.Gz)]
+        [TestCase("./files/blob.mp3", FileExtension.Mp3)]
+        [TestCase("./files/test.wmf", FileExtension.Wmf)]
+        [TestCase("./files/test.ico", FileExtension.Ico)]
         public void GetFileType_ShouldReturnFileExtension(string filePath, string expectedFileExtension)
         {
             using var fileStream = File.OpenRead(filePath);
 
-            var actualFileTypeExtension = FileTypeValidator.GetFileType(fileStream)?.Extension;
+            var actualFileTypeExtension = FileTypeValidator.GetFileType(fileStream).Extension;
 
             Assert.AreEqual(expectedFileExtension, actualFileTypeExtension);
         }
@@ -91,6 +95,8 @@
         [TestCase("./files/test.gz", "GZIP compressed file")]
         [TestCase("./files/test.mp4", "MP4 file")]
         [TestCase("./files/blob.mp3", "MPEG audio file frame synch pattern")]
+        [TestCase("./files/test.wmf", "Windows Meta File")]
+        [TestCase("./files/test.ico", "Icon")]
         public void GetFileType_ShouldReturnFileName(string filePath, string expectedFileTypeName)
         {
             using var fileStream = File.OpenRead(filePath);
