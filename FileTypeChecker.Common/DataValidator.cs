@@ -2,9 +2,9 @@
 {
     using System;
 
-    internal static class DataValidator
+    public static class DataValidator
     {
-        internal static void ThrowIfNull(object obj, string name)
+        public static void ThrowIfNull(object obj, string name)
         {
             if (obj == null)
             {
@@ -12,7 +12,7 @@
             }
         }
 
-        internal static void ThrowIfNullOrEmpty(string text, string name)
+        public static void ThrowIfNullOrEmpty(string text, string name)
         {
             if (string.IsNullOrEmpty(text))
             {

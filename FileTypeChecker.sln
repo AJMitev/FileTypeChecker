@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileTypeChecker.Web", "File
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileTypeChecker.Web.Tests", "FileTypeChecker.Web.Tests\FileTypeChecker.Web.Tests.csproj", "{AA17B437-1C25-44D4-9A2F-95853321F5EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileTypeChecker.WebApp", "Samples\FileTypeChecker.WebApp\FileTypeChecker.WebApp.csproj", "{6BC96171-7E51-4F72-AF1E-9993D4716FA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileTypeChecker.WebApp", "Samples\FileTypeChecker.WebApp\FileTypeChecker.WebApp.csproj", "{6BC96171-7E51-4F72-AF1E-9993D4716FA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileTypeChecker.Common", "FileTypeChecker.Common\FileTypeChecker.Common.csproj", "{C4706C8E-30D1-4CEB-827E-4D4EBB253E6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{6BC96171-7E51-4F72-AF1E-9993D4716FA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BC96171-7E51-4F72-AF1E-9993D4716FA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BC96171-7E51-4F72-AF1E-9993D4716FA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4706C8E-30D1-4CEB-827E-4D4EBB253E6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4706C8E-30D1-4CEB-827E-4D4EBB253E6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4706C8E-30D1-4CEB-827E-4D4EBB253E6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4706C8E-30D1-4CEB-827E-4D4EBB253E6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
