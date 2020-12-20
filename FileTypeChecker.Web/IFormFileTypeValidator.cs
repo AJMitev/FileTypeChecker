@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Http;
     using System.IO;
     using FileTypeChecker.Web;
+    using System.Collections.Generic;
 
     public static class IFormFileTypeValidator
     {
@@ -27,7 +28,32 @@
             return FileTypeValidator.IsTypeRecognizable(stream);
         }
 
-               /// <summary>
+        /// <summary>
+        /// Checks that the particular type is supported.
+        /// </summary>
+        /// <param name="formFile">Object that implements IFormFile interface.</param>
+        /// <returns>If current type is supported</returns>
+        /// <exception cref="System.ArgumentException"></exception>
+        /// <exception cref="System.ArgumentNullException"></exception>
+        /// <exception cref="System.NotSupportedException"></exception>
+        /// <exception cref="System.ObjectDisposedException"></exception>
+
+        public static bool IsTypeRecognizable(IEnumerable<IFormFile> formFiles)
+        {
+            DataValidator.ThrowIfNull(formFiles, nameof(IEnumerable<IFormFile>));
+
+            foreach (var formFile in formFiles)
+            {
+                var stream = formFile.ReadFileAsStream();
+
+                if (!FileTypeValidator.IsTypeRecognizable(stream))
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Get details about current file type.
         /// </summary>
         /// <param name="formFile">Object that implements IFormFile interface.</param>

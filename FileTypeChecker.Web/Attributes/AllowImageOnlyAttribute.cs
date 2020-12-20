@@ -2,11 +2,9 @@
 {
     using FileTypeChecker.Extensions;
     using Microsoft.AspNetCore.Http;
-    using System;
     using System.ComponentModel.DataAnnotations;
-    using System.IO;
 
-    public class AllowImageOnlyAttribute : FileTypeValidationBaseAttribute
+    public class AllowImageOnlyAttribute : FileTypeValidationWithNoParametersBaseAttribute
     {
         /// <summary>
         /// Determines whether a specified object is valid. (Overrides <see cref = "ValidationAttribute.IsValid(object)" />)
@@ -17,22 +15,16 @@
         /// </remarks>
         /// <param name = "value">The object to validate.</param>
         /// <returns><c>true</c> if the value is null or valid, otherwise <c>false</c></returns>
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        
+
+        protected override ValidationResult Validate(IFormFile formFile)
         {
-            if (!(value is IFormFile file))
-            {
-                return ValidationResult.Success;
-            }
-
-            using var stream = new MemoryStream();
-            file.CopyTo(stream);
-
-            if (!FileTypeValidator.IsTypeRecognizable(stream))
+            if (!IFormFileTypeValidator.IsTypeRecognizable(formFile))
             {
                 return new ValidationResult(this.UnsupportedFileErrorMessage);
             }
 
-            if (!stream.IsImage())
+            if (!formFile.IsImage())
             {
                 return new ValidationResult(this.ErrorMessage ?? this.InvalidFileTypeErrorMessage);
             }

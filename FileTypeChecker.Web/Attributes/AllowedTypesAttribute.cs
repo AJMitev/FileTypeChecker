@@ -3,8 +3,8 @@
     using FileTypeChecker.Web.Infrastructure;
     using Microsoft.AspNetCore.Http;
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.IO;
     using System.Linq;
 
     public class AllowedTypesAttribute : FileTypeValidationBaseAttribute
@@ -26,11 +26,6 @@
         /// <exception cref = "InvalidOperationException"></exception>
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            if (!(value is IFormFile file))
-            {
-                return ValidationResult.Success;
-            }
-
             if (this.extensions == null)
             {
                 throw new InvalidOperationException(Constants.ErrorMessages.NullParameterErrorMessage);
@@ -41,15 +36,34 @@
                 throw new InvalidOperationException(Constants.ErrorMessages.InvalidParameterLengthErrorMessage);
             }
 
-            using var stream = new MemoryStream();
-            file.CopyTo(stream);
+            if (value is IFormFile file)
+            {
+                return this.Validate(file);
+            }
 
-            if (!FileTypeValidator.IsTypeRecognizable(stream))
+            if (value is IEnumerable<IFormFile> files)
+            {
+                foreach (var formFile in files)
+                {
+                    var validationResult = this.Validate(formFile);
+                    if (validationResult != ValidationResult.Success)
+                    {
+                        return validationResult;
+                    }
+                }
+            }
+
+            return ValidationResult.Success;
+        }
+
+        protected override ValidationResult Validate(IFormFile formFile)
+        {
+            if (!IFormFileTypeValidator.IsTypeRecognizable(formFile))
             {
                 return new ValidationResult(this.UnsupportedFileErrorMessage);
             }
 
-            var fileType = FileTypeValidator.GetFileType(stream);
+            var fileType = IFormFileTypeValidator.GetFileType(formFile);
 
             if (!extensions.Contains(fileType.Extension.ToLower()))
             {
