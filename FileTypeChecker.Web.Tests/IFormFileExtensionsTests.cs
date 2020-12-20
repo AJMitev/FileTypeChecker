@@ -1,19 +1,17 @@
-﻿namespace FileTypeChecker.Tests
+﻿namespace FileTypeChecker.Web.Tests
 {
     using FileTypeChecker.Types;
-    using FileTypeChecker.Extensions;
     using NUnit.Framework;
-    using System.IO;
 
     [TestFixture]
-    public class StreamExtensionsTests
+    public class IFormFileExtensionsTests
     {
         [Test]
         public void Is_ShouldReturnTrueIfTheTypesMatch()
         {
-            using var fileStream = File.OpenRead("./files/test.bmp");
+            var formFile = FileHelpers.ReadFile("test.bmp");
             var expected = true;
-            var actual = fileStream.Is<Bitmap>();
+            var actual = formFile.Is<Bitmap>();
 
             Assert.AreEqual(expected, actual);
         }
@@ -21,9 +19,9 @@
         [Test]
         public void Is_ShouldReturnFalseIfTypesDidNotMatch()
         {
-            using var fileStream = File.OpenRead("./files/test.bmp");
+            var formFile = FileHelpers.ReadFile("test.bmp");
             var expected = false;
-            var actual = fileStream.Is<Gzip>();
+            var actual = formFile.Is<Gzip>();
 
             Assert.AreEqual(expected, actual);
         }
@@ -31,9 +29,9 @@
         [Test]
         public void IsImage_ShouldReturnTrueIfTheTypesMatch()
         {
-            using var fileStream = File.OpenRead("./files/test.jpg");
+            var formFile = FileHelpers.ReadFile("test.jpg");
             var expected = true;
-            var actual = fileStream.IsImage();
+            var actual = formFile.IsImage();
 
             Assert.AreEqual(expected, actual);
         }
@@ -41,9 +39,9 @@
         [Test]
         public void IsImage_ShouldReturnFalseIfTypesDidNotMatch()
         {
-            using var fileStream = File.OpenRead("./files/test.exe");
+            var formFile = FileHelpers.ReadFile("test.exe");
             var expected = false;
-            var actual = fileStream.IsImage();
+            var actual = formFile.IsImage();
 
             Assert.AreEqual(expected, actual);
         }
@@ -51,9 +49,9 @@
         [Test]
         public void IsArchive_ShouldReturnTrueIfTheTypesMatch()
         {
-            using var fileStream = File.OpenRead("./files/test.zip");
+            var formFile = FileHelpers.ReadFile("test.zip");
             var expected = true;
-            var actual = fileStream.IsArchive();
+            var actual = formFile.IsArchive();
 
             Assert.AreEqual(expected, actual);
         }
@@ -61,9 +59,9 @@
         [Test]
         public void IsArchive_ShouldReturnFalseIfTypesDidNotMatch()
         {
-            using var fileStream = File.OpenRead("./files/test.bmp");
+            var formFile = FileHelpers.ReadFile("test.bmp");
             var expected = false;
-            var actual = fileStream.IsArchive();
+            var actual = formFile.IsArchive();
 
             Assert.AreEqual(expected, actual);
         }
@@ -71,9 +69,9 @@
         [Test]
         public void IsExecutable_ShouldReturnTrueIfTheTypesMatch()
         {
-            using var fileStream = File.OpenRead("./files/test.exe");
+            var formFile = FileHelpers.ReadFile("test.exe");
             var expected = true;
-            var actual = fileStream.IsExecutable();
+            var actual = formFile.IsExecutable();
 
             Assert.AreEqual(expected, actual);
         }
@@ -81,9 +79,9 @@
         [Test]
         public void IsExecutable_ShouldReturnFalseIfTypesDidNotMatch()
         {
-            using var fileStream = File.OpenRead("./files/test.bmp");
+            var formFile = FileHelpers.ReadFile("test.bmp");
             var expected = false;
-            var actual = fileStream.IsExecutable();
+            var actual = formFile.IsExecutable();
 
             Assert.AreEqual(expected, actual);
         }
