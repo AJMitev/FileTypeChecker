@@ -1,10 +1,8 @@
 ﻿namespace FileTypeChecker.Web
 {
     using FileTypeChecker.Abstracts;
-    using FileTypeChecker.Common;
     using FileTypeChecker.Extensions;
     using Microsoft.AspNetCore.Http;
-    using System;
     using System.IO;
 
     public static class IFormFileExtensions
@@ -15,12 +13,9 @@
         /// <typeparam name="T">Type that implements FileType</typeparam>
         /// <param name="formFile"></param>
         /// <returns>True if file match the desired type otherwise returns false.</returns>
-        public static bool Is<T>(this IFormFile formFile) where T : FileType, IFileType
+        public static bool Is<T>(this IFormFile formFile) where T : FileType, IFileType, new()
         {
-            var instance = Activator.CreateInstance(typeof(T)) as FileType;
-
-            DataValidator.ThrowIfNull(instance, nameof(FileType));
-
+            var instance = new T();
             return instance.DoesMatchWith(formFile.ReadFileAsStream());
         }
         /// <summary>

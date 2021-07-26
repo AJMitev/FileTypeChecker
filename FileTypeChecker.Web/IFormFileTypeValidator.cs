@@ -76,7 +76,7 @@
         /// <typeparam name="T">Type that implements FileType</typeparam>
         /// <param name="formFile">Object that implements IFormFile interface.</param>
         /// <returns>True if file match the desired type otherwise returns false.</returns>
-        public static bool Is<T>(IFormFile formFile) where T : FileType, IFileType
+        public static bool Is<T>(IFormFile formFile) where T : FileType, IFileType, new()
             => formFile.ReadFileAsStream().Is<T>();
         /// <summary>
         /// Validates that the current file is image.
