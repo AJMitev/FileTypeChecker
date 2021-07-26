@@ -21,9 +21,11 @@
 
         private static bool isInitialized = false;
         private static readonly object initializationLock = new object();
+
+        private static readonly HashSet<Type> knownTypes = new HashSet<Type>();
         private static readonly List<IFileType> types = new List<IFileType>();
 
-        private static ICollection<IFileType> Types
+        private static IReadOnlyCollection<IFileType> Types
         {
             get
             {
@@ -33,7 +35,8 @@
                     {
                         if (!isInitialized)
                         {
-                            RegisterTypes();
+                            RegisterTypes(typesAssemblies);
+                            isInitialized = true;
                         }
                     }
                 }
@@ -84,7 +87,7 @@
             DataValidator.ThrowIfNull(assemblies, nameof(Assembly));
 
             typesAssemblies.AddRange(assemblies);
-            RegisterTypes();
+            RegisterTypes(assemblies);
         }
 
         /// <summary>
@@ -93,7 +96,7 @@
         /// <typeparam name="T">Type that implements FileType</typeparam>
         /// <param name="fileContent">File as stream</param>
         /// <returns>True if file match the desired type otherwise returns false.</returns>
-        public static bool Is<T>(Stream fileContent) where T : FileType, IFileType
+        public static bool Is<T>(Stream fileContent) where T : FileType, IFileType, new()
             => fileContent.Is<T>();
         /// <summary>
         /// Validates that the current file is image.
@@ -111,21 +114,25 @@
         public static bool IsArchive(Stream fileContent)
             => fileContent.IsArchive();
 
-        private static IEnumerable<IFileType> GetTypesInstance(Assembly assembly)
+        private static IEnumerable<Type> GetTypesInstance(Assembly assembly)
             => assembly.GetTypes()
                     .Where(type => typeof(IFileType).IsAssignableFrom(type)
                                  && !type.IsAbstract
-                                 && !type.IsInterface)
-                .Select(selectedType => (IFileType)Activator.CreateInstance(selectedType));
+                                 && !type.IsInterface);
 
-        private static void RegisterTypes()
+        private static void RegisterTypes(IEnumerable<Assembly> assemblies)
         {
-            foreach (Assembly assembly in typesAssemblies)
+            foreach (Assembly assembly in assemblies)
             {
-                types.AddRange(GetTypesInstance(assembly));
+                foreach (var type in GetTypesInstance(assembly))
+                {
+                    if (knownTypes.Add(type))
+                    {
+                        var fileType = (IFileType)Activator.CreateInstance(type);
+                        types.Add(fileType);
+                    }
+                }
             }
-
-            isInitialized = true;
         }
     }
 }
