@@ -23,9 +23,9 @@
         private static readonly object initializationLock = new object();
 
         private static readonly HashSet<Type> knownTypes = new HashSet<Type>();
-        private static readonly List<IFileType> types = new List<IFileType>();
+        private static readonly List<IFileType> fileTypes = new List<IFileType>();
 
-        private static IReadOnlyCollection<IFileType> Types
+        private static IReadOnlyCollection<IFileType> FileTypes
         {
             get
             {
@@ -41,7 +41,7 @@
                     }
                 }
 
-                return types;
+                return fileTypes;
             }
         }
 
@@ -58,7 +58,7 @@
         {
             DataValidator.ThrowIfNull(fileContent, nameof(Stream));
 
-            return Types.Any(type => type.DoesMatchWith(fileContent));
+            return FileTypes.Any(type => type.DoesMatchWith(fileContent));
         }
 
         /// <summary>
@@ -75,7 +75,7 @@
         {
             DataValidator.ThrowIfNull(fileContent, nameof(Stream));
 
-            return Types.SingleOrDefault(fileType => fileType.DoesMatchWith(fileContent));
+            return FileTypes.SingleOrDefault(fileType => fileType.DoesMatchWith(fileContent));
         }
 
         /// <summary>
@@ -129,7 +129,7 @@
                     if (knownTypes.Add(type))
                     {
                         var fileType = (IFileType)Activator.CreateInstance(type);
-                        types.Add(fileType);
+                        fileTypes.Add(fileType);
                     }
                 }
             }
