@@ -1,9 +1,7 @@
 ﻿namespace FileTypeChecker.Extensions
 {
     using FileTypeChecker.Abstracts;
-    using FileTypeChecker.Common;
     using FileTypeChecker.Types;
-    using System;
     using System.IO;
 
     public static class StreamExtensions
@@ -14,14 +12,12 @@
         /// <typeparam name="T">Type that implements FileType</typeparam>
         /// <param name="fileContent">File as stream</param>
         /// <returns>True if file match the desired type otherwise returns false.</returns>
-        public static bool Is<T>(this Stream fileContent) where T : FileType, IFileType
+        public static bool Is<T>(this Stream fileContent) where T : FileType, IFileType, new()
         {
-            var instance = Activator.CreateInstance(typeof(T)) as FileType;
-
-            DataValidator.ThrowIfNull(instance, nameof(FileType));
-
+            var instance = new T();
             return instance.DoesMatchWith(fileContent);
         }
+
         /// <summary>
         /// Validates that the current file is image.
         /// </summary>
