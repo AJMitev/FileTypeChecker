@@ -14,6 +14,7 @@
     /// </summary>
     public static class FileTypeValidator
     {
+        private const string EmptyCollectionErrorMessage = "Can't search in collection with no items!";
         private static readonly List<Assembly> typesAssemblies = new List<Assembly>
         {
             typeof(FileType).Assembly
@@ -75,7 +76,9 @@
         {
             DataValidator.ThrowIfNull(fileContent, nameof(Stream));
 
-            return FileTypes.SingleOrDefault(fileType => fileType.DoesMatchWith(fileContent));
+            var matches = FileTypes.Where(fileType => fileType.DoesMatchWith(fileContent));
+
+            return matches.Count() == 1 ? matches.First() : FindBestMatch(fileContent, matches); ;
         }
 
         /// <summary>
@@ -133,6 +136,42 @@
                     }
                 }
             }
+        }
+
+        private static IFileType FindBestMatch(Stream fileContent, IEnumerable<IFileType> result)
+        {
+            var scoreboard = new Dictionary<IFileType, int>();
+
+            for (int typeIndex = 0; typeIndex < result.Count(); typeIndex++)
+            {
+                var currentType = result.ElementAt(typeIndex) as FileType;
+
+                if (!scoreboard.ContainsKey(currentType))
+                    scoreboard.Add(currentType, currentType.GetMatchingNumber(fileContent));
+
+            }
+
+            return FindMaxScore(scoreboard);
+        }
+
+        private static IFileType FindMaxScore(IDictionary<IFileType, int> dictinalry)
+        {
+            if (dictinalry.Count == 0)
+                throw new InvalidOperationException(EmptyCollectionErrorMessage);
+
+            int maxAge = int.MinValue;
+            IFileType element = null;
+
+            foreach (var type in dictinalry)
+            {
+                if (!(type.Value > maxAge))
+                    continue;
+
+                maxAge = type.Value;
+                element = type.Key;
+            }
+
+            return element;
         }
     }
 }

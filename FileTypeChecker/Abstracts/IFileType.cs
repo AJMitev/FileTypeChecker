@@ -25,5 +25,12 @@
         /// <exception cref="System.NotSupportedException"></exception>
         /// <exception cref="System.ObjectDisposedException"></exception>
         bool DoesMatchWith(Stream stream, bool resetPosition = true);
+
+        /// <summary>
+        /// Returns an integer that represents how much that filetype matches the input. The bigger the number the best it match.
+        /// </summary>
+        /// <param name="stream">File as stream.</param>
+        /// <returns>Integer</returns>
+        int GetMatchingNumber(Stream stream);
     }
 }

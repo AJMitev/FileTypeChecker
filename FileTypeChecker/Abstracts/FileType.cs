@@ -8,7 +8,7 @@
     public abstract class FileType : IFileType
     {
         private const string FileContentMustBeReadableErrorMessage = "File contents must be a readable stream";
-
+        private const int ByfferDefaultSize = 20;
         private string name;
         private string extension;
         private byte[][] bytes;
@@ -57,7 +57,7 @@
         }
 
 
-        private byte[][] Bytes
+        internal byte[][] Bytes
         {
             get => this.bytes;
             set
@@ -83,21 +83,45 @@
                 stream.Position = 0;
             }
 
-            var buffer = new byte[20];
+            var buffer = new byte[ByfferDefaultSize];
             stream.Read(buffer, 0, buffer.Length);
             return DoesMatchWith(buffer);
         }
         
         public bool DoesMatchWith(byte[] buffer)
         {
-            foreach (var x in this.Bytes)
+            foreach (var bytesArr in this.Bytes)
             {
-                if (buffer.Skip(SkipBytes).Take(x.Length).SequenceEqual(x)) 
+                if (buffer.Skip(SkipBytes).Take(bytesArr.Length).SequenceEqual(bytesArr)) 
                 {
                     return true;
                 }
             }
             return false;
+        }
+
+        public int GetMatchingNumber(Stream stream)
+        {
+            stream.Position = 0;
+
+            int counter = 0;
+            var buffer = new byte[ByfferDefaultSize];
+            stream.Read(buffer, 0, buffer.Length);
+
+            foreach (var bytesArr in this.Bytes)
+            {
+                var shrinkedBuffer = buffer.Skip(SkipBytes).Take(bytesArr.Length);
+
+                for (int i = counter; i < bytesArr.Length; i++)
+                {
+                    if (!bytesArr[i].Equals(buffer[i]))
+                        break;
+
+                    counter++;
+                }
+            }
+
+            return counter == 0 ? -1 : counter;
         }
     }
 }
