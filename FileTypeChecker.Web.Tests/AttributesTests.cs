@@ -1,6 +1,7 @@
 ﻿namespace FileTypeChecker.Web.Tests
 {
     using FileTypeChecker;
+    using FileTypeChecker.Types;
     using FileTypeChecker.Web.Attributes;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Http.Internal;
@@ -13,12 +14,12 @@
     public class AttributesTests
     {
         [Test]
-        [TestCase("test.bmp", new[] { FileExtension.Bitmap }, true)]
-        [TestCase("test.bmp", new[] { FileExtension.Jpg }, false)]
-        [TestCase("test.jpg", new[] { FileExtension.Jpg }, true)]
-        [TestCase("test.jpg", new[] { FileExtension.Bitmap, FileExtension.Jpg, FileExtension.Gif }, true)]
-        [TestCase("test.jpg", new[] { FileExtension.Rar }, false)]
-        [TestCase("test.zip", new[] { FileExtension.Zip }, true)]
+        [TestCase("test.bmp", new[] { Bitmap.TypeExtension }, true)]
+        [TestCase("test.bmp", new[] { JointPhotographicExpertsGroup.TypeExtension }, false)]
+        [TestCase("test.jpg", new[] { JointPhotographicExpertsGroup.TypeExtension }, true)]
+        [TestCase("test.jpg", new[] { Bitmap.TypeExtension, JointPhotographicExpertsGroup.TypeExtension, GraphicsInterchangeFormat89.TypeExtension }, true)]
+        [TestCase("test.jpg", new[] { RarArchive.TypeExtension }, false)]
+        [TestCase("test.zip", new[] { ZipFile.TypeExtension }, true)]
         public void AllowedTypeAttribute_ShouldAllowOnlyPointedTypes(string fileName, string[] allowedExtensions, bool expectedResult)
         {
             var stream = FileHelpers.ReadFile(fileName);
@@ -41,10 +42,10 @@
         }
 
         [Test]
-        [TestCase("test.zip", new[] { FileExtension.Zip }, false)]
-        [TestCase("test.png", new[] { FileExtension.Zip }, true)]
-        [TestCase("test.png", new[] { FileExtension.Zip, FileExtension.Xar, FileExtension.Jpg }, true)]
-        [TestCase("test.png", new[] { FileExtension.Zip, FileExtension.Png, FileExtension.Jpg }, false)]
+        [TestCase("test.zip", new[] { ZipFile.TypeExtension }, false)]
+        [TestCase("test.png", new[] { ZipFile.TypeExtension }, true)]
+        [TestCase("test.png", new[] { ZipFile.TypeExtension, ExtensibleArchive.TypeExtension, JointPhotographicExpertsGroup.TypeExtension }, true)]
+        [TestCase("test.png", new[] { ZipFile.TypeExtension, PortableNetworkGraphic.TypeExtension, JointPhotographicExpertsGroup.TypeExtension }, false)]
         public void ForbidTypesAttribute_ShouldForbidPointedTypes(string fileName, string[] forbidedExtensions, bool expectedResult)
         {
             var stream = FileHelpers.ReadFile(fileName);
@@ -164,7 +165,7 @@
             var fileNames = new[] { "test.zip", "test.7z", "test.gz" };
             var files = FileHelpers.ReadFiles(fileNames);
 
-            var attributeToTest = new AllowedTypesAttribute(FileExtension.Zip, FileExtension.SevenZ, FileExtension.Gz);
+            var attributeToTest = new AllowedTypesAttribute(ZipFile.TypeExtension, SevenZipFile.TypeExtension, Gzip.TypeExtension);
             Assert.IsTrue(attributeToTest.IsValid(files));
         }
 
@@ -174,7 +175,7 @@
             var fileNames = new[] { "test.zip", "test.7z", "test.gz" };
             var files = FileHelpers.ReadFiles(fileNames);
 
-            var attributeToTest = new AllowedTypesAttribute(FileExtension.Zip, FileExtension.SevenZ);
+            var attributeToTest = new AllowedTypesAttribute(ZipFile.TypeExtension, SevenZipFile.TypeExtension);
             Assert.IsFalse(attributeToTest.IsValid(files));
         }
 
@@ -204,7 +205,7 @@
             var fileNames = new[] { "test.zip", "test.7z", "test.gz" };
             var files = FileHelpers.ReadFiles(fileNames);
 
-            var attributeToTest = new ForbidTypesAttribute(FileExtension.Jpg);
+            var attributeToTest = new ForbidTypesAttribute(JointPhotographicExpertsGroup.TypeExtension);
             Assert.IsTrue(attributeToTest.IsValid(files));
         }
 
@@ -214,7 +215,7 @@
             var fileNames = new[] { "test.zip", "test.jpg", "test.png" };
             var files = FileHelpers.ReadFiles(fileNames);
 
-            var attributeToTest = new ForbidTypesAttribute(FileExtension.Zip);
+            var attributeToTest = new ForbidTypesAttribute(ZipFile.TypeExtension);
             Assert.IsFalse(attributeToTest.IsValid(files));
         }
     }

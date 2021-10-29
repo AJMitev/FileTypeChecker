@@ -1,5 +1,6 @@
 ﻿namespace FileTypeChecker.WebApp.Models
 {
+    using FileTypeChecker.Types;
     using FileTypeChecker.Web.Attributes;
     using Microsoft.AspNetCore.Http;
 
@@ -11,13 +12,13 @@
         [AllowArchiveOnly]
         public IFormFile SecondFile { get; set; }
 
-        [AllowedTypes(FileExtension.Bitmap)]
+        [AllowedTypes(Bitmap.TypeExtension)]
         public IFormFile ThirdFile { get; set; }
 
         [ForbidExecutableFile]
         public IFormFile FourthFile { get; set; }
 
-        [ForbidTypes(FileExtension.Doc)]
+        [ForbidTypes(MicrosoftOfficeDocument.TypeExtension)]
         public IFormFile FifthFile { get; set; }
     }
 }
