@@ -140,38 +140,44 @@
 
         private static IFileType FindBestMatch(Stream fileContent, IEnumerable<IFileType> result)
         {
-            var scoreboard = new Dictionary<IFileType, int>();
-
-            for (int typeIndex = 0; typeIndex < result.Count(); typeIndex++)
-            {
-                var currentType = result.ElementAt(typeIndex) as FileType;
-
-                if (!scoreboard.ContainsKey(currentType))
-                    scoreboard.Add(currentType, currentType.GetMatchingNumber(fileContent));
-
-            }
+            var scoreboard = CreateScoreboard(fileContent, result);
 
             return FindMaxScore(scoreboard);
         }
 
-        private static IFileType FindMaxScore(IDictionary<IFileType, int> dictinalry)
+        private static IEnumerable<MatchScore> CreateScoreboard(Stream fileContent, IEnumerable<IFileType> result)
         {
-            if (dictinalry.Count == 0)
-                throw new InvalidOperationException(EmptyCollectionErrorMessage);
+            var scoreboard = new List<MatchScore>();
 
-            int maxAge = int.MinValue;
-            IFileType element = null;
-
-            foreach (var type in dictinalry)
+            for (int typeIndex = 0; typeIndex < result.Count(); typeIndex++)
             {
-                if (!(type.Value > maxAge))
-                    continue;
+                var currentType = result.ElementAt(typeIndex) as FileType;
+                var currentScore = currentType.GetMatchingNumber(fileContent);
 
-                maxAge = type.Value;
-                element = type.Key;
+                scoreboard.Add(new MatchScore(currentType, currentScore));
             }
 
-            return element;
+            return scoreboard;
+        }
+
+        private static IFileType FindMaxScore(IEnumerable<MatchScore> matches)
+        {
+            if (matches.Count() == 0)
+                throw new InvalidOperationException(EmptyCollectionErrorMessage);
+
+            int maxScore = int.MinValue;
+            IFileType bestMatch = null;
+
+            foreach (var match in matches)
+            {
+                if (!(match.Score > maxScore))
+                    continue;
+
+                maxScore = match.Score;
+                bestMatch = match.Type;
+            }
+
+            return bestMatch;
         }
     }
 }
