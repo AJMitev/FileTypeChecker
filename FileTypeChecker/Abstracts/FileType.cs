@@ -3,6 +3,7 @@
     using System;
     using System.IO;
     using System.Linq;
+    using System.Threading.Tasks;
     using Common;
 
     public abstract class FileType : IFileType
@@ -57,7 +58,7 @@
         }
 
 
-        internal byte[][] Bytes
+        private byte[][] Bytes
         {
             get => this.bytes;
             set
@@ -87,17 +88,24 @@
             stream.Read(buffer, 0, buffer.Length);
             return DoesMatchWith(buffer);
         }
-        
-        public bool DoesMatchWith(byte[] buffer)
+
+        public async Task<bool> DoesMatchWithAsync(Stream stream, bool resetPosition = true)
         {
-            foreach (var bytesArr in this.Bytes)
+            DataValidator.ThrowIfNull(stream, nameof(Stream));
+
+            if (!stream.CanRead || (stream.Position != 0 && !stream.CanSeek))
             {
-                if (buffer.Skip(SkipBytes).Take(bytesArr.Length).SequenceEqual(bytesArr)) 
-                {
-                    return true;
-                }
+                throw new ArgumentException(FileContentMustBeReadableErrorMessage, nameof(Stream));
             }
-            return false;
+
+            if (stream.Position != 0 && resetPosition)
+            {
+                stream.Position = 0;
+            }
+
+            var buffer = new byte[ByfferDefaultSize];
+            await stream.ReadAsync(buffer, 0, buffer.Length);
+            return DoesMatchWith(buffer);
         }
 
         public int GetMatchingNumber(Stream stream)
@@ -122,6 +130,18 @@
             }
 
             return counter == 0 ? -1 : counter;
+        }
+
+        private bool DoesMatchWith(byte[] buffer)
+        {
+            foreach (var bytesArr in this.Bytes)
+            {
+                if (buffer.Skip(SkipBytes).Take(bytesArr.Length).SequenceEqual(bytesArr)) 
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
