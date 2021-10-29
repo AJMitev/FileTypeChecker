@@ -4,11 +4,11 @@
 
     public class LZipFile : FileType, IFileType
     {
-        private const string name = "LZIP file";
-        private const string extension = FileExtension.Lz;
+        public const string TypeName = "LZIP file";
+        public const string TypeExtension = "lz";
         private static readonly byte[][] magicBytesJaggedArray = { new [] { (byte)'L', (byte)'Z', (byte)'I', (byte)'P', (byte)1 } };
 
-        public LZipFile() : base(name, extension, magicBytesJaggedArray)
+        public LZipFile() : base(TypeName, TypeExtension, magicBytesJaggedArray)
         {
         }
     }

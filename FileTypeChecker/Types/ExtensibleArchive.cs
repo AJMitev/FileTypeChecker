@@ -4,11 +4,11 @@
 
     public class ExtensibleArchive : FileType, IFileType
     {
-        private const string name = "eXtensible ARchive format";
-        private const string extension = FileExtension.Xar;
+        public const string TypeName = "eXtensible ARchive format";
+        public const string TypeExtension = "xar";
         private static readonly byte[] magicBytes = new byte[] { 0x78, 0x61, 0x72, 0x21 };
 
-        public ExtensibleArchive() : base(name, extension, magicBytes)
+        public ExtensibleArchive() : base(TypeName, TypeExtension, magicBytes)
         {
         }
     }

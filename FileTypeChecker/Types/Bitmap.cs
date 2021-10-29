@@ -4,11 +4,11 @@
 
     public class Bitmap : FileType, IFileType
     {
-        private const string name = "Bitmap";
-        private const string extension = FileExtension.Bitmap;
+        public const string TypeName = "Bitmap";
+        public const string TypeExtension = "bmp";
         private static readonly byte[] magicBytes = new byte[] { 0x42, 0x4d };
 
-        public Bitmap() : base(name, extension, magicBytes)
+        public Bitmap() : base(TypeName, TypeExtension, magicBytes)
         {
         }
     }

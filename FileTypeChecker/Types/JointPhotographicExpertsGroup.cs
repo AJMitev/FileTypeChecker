@@ -4,11 +4,11 @@
 
     public class JointPhotographicExpertsGroup : FileType, IFileType
     {
-        private const string name = "JPEG";
-        private const string extension = FileExtension.Jpg;
+        public const string TypeName = "JPEG";
+        public const string TypeExtension = "jpg";
         private static readonly byte[] magicBytes = new byte[] { 0xFF, 0xD8, 0xFF };
 
-        public JointPhotographicExpertsGroup() : base(name, extension, magicBytes)
+        public JointPhotographicExpertsGroup() : base(TypeName, TypeExtension, magicBytes)
         {
         }
     }

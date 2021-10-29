@@ -4,11 +4,11 @@
 
     public class Icon : FileType, IFileType
     {
-        private const string name = "Icon";
-        private const string extension = FileExtension.Ico;
+        public const string TypeName = "Icon";
+        public const string TypeExtension = "ico";
         private static readonly byte[] magicBytes = new byte[] { 0x00, 0x00, 0x01, 0x00};
 
-        public Icon():base(name,extension,magicBytes)
+        public Icon():base(TypeName,TypeExtension,magicBytes)
         {
 
         }

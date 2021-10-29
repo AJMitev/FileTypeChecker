@@ -4,11 +4,11 @@
 
     public class AudioVideoInterleaveVideoFormat : FileType, IFileType
     {
-        private const string name = "Audio Video Interleave video format";
-        private const string extension = FileExtension.Avi;
+        public const string TypeName = "Audio Video Interleave video format";
+        public const string TypeExtension = "avi";
         private static readonly byte[] magicBytes = new byte[] { 0x52, 0x49, 0x46, 0x46 };
 
-        public AudioVideoInterleaveVideoFormat() : base(name, extension, magicBytes)
+        public AudioVideoInterleaveVideoFormat() : base(TypeName, TypeExtension, magicBytes)
         {
         }
     }

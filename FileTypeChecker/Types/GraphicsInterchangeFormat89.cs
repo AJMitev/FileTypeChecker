@@ -4,11 +4,11 @@
 
     public class GraphicsInterchangeFormat89 : FileType, IFileType
     {
-        private const string name = "Graphics Interchange Format 89a";
-        private const string extension = FileExtension.Gif;
+        public const string TypeName = "Graphics Interchange Format 89a";
+        public const string TypeExtension = "gif";
         private static readonly byte[] magicBytes = new byte[] { 0x47, 0x49, 0x46, 0x38, 0x39, 0x61 };
 
-        public GraphicsInterchangeFormat89() : base(name, extension, magicBytes)
+        public GraphicsInterchangeFormat89() : base(TypeName, TypeExtension, magicBytes)
         {
         }
     }

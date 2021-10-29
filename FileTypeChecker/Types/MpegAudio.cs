@@ -4,8 +4,8 @@
 
     public class MpegAudio : FileType, IFileType
     {
-        private const string name = "MPEG audio file frame synch pattern";
-        private const string extension = FileExtension.Mp3;
+        public const string TypeName = "MPEG audio file frame synch pattern";
+        public const string TypeExtension = "mp3";
         private static readonly byte[][] magicBytesJaggedArray =
         {
             new byte[] { 0xFF, 0xE3 },
@@ -15,7 +15,7 @@
         };
 
 
-        public MpegAudio() : base(name, extension, magicBytesJaggedArray)
+        public MpegAudio() : base(TypeName, TypeExtension, magicBytesJaggedArray)
         {
         }
     }

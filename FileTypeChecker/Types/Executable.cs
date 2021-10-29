@@ -4,11 +4,11 @@
 
     public class Executable : FileType, IFileType
     {
-        private const string name = "DOS MZ executable";
-        private const string extension = FileExtension.Exe;
+        public const string TypeName = "DOS MZ executable";
+        public const string TypeExtension = "exe";
         private static readonly byte[] magicBytes = new byte[] { 0x4D, 0x5A };
 
-        public Executable() : base(name, extension, magicBytes)
+        public Executable() : base(TypeName, TypeExtension, magicBytes)
         {
         }
     }
