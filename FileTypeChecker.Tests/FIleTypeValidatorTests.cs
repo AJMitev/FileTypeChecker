@@ -3,6 +3,7 @@
     using System;
     using System.IO;
     using System.Threading.Tasks;
+    using FileTypeChecker.Abstracts;
     using FileTypeChecker.Types;
     using NUnit.Framework;
 
@@ -178,6 +179,30 @@
             var actualFileTypeName = FileTypeValidator.GetFileType(fileStream).Name;
 
             Assert.AreEqual(expectedFileTypeName, actualFileTypeName);
+        }
+
+        [Test]
+        public void GetFileType_ShouldReturnNullIfTheTypeIsUnknown()
+        {
+            using var fileStream = File.OpenRead("./files/test");
+
+            IFileType expected = null;
+
+            var actual = FileTypeValidator.GetFileType(fileStream);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public async Task GetFileTypeAsync_ShouldReturnNullIfTheTypeIsUnknown()
+        {
+            using var fileStream = File.OpenRead("./files/test");
+
+            IFileType expected = null;
+
+            var actual = await FileTypeValidator.GetFileTypeAsync(fileStream);
+
+            Assert.AreEqual(expected, actual);
         }
 
         [Test]

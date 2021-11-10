@@ -89,7 +89,7 @@
         /// Get details about current file type.
         /// </summary>
         /// <param name="fileContent">File to check as stream.</param>
-        /// <returns>Instance of <see cref="IFileType}"/> type.</returns>
+        /// <returns>Instance of <see cref="IFileType}"/> type. If the type is not recognized returns <see cref="null}"/></returns>
         /// /// <exception cref="System.ArgumentException"></exception>
         /// <exception cref="System.ArgumentNullException"></exception>
         /// <exception cref="System.NotSupportedException"></exception>
@@ -101,14 +101,14 @@
 
             var matches = FileTypes.Where(fileType => fileType.DoesMatchWith(fileContent));
 
-            return matches.Count() == 1 ? matches.First() : FindBestMatch(fileContent, matches); ;
+            return matches.Count() == 0 ? null : matches.Count() == 1 ? matches.First() : FindBestMatch(fileContent, matches); ;
         }
 
         /// <summary>
         /// Get details about current file type.
         /// </summary>
         /// <param name="fileContent">File to check as stream.</param>
-        /// <returns>Instance of <see cref="IFileType}"/> type.</returns>
+        /// <returns>Instance of <see cref="IFileType}"/> type. If the type is not recognized returns <see cref="null}"/></returns>
         /// /// <exception cref="System.ArgumentException"></exception>
         /// <exception cref="System.ArgumentNullException"></exception>
         /// <exception cref="System.NotSupportedException"></exception>
@@ -123,7 +123,7 @@
                 .WhereAwait(async x => await x.DoesMatchWithAsync(fileContent))
                 .ToListAsync();
 
-            return matches.Count() == 1 ? matches.First() : FindBestMatch(fileContent, matches); ;
+            return matches.Count() == 0 ? null : matches.Count() == 1 ? matches.First() : FindBestMatch(fileContent, matches); ;
         }
 
         /// <summary>
