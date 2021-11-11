@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>File.TypeChecker.Web</id>
-    <version>1.4.0</version>
+    <version>2.0.0</version>
     <title>FileTypeChecker.Web</title>
     <authors>Aleksandar J. Mitev</authors>
     <owners>Aleksandar J. Mitev</owners>
@@ -13,6 +13,11 @@
     <description>Don't let users to inject you an invalid file! FileTypeChecker is a easy to use library that allows you to read file and recognize its type. This will help you to validate all files that is provided by external sources.</description>
     <copyright>2019-2021</copyright>
     <tags>TypeChecking TypeValidating Files FileChecking FileValidation Validation File Type Validator Checker Magic Numbers Identifying Bytes</tags>
+
+    <dependencies>
+      <dependency id="System.Linq.Async" version="5.0.0.0" />
+      <dependency id="File.TypeChecker" version="2.0.0.0" />
+    </dependencies>
   </metadata>
 
   <files>
