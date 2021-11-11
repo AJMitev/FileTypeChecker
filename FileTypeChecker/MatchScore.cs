@@ -10,7 +10,7 @@
             this.Score = score;
         }
 
-        public IFileType Type { get; set; }
-        public int Score { get; set; }
+        internal IFileType Type { get; set; }
+        internal int Score { get; set; }
     }
 }
