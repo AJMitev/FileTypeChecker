@@ -16,7 +16,9 @@
         public static bool Is<T>(this Stream fileContent) where T : FileType, IFileType, new()
         {
             var instance = new T();
-            return instance.DoesMatchWith(fileContent);
+            var match = FileTypeValidator.GetBestMatch(fileContent);
+
+            return match.GetType() == instance.GetType();
         }
 
         /// <summary>
@@ -28,7 +30,9 @@
         public static async Task<bool> IsAsync<T>(this Stream fileContent) where T : FileType, IFileType, new()
         {
             var instance = new T();
-            return await instance.DoesMatchWithAsync(fileContent);
+            var match = await FileTypeValidator.GetBestMatchAsync(fileContent);
+
+            return match.GetType() == instance.GetType();
         }
 
         /// <summary>
@@ -92,7 +96,7 @@
         /// <summary>
         /// Validates taht the current file is executable or executable and linkable.
         /// </summary>
-        /// <param name="fileContent"></param>
+        /// <param name="fileContent">Returns true if the provided file is an executable otherwise returns false.</param>
         /// <returns></returns>
         public static bool IsExecutable(this Stream fileContent)
             => fileContent.Is<Executable>()
@@ -101,10 +105,32 @@
         /// <summary>
         /// Validates taht the current file is executable or executable and linkable.
         /// </summary>
-        /// <param name="fileContent"></param>
+        /// <param name="fileContent">Returns true if the provided file is an executable otherwise returns false.</param>
         /// <returns></returns>
         public static async Task<bool> IsExecutableAsync(this Stream fileContent)
           => await fileContent.IsAsync<Executable>().ConfigureAwait(false)
           || await fileContent.IsAsync<ExecutableAndLinkableFormat>().ConfigureAwait(false);
+
+        /// <summary>
+        /// Validates that the current file is a document.
+        /// </summary>
+        /// <param name="fileContent"File to check as stream.></param>
+        /// <returns>Returns true if the provided file is a document otherwise returns false. Supported document types are: Extensible Markup Language, Microsoft Office365 Document, Microsoft Office Document, Portable Document Format.</returns>
+        public static bool IsDocument(this Stream fileContent)
+            => fileContent.Is<ExtensibleMarkupLanguage>()
+            || fileContent.Is<MicrosoftOffice365Document>()
+            || fileContent.Is<MicrosoftOfficeDocument>()
+            || fileContent.Is<PortableDocumentFormat>();
+
+        /// <summary>
+        /// Validates that the current file is a document.
+        /// </summary>
+        /// <param name="fileContent"File to check as stream.></param>
+        /// <returns>Returns true if the provided file is a document otherwise returns false. Supported document types are: Extensible Markup Language, Microsoft Office365 Document, Microsoft Office Document, Portable Document Format.</returns>
+        public static async Task<bool> IsDocumentAsync(this Stream fileContent)
+            => await fileContent.IsAsync<ExtensibleMarkupLanguage>().ConfigureAwait(false)
+            || await fileContent.IsAsync<MicrosoftOffice365Document>().ConfigureAwait(false)
+            || await fileContent.IsAsync<MicrosoftOfficeDocument>()
+            || await fileContent.IsAsync<PortableDocumentFormat>();
     }
 }

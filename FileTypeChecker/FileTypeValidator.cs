@@ -16,17 +16,17 @@
     public static class FileTypeValidator
     {
         private const string EmptyCollectionErrorMessage = "Can't search in collection with no items!";
-        private static readonly List<Assembly> typesAssemblies = new List<Assembly>
+        private static readonly List<Assembly> typesAssemblies = new()
         {
             typeof(FileType).Assembly
         };
 
         private static bool isInitialized = false;
-        private static readonly object initializationLock = new object();
-        private static readonly object whereLock = new object();
+        private static readonly object initializationLock = new();
+        private static readonly object whereLock = new();
 
-        private static readonly HashSet<Type> knownTypes = new HashSet<Type>();
-        private static readonly List<IFileType> fileTypes = new List<IFileType>();
+        private static readonly HashSet<Type> knownTypes = new();
+        private static readonly List<IFileType> fileTypes = new();
 
         private static IReadOnlyCollection<IFileType> FileTypes
         {
@@ -76,12 +76,12 @@
         public static async Task<bool> IsTypeRecognizableAsync(Stream fileContent)
         {
             DataValidator.ThrowIfNull(fileContent, nameof(Stream));
-            var matches = await FileTypes
-                           .ToAsyncEnumerable()
-                           .WhereAwait(async x => await x.DoesMatchWithAsync(fileContent))
-                           .ToListAsync();
 
-            return matches.Any();
+            return (await FileTypes
+                .ToAsyncEnumerable()
+                .WhereAwait(async x => await x.DoesMatchWithAsync(fileContent))
+                .ToListAsync())
+                .Any();
         }
 
         /// <summary>
@@ -98,13 +98,7 @@
         {
             DataValidator.ThrowIfNull(fileContent, nameof(Stream));
 
-            var matches = FileTypes.Where(fileType => fileType.DoesMatchWith(fileContent));
-
-            return matches.Count() == 0 
-                ? null 
-                : matches.Count() == 1 
-                    ? matches.First() 
-                    : FindBestMatch(fileContent, matches);
+            return GetBestMatch(fileContent);
         }
 
         /// <summary>
@@ -121,16 +115,7 @@
         {
             DataValidator.ThrowIfNull(fileContent, nameof(Stream));
 
-            var matches = await FileTypes
-                .ToAsyncEnumerable()
-                .WhereAwait(async x => await x.DoesMatchWithAsync(fileContent))
-                .ToListAsync();
-
-            return matches.Count() == 0 
-                ? null 
-                : matches.Count() == 1
-                    ? matches.First() 
-                    : FindBestMatch(fileContent, matches);
+            return await GetBestMatchAsync(fileContent);
         }
 
         /// <summary>
@@ -195,6 +180,23 @@
         /// <returns>Returns true if the provided file is archive otherwise returns false. Supported archive types are: Extensible archive, Gzip, Rar, 7Zip, Tar and Zip.</returns>
         public static Task<bool> IsArchiveAsync(Stream fileContent)
            => fileContent.IsArchiveAsync();
+
+        internal static IFileType GetBestMatch(Stream fileContent)
+        {
+            var matches = FileTypes.Where(fileType => fileType.DoesMatchWith(fileContent));
+
+            return ReturnBestMatch(fileContent, matches);
+        }
+
+        internal static async Task<IFileType> GetBestMatchAsync(Stream fileContent)
+        {
+            var matches = await FileTypes
+                .ToAsyncEnumerable()
+                .WhereAwait(async x => await x.DoesMatchWithAsync(fileContent))
+                .ToListAsync();
+
+            return ReturnBestMatch(fileContent, matches);
+        }
 
         private static IEnumerable<Type> GetTypesInstance(Assembly assembly)
             => assembly.GetTypes()
@@ -265,5 +267,11 @@
             return bestMatch;
         }
 
+        private static IFileType ReturnBestMatch(Stream fileContent, IEnumerable<IFileType> matches)
+            => matches.Count() == 0
+                ? null
+                : matches.Count() == 1
+                    ? matches.First()
+                    : FindBestMatch(fileContent, matches);
     }
 }
