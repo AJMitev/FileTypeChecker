@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Http;
     using System.IO;
 
-    public static class IFormFileExtensions
+    public static class s
     {
         /// <summary>
         /// Validates that the file is from certain type
@@ -41,6 +41,14 @@
         /// <returns></returns>
         public static bool IsExecutable(this IFormFile formFile)
             => formFile.ReadFileAsStream().IsExecutable();
+
+        /// <summary>
+        /// Validates taht the current file is executable or executable and linkable.
+        /// </summary>
+        /// <param name="formFile"></param>
+        /// <returns></returns>
+        public static bool IsDocument(this IFormFile formFile)
+            => formFile.ReadFileAsStream().IsDocument();
 
         /// <summary>
         /// Transform object that implements IFormFile interface to MemoryStream.
