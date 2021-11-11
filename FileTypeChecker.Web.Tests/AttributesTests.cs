@@ -1,18 +1,42 @@
 ﻿namespace FileTypeChecker.Web.Tests
 {
-    using FileTypeChecker;
     using FileTypeChecker.Types;
     using FileTypeChecker.Web.Attributes;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Http.Internal;
     using NUnit.Framework;
     using System;
-    using System.Collections.Generic;
-    using System.IO;
 
     [TestFixture]
     public class AttributesTests
     {
+
+        [Test]
+        [TestCase("365-doc.docx", true)]
+        [TestCase("test.pdf", true)]
+        [TestCase("test.doc", true)]
+        [TestCase("test.png", false)]
+        [TestCase("test.zip", false)]
+        public void AllowDocumentsAttribute_ShouldAllowOnlyDocuments(string fileName, bool expectedResult)
+        {
+            var stream = FileHelpers.ReadFile(fileName);
+
+            var attributeToTest = new AllowDocumentsAttribute();
+
+            Assert.AreEqual(expectedResult, attributeToTest.IsValid(stream));
+        }
+
+        [Test]
+        [TestCase(new[] { "365-doc.docx", "test.pdf", "test.doc" }, true)]
+        [TestCase(new[] { "365-doc.docx", "test.doc" }, true)]
+        [TestCase(new[] { "365-doc.docx", "test.zip" }, false)]
+        public void AllowDocumentsAttribute_ShouldAllowOnlyDocumentsIfTheInputIsCollection(string[] files, bool expectedResult)
+        {
+            var stream = FileHelpers.ReadFiles(files);
+
+            var attributeToTest = new AllowDocumentsAttribute();
+
+            Assert.AreEqual(expectedResult, attributeToTest.IsValid(stream));
+        }
+
         [Test]
         [TestCase("test.bmp", new[] { Bitmap.TypeExtension }, true)]
         [TestCase("test.bmp", new[] { JointPhotographicExpertsGroup.TypeExtension }, false)]
