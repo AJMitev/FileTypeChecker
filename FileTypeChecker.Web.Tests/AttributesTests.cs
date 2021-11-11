@@ -81,7 +81,7 @@
         {
             var stream = FileHelpers.ReadFile(fileName);
 
-            var attributeToTest = new AllowArchiveOnlyAttribute();
+            var attributeToTest = new AllowArchivesAttribute();
 
             Assert.AreEqual(expectedResult, attributeToTest.IsValid(stream));
         }
@@ -96,7 +96,7 @@
         {
             var stream = FileHelpers.ReadFile(fileName);
 
-            var attributeToTest = new AllowImageOnlyAttribute();
+            var attributeToTest = new AllowImagesAttribute();
 
             Assert.AreEqual(expectedResult, attributeToTest.IsValid(stream));
         }
@@ -107,7 +107,7 @@
         {
             var stream = FileHelpers.ReadFile(fileName);
 
-            var attributeToTest = new ForbidExecutableFileAttribute();
+            var attributeToTest = new ForbidExecutablesAttribute();
 
             Assert.IsFalse(attributeToTest.IsValid(stream));
         }
@@ -118,7 +118,7 @@
             var fileNames = new[] { "test.png", "test.jpg", "test.bmp" };
             var files = FileHelpers.ReadFiles(fileNames);
 
-            var attrebuteToTest = new AllowImageOnlyAttribute();
+            var attrebuteToTest = new AllowImagesAttribute();
 
             Assert.IsTrue(attrebuteToTest.IsValid(files));
         }
@@ -129,7 +129,7 @@
             var fileNames = new[] { "test.png", "test.jpg", "test.bmp", "test.exe" };
             var files = FileHelpers.ReadFiles(fileNames);
 
-            var attrebuteToTest = new AllowImageOnlyAttribute();
+            var attrebuteToTest = new AllowImagesAttribute();
 
             Assert.IsFalse(attrebuteToTest.IsValid(files));
         }
@@ -140,14 +140,14 @@
             var fileNames = new[] { "test.zip", "test.7z", "test.bz2", "test.gz" };
             var files = FileHelpers.ReadFiles(fileNames);
 
-            var attributeToTest = new AllowArchiveOnlyAttribute();
+            var attributeToTest = new AllowArchivesAttribute();
             Assert.IsTrue(attributeToTest.IsValid(files));
         }
 
         [Test]
         public void AllowArchiveOnlyAttribute_ShouldReturnTrueIfInputIsNull()
         {
-            var attributeToTest = new AllowArchiveOnlyAttribute();
+            var attributeToTest = new AllowArchivesAttribute();
             Assert.IsTrue(attributeToTest.IsValid(null));
         }
 
@@ -157,7 +157,7 @@
             var fileNames = new[] { "test.zip", "test.7z", "test.jpg", "test.gz" };
             var files = FileHelpers.ReadFiles(fileNames);
 
-            var attributeToTest = new AllowArchiveOnlyAttribute();
+            var attributeToTest = new AllowArchivesAttribute();
             Assert.IsFalse(attributeToTest.IsValid(files));
         }
 
@@ -187,7 +187,7 @@
             var fileNames = new[] { "test.zip", "test.7z", "test.jpg", "test.gz" };
             var files = FileHelpers.ReadFiles(fileNames);
 
-            var attributeToTest = new ForbidExecutableFileAttribute();
+            var attributeToTest = new ForbidExecutablesAttribute();
             Assert.IsTrue(attributeToTest.IsValid(files));
         }
 
@@ -197,7 +197,7 @@
             var fileNames = new[] { "test.zip", "test.7z", "test.exe", "test.gz" };
             var files = FileHelpers.ReadFiles(fileNames);
 
-            var attributeToTest = new ForbidExecutableFileAttribute();
+            var attributeToTest = new ForbidExecutablesAttribute();
             Assert.IsFalse(attributeToTest.IsValid(files));
         }
 

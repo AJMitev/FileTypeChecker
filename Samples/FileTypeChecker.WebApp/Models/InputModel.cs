@@ -6,16 +6,16 @@
 
     public class InputModel
     {
-        [AllowImageOnly]
+        [AllowImages]
         public IFormFile FirstFile { get; set; }
 
-        [AllowArchiveOnly]
+        [AllowArchives]
         public IFormFile SecondFile { get; set; }
 
         [AllowedTypes(Bitmap.TypeExtension)]
         public IFormFile ThirdFile { get; set; }
 
-        [ForbidExecutableFile]
+        [ForbidExecutables]
         public IFormFile FourthFile { get; set; }
 
         [ForbidTypes(MicrosoftOfficeDocument.TypeExtension)]

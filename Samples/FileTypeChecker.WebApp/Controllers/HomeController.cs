@@ -35,7 +35,7 @@
         }
 
         [HttpPost("filesUpload")]
-        public IActionResult UploadFiles([AllowImageOnly] IFormFile imageFile, [AllowArchiveOnly] IFormFile archiveFile)
+        public IActionResult UploadFiles([AllowImages] IFormFile imageFile, [AllowArchives] IFormFile archiveFile)
         {
             if (!this.ModelState.IsValid)
             {
