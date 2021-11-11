@@ -4,7 +4,6 @@
     using FileTypeChecker.Common;
     using FileTypeChecker.Extensions;
     using System;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -101,7 +100,11 @@
 
             var matches = FileTypes.Where(fileType => fileType.DoesMatchWith(fileContent));
 
-            return matches.Count() == 0 ? null : matches.Count() == 1 ? matches.First() : FindBestMatch(fileContent, matches); ;
+            return matches.Count() == 0 
+                ? null 
+                : matches.Count() == 1 
+                    ? matches.First() 
+                    : FindBestMatch(fileContent, matches);
         }
 
         /// <summary>
@@ -123,7 +126,11 @@
                 .WhereAwait(async x => await x.DoesMatchWithAsync(fileContent))
                 .ToListAsync();
 
-            return matches.Count() == 0 ? null : matches.Count() == 1 ? matches.First() : FindBestMatch(fileContent, matches); ;
+            return matches.Count() == 0 
+                ? null 
+                : matches.Count() == 1
+                    ? matches.First() 
+                    : FindBestMatch(fileContent, matches);
         }
 
         /// <summary>
@@ -212,9 +219,15 @@
 
         private static IFileType FindBestMatch(Stream fileContent, IEnumerable<IFileType> result)
         {
-            var scoreboard = CreateScoreboard(fileContent, result);
-
-            return FindMaxScore(scoreboard);
+            try
+            {
+                var scoreboard = CreateScoreboard(fileContent, result);
+                return FindMaxScore(scoreboard);
+            }
+            catch (InvalidOperationException)
+            {
+                return null;
+            }
         }
 
         private static IEnumerable<MatchScore> CreateScoreboard(Stream fileContent, IEnumerable<IFileType> result)
