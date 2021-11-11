@@ -76,6 +76,7 @@
         [TestCase("test.7z", true)]
         [TestCase("test.bz2", true)]
         [TestCase("test.gz", true)]
+        [TestCase("365-doc.docx", false)]
         public void OnlyArchiveAttribute_ShouldReturnValidateIfTheFileIsArchive(string fileName, bool expectedResult)
         {
             var stream = FileHelpers.ReadFile(fileName);
@@ -90,6 +91,7 @@
         [TestCase("test.jpg", true)]
         [TestCase("test.bmp", true)]
         [TestCase("test.zip", false)]
+        [TestCase("365-doc.docx", false)]
         public void OnlyImageAttribute_ShouldValidateIfTheFileIsImage(string fileName, bool expectedResult)
         {
             var stream = FileHelpers.ReadFile(fileName);
