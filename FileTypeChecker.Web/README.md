@@ -18,15 +18,15 @@ This library will provide you with five powerful and easy to use validation attr
 
 All validation attributes should be used over IFormFile interface and can be used in a class over property or with method parameter.
 
-- AllowImageOnly: This validation attribute will restrict IFormFile to be only image format like jpg, gif, bmp, png and tiff
-- AllowArchiveOnly: This validation attribute will restrict IFormFIle to be only archive format.
-- AllowedTypes: This validation attribute will allow you to specify what types of file you want to recive from user. We advice you to use FileExtension class to specify the extension string.
-- ForbidExecutableFile: This validation attribute will forbid your users to upload executable files.
+- AllowImages: This validation attribute will restrict IFormFile to be only image format like jpg, gif, bmp, png and tiff
+- AllowArchives: This validation attribute will restrict IFormFIle to be only archive format.
+- AllowedTypes: This validation attribute will allow you to specify what types of file you want to receive from user. We advice you to use FileExtension class to specify the extension string.
+- ForbidExecutables: This validation attribute will forbid your users to upload executable files.
 - ForbidTypes: This validation attribute will allow you to specify what types of file you don't want to recive from user. We advice you to use FileExtension class to specify the extension string.
 
 ```c#
 [HttpPost("filesUpload")]
-public IActionResult UploadFiles([AllowImageOnly] IFormFile imageFile, [AllowArchiveOnly] IFormFile archiveFile)
+public IActionResult UploadFiles([AllowImages] IFormFile imageFile, [AllowArchives] IFormFile archiveFile)
 {
     // Some cool stuf here ...
 }
@@ -37,16 +37,16 @@ using FileTypeChecker.Web.Attributes;
 
 public class InputModel
 {
-    [AllowImageOnly]
+    [AllowImages]
     public IFormFile FirstFile { get; set; }
 
-    [AllowArchiveOnly]
+    [AllowArchives]
     public IFormFile SecondFile { get; set; }
 
     [AllowedTypes(FileExtension.Bitmap)]
     public IFormFile ThirdFile { get; set; }
 
-    [ForbidExecutableFile]
+    [ForbidExecutables]
     public IFormFile FourthFile { get; set; }
 
     [ForbidTypes(FileExtension.Doc)]
