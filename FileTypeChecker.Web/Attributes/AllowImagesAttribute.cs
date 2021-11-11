@@ -4,7 +4,7 @@
     using Microsoft.AspNetCore.Http;
     using System.ComponentModel.DataAnnotations;
 
-    public class AllowImageOnlyAttribute : FileTypeValidationWithNoParametersBaseAttribute
+    public class AllowImagesAttribute : FileTypeValidationWithNoParametersBaseAttribute
     {
         /// <summary>
         /// Determines whether a specified object is valid. (Overrides <see cref = "ValidationAttribute.IsValid(object)" />)

@@ -4,8 +4,8 @@
     using Microsoft.AspNetCore.Http;
     using System.ComponentModel.DataAnnotations;
 
-    public class AllowArchiveOnlyAttribute : FileTypeValidationWithNoParametersBaseAttribute
-    {       
+    public class ForbidExecutablesAttribute : FileTypeValidationWithNoParametersBaseAttribute
+    {
         protected override ValidationResult Validate(IFormFile formFile)
         {
             if (!IFormFileTypeValidator.IsTypeRecognizable(formFile))
@@ -13,7 +13,7 @@
                 return new ValidationResult(this.UnsupportedFileErrorMessage);
             }
 
-            if (!formFile.IsArchive())
+            if (formFile.IsExecutable())
             {
                 return new ValidationResult(this.ErrorMessage ?? this.InvalidFileTypeErrorMessage);
             }
