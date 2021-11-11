@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>File.TypeChecker</id>
-    <version>2.0.3</version>
+    <version>2.1.0</version>
     <title>FileTypeChecker</title>
     <authors>Aleksandar J. Mitev</authors>
     <owners>Aleksandar J. Mitev</owners>

@@ -15,7 +15,6 @@
     <tags>TypeChecking TypeValidating Files FileChecking FileValidation Validation File Type Validator Checker Magic Numbers Identifying Bytes</tags>
 
     <dependencies>
-      <dependency id="System.Linq.Async" version="5.0.0.0" />
       <dependency id="File.TypeChecker" version="2.0.0.0" />
     </dependencies>
   </metadata>
