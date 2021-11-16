@@ -28,20 +28,6 @@ or by using dotnet CLI
 dotnet add package File.TypeChecker
 ```
 
-If you are working on a web project like MVC or WebApi use [File.TypeChecker.Web](https://www.nuget.org/packages/File.TypeChecker.Web/). This web library will provide you with all validation attributes you needed for easy data validation. Again You can install it by using NuGet
-
-You can install this library using NuGet into your project.
-
-```nuget
-Install-Package File.TypeChecker.Web
-```
-
-or by using dotnet CLI
-
-```
-dotnet add package File.TypeChecker.Web
-```
-
 ## How to use?
 
 ```c#
@@ -62,52 +48,11 @@ using (var fileStream = File.OpenRead("myFileLocation"))
 }
 ```
 
-### Web Application
-
-With web package you will recive access to our validation attributes that will gives you easy and powerfull way to allow or forbid file types. For example you can restrict your users to be able to upload only images or only archives just by setting an attribute into your method or class.
-
-All validation attributes should be used over IFormFile interface and can be used in a class over property or with method parameter.
-
-- AllowImages: This validation attribute will restrict IFormFile to be only image format like jpg, gif, bmp, png and tiff
-- AllowArchives: This validation attribute will restrict IFormFIle to be only archive format.
-- AllowedTypes: This validation attribute will allow you to specify what types of file you want to receive from user. We advice you to use FileExtension class to specify the extension string.
-- ForbidExecutables: This validation attribute will forbid your users to upload executable files.
-- ForbidTypes: This validation attribute will allow you to specify what types of file you don't want to recive from user. We advice you to use FileExtension class to specify the extension string.
-
-```c#
-[HttpPost("filesUpload")]
-public IActionResult UploadFiles([AllowImages] IFormFile imageFile, [AllowArchives] IFormFile archiveFile)
-{
-    // Some cool stuf here ...
-}
-```
-
-```c#
-using FileTypeChecker.Web.Attributes;
-
-public class InputModel
-{
-    [AllowImages]
-    public IFormFile FirstFile { get; set; }
-
-    [AllowArchives]
-    public IFormFile SecondFile { get; set; }
-
-    [AllowedTypes(FileExtension.Bitmap)]
-    public IFormFile ThirdFile { get; set; }
-
-    [ForbidExecutables]
-    public IFormFile FourthFile { get; set; }
-
-    [ForbidTypes(FileExtension.Doc)]
-    public IFormFile FifthFile { get; set; }
-}
-```
 If you are interested in finding more samples please use our [wiki page](https://github.com/AJMitev/FileTypeChecker/wiki/How-to-use%3F).
 
 ## What types of file are supported?
 
-FileTypeChecker is able to identify different types but also you are able to register your own types. For more information please visit our [wiki page](https://github.com/AJMitev/FileTypeChecker/wiki/What-types-of-file-are-supported%3F)
+FileTypeChecker is able to identify more than 22 different types but also you are able to register your own types. For more information please visit our [wiki page](https://github.com/AJMitev/FileTypeChecker/wiki/What-types-of-file-are-supported%3F)
 
 ## Credits
 
