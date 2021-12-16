@@ -1,6 +1,7 @@
 <h1><img src="https://raw.githubusercontent.com/AJMitev/FileTypeChecker/master/tools/FileTypeCheckerLogo-150.png" align="left" alt="FileTypeChecker" width="90">FileTypeChecker - Don't let users to inject you an invalid file</h1>
 
-[![Build status](https://ci.appveyor.com/api/projects/status/jx9bcrxs95srhxsj?svg=true)](https://ci.appveyor.com/project/AJMitev/filetypechecker) [![NuGet Badge](https://buildstats.info/nuget/File.TypeChecker)](https://www.nuget.org/packages/File.TypeChecker/)  [![License: MIT](https://img.shields.io/github/license/ajmitev/filetypechecker)](https://github.com/AJMitev/FileTypeChecker/blob/master/LICENSE)   [![CodeFactor](https://www.codefactor.io/repository/github/ajmitev/filetypechecker/badge)](https://www.codefactor.io/repository/github/ajmitev/filetypechecker)  
+
+[![Build status](https://ci.appveyor.com/api/projects/status/jx9bcrxs95srhxsj?svg=true)](https://ci.appveyor.com/project/AJMitev/filetypechecker) [![NuGet Badge](https://buildstats.info/nuget/File.TypeChecker)](https://www.nuget.org/packages/File.TypeChecker/)  [![License: MIT](https://img.shields.io/github/license/ajmitev/filetypechecker)](https://github.com/AJMitev/FileTypeChecker/blob/master/LICENSE)  [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FAJMitev%2FFileTypeChecker.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FAJMitev%2FFileTypeChecker?ref=badge_large)  [![CodeFactor](https://www.codefactor.io/repository/github/ajmitev/filetypechecker/badge)](https://www.codefactor.io/repository/github/ajmitev/filetypechecker)  
 
 ## Project Description
 
