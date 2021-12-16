@@ -8,12 +8,11 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// Provides you a method for file type validation.
     /// </summary>
-    public static class FileTypeValidator
+    public abstract class FileTypeValidator
     {
         private const string EmptyCollectionErrorMessage = "Can't search in collection with no items!";
         private static readonly List<Assembly> typesAssemblies = new()
@@ -28,7 +27,7 @@
         private static readonly HashSet<Type> knownTypes = new();
         private static readonly List<IFileType> fileTypes = new();
 
-        private static IReadOnlyCollection<IFileType> FileTypes
+        protected static IReadOnlyCollection<IFileType> FileTypes
         {
             get
             {
@@ -65,26 +64,6 @@
         }
 
         /// <summary>
-        /// Checks that the particular type is supported.
-        /// </summary>
-        /// <param name="fileContent">File to check as stream.</param>
-        /// <returns>If current type is supported</returns>
-        /// <exception cref="System.ArgumentException"></exception>
-        /// <exception cref="System.ArgumentNullException"></exception>
-        /// <exception cref="System.NotSupportedException"></exception>
-        /// <exception cref="System.ObjectDisposedException"></exception>
-        public static async Task<bool> IsTypeRecognizableAsync(Stream fileContent)
-        {
-            DataValidator.ThrowIfNull(fileContent, nameof(Stream));
-
-            return (await FileTypes
-                .ToAsyncEnumerable()
-                .WhereAwait(async x => await x.DoesMatchWithAsync(fileContent))
-                .ToListAsync())
-                .Any();
-        }
-
-        /// <summary>
         /// Get details about current file type.
         /// </summary>
         /// <param name="fileContent">File to check as stream.</param>
@@ -99,23 +78,6 @@
             DataValidator.ThrowIfNull(fileContent, nameof(Stream));
 
             return GetBestMatch(fileContent);
-        }
-
-        /// <summary>
-        /// Get details about current file type.
-        /// </summary>
-        /// <param name="fileContent">File to check as stream.</param>
-        /// <returns>Instance of <see cref="IFileType}"/> type. If the type is not recognized returns <see cref="null}"/></returns>
-        /// /// <exception cref="System.ArgumentException"></exception>
-        /// <exception cref="System.ArgumentNullException"></exception>
-        /// <exception cref="System.NotSupportedException"></exception>
-        /// <exception cref="System.ObjectDisposedException"></exception>
-        /// <exception cref="System.InvalidOperationException"></exception>
-        public static async Task<IFileType> GetFileTypeAsync(Stream fileContent)
-        {
-            DataValidator.ThrowIfNull(fileContent, nameof(Stream));
-
-            return await GetBestMatchAsync(fileContent);
         }
 
         /// <summary>
@@ -140,15 +102,6 @@
             => fileContent.Is<T>();
 
         /// <summary>
-        /// Validates that the file is from certain type
-        /// </summary>
-        /// <typeparam name="T">Type that implements FileType</typeparam>
-        /// <param name="fileContent">File as stream</param>
-        /// <returns>True if file match the desired type otherwise returns false.</returns>
-        public static Task<bool> IsAsync<T>(Stream fileContent) where T : FileType, IFileType, new()
-           => fileContent.IsAsync<T>();
-
-        /// <summary>
         /// Validates that the current file is image.
         /// </summary>
         /// <param name="fileContent">File to check as stream.</param>
@@ -158,14 +111,6 @@
             => fileContent.IsImage();
 
         /// <summary>
-        /// Validates that the current file is image.
-        /// </summary>
-        /// <param name="fileContent">File to check as stream.</param>
-        /// <returns>Returns true if the provided file is image otherwise returns false. Supported image types are: Bitmap, JPEG, GIF and PNG.</returns>
-        public static Task<bool> IsImageAsync(Stream fileContent)
-           => fileContent.IsImageAsync();
-
-        /// <summary>
         /// Validates that the current file is archive.
         /// </summary>
         /// <param name="fileContent"File to check as stream.></param>
@@ -173,27 +118,9 @@
         public static bool IsArchive(Stream fileContent)
             => fileContent.IsArchive();
 
-        /// <summary>
-        /// Validates that the current file is archive.
-        /// </summary>
-        /// <param name="fileContent"File to check as stream.></param>
-        /// <returns>Returns true if the provided file is archive otherwise returns false. Supported archive types are: Extensible archive, Gzip, Rar, 7Zip, Tar and Zip.</returns>
-        public static Task<bool> IsArchiveAsync(Stream fileContent)
-           => fileContent.IsArchiveAsync();
-
         internal static IFileType GetBestMatch(Stream fileContent)
         {
             var matches = FileTypes.Where(fileType => fileType.DoesMatchWith(fileContent));
-
-            return ReturnBestMatch(fileContent, matches);
-        }
-
-        internal static async Task<IFileType> GetBestMatchAsync(Stream fileContent)
-        {
-            var matches = await FileTypes
-                .ToAsyncEnumerable()
-                .WhereAwait(async x => await x.DoesMatchWithAsync(fileContent))
-                .ToListAsync();
 
             return ReturnBestMatch(fileContent, matches);
         }
