@@ -2,15 +2,15 @@
 {
     using FileTypeChecker.Abstracts;
 
-    internal class MatchScore
+    public class MatchScore
     {
-        internal MatchScore(IFileType fileType, int score)
+        public MatchScore(IFileType fileType, int score)
         {
             this.Type = fileType;
             this.Score = score;
         }
 
-        internal IFileType Type { get; set; }
-        internal int Score { get; set; }
+        public IFileType Type { get; set; }
+        public int Score { get; set; }
     }
 }

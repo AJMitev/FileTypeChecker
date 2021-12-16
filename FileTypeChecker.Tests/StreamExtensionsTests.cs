@@ -4,7 +4,6 @@
     using FileTypeChecker.Extensions;
     using NUnit.Framework;
     using System.IO;
-    using System.Threading.Tasks;
 
     [TestFixture]
     public class StreamExtensionsTests
@@ -105,26 +104,6 @@
             using var fileStream = File.OpenRead("./files/test.doc");
             var expected = true;
             var actual = fileStream.IsDocument();
-
-            Assert.AreEqual(expected, actual);
-        }
-
-        [Test]
-        public async Task DocumentAsync_ShouldReturnFalseIfTypesDidNotMatch()
-        {
-            using var fileStream = File.OpenRead("./files/test.bmp");
-            var expected = false;
-            var actual = await fileStream.IsDocumentAsync();
-
-            Assert.AreEqual(expected, actual);
-        }
-
-        [Test]
-        public async Task IsDocumentAsync_ShouldReturnTrueIfTheTypesMatch()
-        {
-            using var fileStream = File.OpenRead("./files/test.doc");
-            var expected = true;
-            var actual = await fileStream.IsDocumentAsync();
 
             Assert.AreEqual(expected, actual);
         }
