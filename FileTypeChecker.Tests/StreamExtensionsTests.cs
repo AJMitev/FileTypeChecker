@@ -107,5 +107,15 @@
 
             Assert.AreEqual(expected, actual);
         }
+
+        [Test]
+        public void Is_ShouldReturnFalseIfRandomInput()
+        {
+            using var memorystream = new MemoryStream(new byte[] {4, 6, 210, 16, 48, 31, 48, 45});
+            var expected = false;
+            var actual = memorystream.Is<Gzip>();
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

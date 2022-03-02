@@ -17,7 +17,7 @@
             var instance = new T();
             var match = FileTypeValidator.GetBestMatch(fileContent);
 
-            return match.GetType() == instance.GetType();
+            return match?.GetType() == instance.GetType();
         }
 
         /// <summary>
