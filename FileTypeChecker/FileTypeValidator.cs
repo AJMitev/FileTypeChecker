@@ -106,9 +106,8 @@
         /// </summary>
         /// <param name="fileContent">File to check as stream.</param>
         /// <returns>Returns true if the provided file is image otherwise returns false. Supported image types are: Bitmap, JPEG, GIF and PNG.</returns>
-
         public static bool IsImage(Stream fileContent)
-            => fileContent.IsImage();
+                    => fileContent.IsImage();
 
         /// <summary>
         /// Validates that the current file is archive.
