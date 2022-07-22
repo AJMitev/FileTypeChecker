@@ -57,7 +57,6 @@
             }
         }
 
-
         private byte[][] Bytes
         {
             get => this.bytes;

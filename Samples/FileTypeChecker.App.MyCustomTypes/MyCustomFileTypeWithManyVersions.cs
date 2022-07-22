@@ -8,9 +8,6 @@
         private const string extension = "ext2";
         private static readonly byte[][] magicBytesJaggedArray = { new byte[] { 0xAF }, new byte[] { 0xEF } };
 
-      
-        public MyCustomFileTypeWithManyVersions() : base(name, extension, magicBytesJaggedArray)
-        {
-        }
+        public MyCustomFileTypeWithManyVersions() : base(name, extension, magicBytesJaggedArray) { }
     }
 }

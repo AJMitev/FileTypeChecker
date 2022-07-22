@@ -14,9 +14,6 @@
             new byte[] { 0xFF, 0xFB }
         };
 
-
-        public MpegAudio() : base(TypeName, TypeExtension, magicBytesJaggedArray)
-        {
-        }
+        public MpegAudio() : base(TypeName, TypeExtension, magicBytesJaggedArray) { }
     }
 }
