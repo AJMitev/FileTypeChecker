@@ -45,6 +45,7 @@
         [TestCase("./files/test.wmf")]
         [TestCase("./files/test.ico")]
         [TestCase("./files/365-doc.docx")]
+        [TestCase("./files/testwin10.zip")]
         public void IsTypeRecognizable_ShouldReturnTrueIfFileIsRecognized(string filePath)
         {
             using var fileStream = File.OpenRead(filePath);
@@ -74,6 +75,7 @@
         [TestCase("./files/test.wmf", WindowsMetaFileType.TypeExtension)]
         [TestCase("./files/test.ico", Icon.TypeExtension)]
         [TestCase("./files/365-doc.docx", MicrosoftOffice365Document.TypeExtension)]
+        [TestCase("./files/testwin10.zip", ZipFile.TypeExtension)]
         public void GetFileType_ShouldReturnFileExtension(string filePath, string expectedFileExtension)
         {
             using var fileStream = File.OpenRead(filePath);
@@ -101,6 +103,7 @@
         [TestCase("./files/test.wmf", WindowsMetaFileType.TypeName)]
         [TestCase("./files/test.ico", Icon.TypeName)]
         [TestCase("./files/365-doc.docx", MicrosoftOffice365Document.TypeName)]
+        [TestCase("./files/testwin10.zip", ZipFile.TypeName)]
         public void GetFileType_ShouldReturnFileName(string filePath, string expectedFileTypeName)
         {
             using var fileStream = File.OpenRead(filePath);
