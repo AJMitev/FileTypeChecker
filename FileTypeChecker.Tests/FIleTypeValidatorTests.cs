@@ -2,7 +2,6 @@
 {
     using System;
     using System.IO;
-    using FileTypeChecker.Abstracts;
     using FileTypeChecker.Exceptions;
     using FileTypeChecker.Types;
     using NUnit.Framework;
@@ -49,6 +48,7 @@
         [TestCase("365-doc.docx")]
         [TestCase("testwin10.zip")]
         [TestCase("test.webp")]
+        [TestCase("sample.heic")]
         public void IsTypeRecognizable_ShouldReturnTrueIfFileIsRecognized(string filePath)
         {
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
@@ -80,6 +80,7 @@
         [TestCase("365-doc.docx", MicrosoftOffice365Document.TypeExtension)]
         [TestCase("testwin10.zip", ZipFile.TypeExtension)]
         [TestCase("test.webp", Webp.TypeExtension)]
+        [TestCase("sample.heic", HighEfficiencyImageFile.TypeExtension)]
         public void GetFileType_ShouldReturnFileExtension(string filePath, string expectedFileExtension)
         {
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
@@ -109,6 +110,7 @@
         [TestCase("365-doc.docx", MicrosoftOffice365Document.TypeName)]
         [TestCase("testwin10.zip", ZipFile.TypeName)]
         [TestCase("test.webp", Webp.TypeName)]
+        [TestCase("sample.heic", HighEfficiencyImageFile.TypeName)]
         public void GetFileType_ShouldReturnFileName(string filePath, string expectedFileTypeName)
         {
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));

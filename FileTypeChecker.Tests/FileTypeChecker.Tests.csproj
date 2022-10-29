@@ -31,6 +31,9 @@
     <None Update="Files\blob.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="files\sample.heic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Files\test-bom.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
