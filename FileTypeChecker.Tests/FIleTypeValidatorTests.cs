@@ -2,14 +2,16 @@
 {
     using System;
     using System.IO;
-    using System.Threading.Tasks;
     using FileTypeChecker.Abstracts;
+    using FileTypeChecker.Exceptions;
     using FileTypeChecker.Types;
     using NUnit.Framework;
 
     [TestFixture]
     public class FileTypeValidatorTests
     {
+        private const string FilesPath = "./files/";
+
         [Test]
         public void IsTypeRecognizable_ShouldThrowArgumentNullExceptionIfStreamIsNull()
             => Assert.Catch<ArgumentNullException>(() => FileTypeValidator.IsTypeRecognizable(null));
@@ -17,7 +19,7 @@
         [Test]
         public void IsTypeRecognizable_ShouldReturnFalseIfFormatIsUnknown()
         {
-            using var fileStream = File.OpenRead("./files/test");
+            using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test"));
 
             var expected = false;
 
@@ -27,28 +29,29 @@
         }
 
         [Test]
-        [TestCase("./files/test.bmp")]
-        [TestCase("./files/test.jpg")]
-        [TestCase("./files/test.png")]
-        [TestCase("./files/test.gif")]
-        [TestCase("./files/test.tif")]
-        [TestCase("./files/test.psd")]
-        [TestCase("./files/test.pdf")]
-        [TestCase("./files/test.doc")]
-        [TestCase("./files/test.xml")]
-        [TestCase("./files/test.zip")]
-        [TestCase("./files/test.7z")]
-        [TestCase("./files/test.bz2")]
-        [TestCase("./files/test.gz")]
-        [TestCase("./files/test-bom.xml")]
-        [TestCase("./files/blob.mp3")]
-        [TestCase("./files/test.wmf")]
-        [TestCase("./files/test.ico")]
-        [TestCase("./files/365-doc.docx")]
-        [TestCase("./files/testwin10.zip")]
+        [TestCase("test.bmp")]
+        [TestCase("test.jpg")]
+        [TestCase("test.png")]
+        [TestCase("test.gif")]
+        [TestCase("test.tif")]
+        [TestCase("test.psd")]
+        [TestCase("test.pdf")]
+        [TestCase("test.doc")]
+        [TestCase("test.xml")]
+        [TestCase("test.zip")]
+        [TestCase("test.7z")]
+        [TestCase("test.bz2")]
+        [TestCase("test.gz")]
+        [TestCase("test-bom.xml")]
+        [TestCase("blob.mp3")]
+        [TestCase("test.wmf")]
+        [TestCase("test.ico")]
+        [TestCase("365-doc.docx")]
+        [TestCase("testwin10.zip")]
+        [TestCase("test.webp")]
         public void IsTypeRecognizable_ShouldReturnTrueIfFileIsRecognized(string filePath)
         {
-            using var fileStream = File.OpenRead(filePath);
+            using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
 
             var expected = true;
 
@@ -58,27 +61,28 @@
         }
 
         [Test]
-        [TestCase("./files/test.bmp", Bitmap.TypeExtension)]
-        [TestCase("./files/test.jpg", JointPhotographicExpertsGroup.TypeExtension)]
-        [TestCase("./files/test.png", PortableNetworkGraphic.TypeExtension)]
-        [TestCase("./files/test.gif", GraphicsInterchangeFormat87.TypeExtension)]
-        [TestCase("./files/test.tif", TaggedImageFileFormat.TypeExtension)]
-        [TestCase("./files/test.psd", PhotoshopDocumentFile.TypeExtension)]
-        [TestCase("./files/test.pdf", PortableDocumentFormat.TypeExtension)]
-        [TestCase("./files/test.doc", MicrosoftOfficeDocument.TypeExtension)]
-        [TestCase("./files/test.xml", ExtensibleMarkupLanguage.TypeExtension)]
-        [TestCase("./files/test.zip", ZipFile.TypeExtension)]
-        [TestCase("./files/test.7z", SevenZipFile.TypeExtension)]
-        [TestCase("./files/test.bz2", BZip2File.TypeExtension)]
-        [TestCase("./files/test.gz", Gzip.TypeExtension)]
-        [TestCase("./files/blob.mp3", Mp3.TypeExtension)]
-        [TestCase("./files/test.wmf", WindowsMetaFileType.TypeExtension)]
-        [TestCase("./files/test.ico", Icon.TypeExtension)]
-        [TestCase("./files/365-doc.docx", MicrosoftOffice365Document.TypeExtension)]
-        [TestCase("./files/testwin10.zip", ZipFile.TypeExtension)]
+        [TestCase("test.bmp", Bitmap.TypeExtension)]
+        [TestCase("test.jpg", JointPhotographicExpertsGroup.TypeExtension)]
+        [TestCase("test.png", PortableNetworkGraphic.TypeExtension)]
+        [TestCase("test.gif", GraphicsInterchangeFormat87.TypeExtension)]
+        [TestCase("test.tif", TaggedImageFileFormat.TypeExtension)]
+        [TestCase("test.psd", PhotoshopDocumentFile.TypeExtension)]
+        [TestCase("test.pdf", PortableDocumentFormat.TypeExtension)]
+        [TestCase("test.doc", MicrosoftOfficeDocument.TypeExtension)]
+        [TestCase("test.xml", ExtensibleMarkupLanguage.TypeExtension)]
+        [TestCase("test.zip", ZipFile.TypeExtension)]
+        [TestCase("test.7z", SevenZipFile.TypeExtension)]
+        [TestCase("test.bz2", BZip2File.TypeExtension)]
+        [TestCase("test.gz", Gzip.TypeExtension)]
+        [TestCase("blob.mp3", Mp3.TypeExtension)]
+        [TestCase("test.wmf", WindowsMetaFileType.TypeExtension)]
+        [TestCase("test.ico", Icon.TypeExtension)]
+        [TestCase("365-doc.docx", MicrosoftOffice365Document.TypeExtension)]
+        [TestCase("testwin10.zip", ZipFile.TypeExtension)]
+        [TestCase("test.webp", Webp.TypeExtension)]
         public void GetFileType_ShouldReturnFileExtension(string filePath, string expectedFileExtension)
         {
-            using var fileStream = File.OpenRead(filePath);
+            using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
 
             var actualFileTypeExtension = FileTypeValidator.GetFileType(fileStream).Extension;
 
@@ -86,27 +90,28 @@
         }
 
         [Test]
-        [TestCase("./files/test.bmp", Bitmap.TypeName)]
-        [TestCase("./files/test.jpg", JointPhotographicExpertsGroup.TypeName)]
-        [TestCase("./files/test.png", PortableNetworkGraphic.TypeName)]
-        [TestCase("./files/test.gif", GraphicsInterchangeFormat89.TypeName)]
-        [TestCase("./files/test.tif", TaggedImageFileFormat.TypeName)]
-        [TestCase("./files/test.psd", PhotoshopDocumentFile.TypeName)]
-        [TestCase("./files/test.pdf", PortableDocumentFormat.TypeName)]
-        [TestCase("./files/test.doc", MicrosoftOfficeDocument.TypeName)]
-        [TestCase("./files/test.xml", ExtensibleMarkupLanguage.TypeName)]
-        [TestCase("./files/test.zip", ZipFile.TypeName)]
-        [TestCase("./files/test.7z", SevenZipFile.TypeName)]
-        [TestCase("./files/test.bz2", BZip2File.TypeName)]
-        [TestCase("./files/test.gz", Gzip.TypeName)]
-        [TestCase("./files/blob.mp3", Mp3.TypeName)]
-        [TestCase("./files/test.wmf", WindowsMetaFileType.TypeName)]
-        [TestCase("./files/test.ico", Icon.TypeName)]
-        [TestCase("./files/365-doc.docx", MicrosoftOffice365Document.TypeName)]
-        [TestCase("./files/testwin10.zip", ZipFile.TypeName)]
+        [TestCase("test.bmp", Bitmap.TypeName)]
+        [TestCase("test.jpg", JointPhotographicExpertsGroup.TypeName)]
+        [TestCase("test.png", PortableNetworkGraphic.TypeName)]
+        [TestCase("test.gif", GraphicsInterchangeFormat89.TypeName)]
+        [TestCase("test.tif", TaggedImageFileFormat.TypeName)]
+        [TestCase("test.psd", PhotoshopDocumentFile.TypeName)]
+        [TestCase("test.pdf", PortableDocumentFormat.TypeName)]
+        [TestCase("test.doc", MicrosoftOfficeDocument.TypeName)]
+        [TestCase("test.xml", ExtensibleMarkupLanguage.TypeName)]
+        [TestCase("test.zip", ZipFile.TypeName)]
+        [TestCase("test.7z", SevenZipFile.TypeName)]
+        [TestCase("test.bz2", BZip2File.TypeName)]
+        [TestCase("test.gz", Gzip.TypeName)]
+        [TestCase("blob.mp3", Mp3.TypeName)]
+        [TestCase("test.wmf", WindowsMetaFileType.TypeName)]
+        [TestCase("test.ico", Icon.TypeName)]
+        [TestCase("365-doc.docx", MicrosoftOffice365Document.TypeName)]
+        [TestCase("testwin10.zip", ZipFile.TypeName)]
+        [TestCase("test.webp", Webp.TypeName)]
         public void GetFileType_ShouldReturnFileName(string filePath, string expectedFileTypeName)
         {
-            using var fileStream = File.OpenRead(filePath);
+            using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
 
             var actualFileTypeName = FileTypeValidator.GetFileType(fileStream).Name;
 
@@ -114,15 +119,10 @@
         }
 
         [Test]
-        public void GetFileType_ShouldReturnNullIfTheTypeIsUnknown()
+        public void GetFileType_ShouldThrowTypeNotFoundExceptionWhenTypeIsNotRegistered()
         {
-            using var fileStream = File.OpenRead("./files/test");
-
-            IFileType expected = null;
-
-            var actual = FileTypeValidator.GetFileType(fileStream);
-
-            Assert.AreEqual(expected, actual);
+            using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test"));
+            Assert.Throws<TypeNotFoundException>(() => FileTypeValidator.GetFileType(fileStream));
         }
 
         [Test]
@@ -136,7 +136,7 @@
         [Test]
         public void Is_ShouldReturnTrueIfTheTypesMatch()
         {
-            using var fileStream = File.OpenRead("./files/test.bmp");
+            using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.bmp"));
             var expected = true;
             var actual = FileTypeValidator.Is<Bitmap>(fileStream);
 
@@ -146,7 +146,7 @@
         [Test]
         public void Is_ShouldReturnFalseIfTypesDidNotMatch()
         {
-            using var fileStream = File.OpenRead("./files/test.bmp");
+            using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.bmp"));
             var expected = false;
             var actual = FileTypeValidator.Is<Gzip>(fileStream);
 

@@ -17,10 +17,6 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>TypeChecking TypeValidating Files FileChecking FileValidation Validation File Type Validator Checker Magic Numbers Identifying Bytes</PackageTags>
     <NuspecFile>./FileTypeChecker.nuspec</NuspecFile>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\FileTypeChecker.Common\FileTypeChecker.Common.csproj" />
-  </ItemGroup> 
+  </PropertyGroup> 
 
 </Project>

@@ -5,9 +5,9 @@
     {
         public const string TypeName = "MPEG audio file frame synch pattern";
         public const string TypeExtension = "mp3";
-        private static readonly byte[][] magicBytesJaggedArray = {new byte[] { 0x49, 0x44, 0x33 } };
+        private static readonly MagicSequence magicBytes = new(new byte[] { 0x49, 0x44, 0x33 });
 
-        public Mp3() : base(TypeName, TypeExtension, magicBytesJaggedArray)
+        public Mp3() : base(TypeName, TypeExtension, magicBytes)
         {
         }
     }

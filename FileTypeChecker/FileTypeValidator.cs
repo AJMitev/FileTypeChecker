@@ -2,6 +2,7 @@
 {
     using FileTypeChecker.Abstracts;
     using FileTypeChecker.Common;
+    using FileTypeChecker.Exceptions;
     using FileTypeChecker.Extensions;
     using System;
     using System.Collections.Generic;
@@ -14,7 +15,6 @@
     /// </summary>
     public abstract class FileTypeValidator
     {
-        private const string EmptyCollectionErrorMessage = "Can't search in collection with no items!";
         private static readonly List<Assembly> typesAssemblies = new()
         {
             typeof(FileType).Assembly
@@ -77,7 +77,7 @@
         {
             DataValidator.ThrowIfNull(fileContent, nameof(Stream));
 
-            return GetBestMatch(fileContent);
+            return FindBestMatch(fileContent);
         }
 
         /// <summary>
@@ -117,9 +117,14 @@
         public static bool IsArchive(Stream fileContent)
             => fileContent.IsArchive();
 
-        internal static IFileType GetBestMatch(Stream fileContent)
+        internal static IFileType FindBestMatch(Stream fileContent)
         {
             var matches = FileTypes.Where(fileType => fileType.DoesMatchWith(fileContent));
+
+            if (!matches.Any())
+            {
+                throw new TypeNotFoundException();
+            }
 
             return ReturnBestMatch(fileContent, matches);
         }
@@ -176,21 +181,15 @@
         private static IFileType FindMaxScore(IEnumerable<MatchScore> matches)
         {
             if (matches.Count() == 0)
-                throw new InvalidOperationException(EmptyCollectionErrorMessage);
+                throw new EmptyCollectionException();
 
-            int maxScore = int.MinValue;
-            IFileType bestMatch = null;
+            int maxScore = matches.Max(x => x.Score);
+            var bestMatch = matches.Where(x => x.Score.Equals(maxScore));
 
-            foreach (var match in matches)
-            {
-                if (!(match.Score > maxScore))
-                    continue;
+            if (bestMatch.Count() > 1)
+                throw new MoreThanOneTypeMatchesException(string.Join(", ", bestMatch.Select(x => x.Type.Extension)));
 
-                maxScore = match.Score;
-                bestMatch = match.Type;
-            }
-
-            return bestMatch;
+            return bestMatch.First().Type;
         }
 
         private static IFileType ReturnBestMatch(Stream fileContent, IEnumerable<IFileType> matches)

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29318.209
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileTypeChecker", "FileTypeChecker\FileTypeChecker.csproj", "{3508F73C-16CA-46E2-9BAA-77B21B99AE5A}"
 EndProject
@@ -12,8 +12,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileTypeChecker.App", "Samples\FileTypeChecker.App\FileTypeChecker.App.csproj", "{DC822814-FC8C-44B3-9BDE-377EE939A938}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileTypeChecker.App.MyCustomTypes", "Samples\FileTypeChecker.App.MyCustomTypes\FileTypeChecker.App.MyCustomTypes.csproj", "{2C49FF06-90FF-442B-8757-210521AB22EE}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileTypeChecker.Common", "FileTypeChecker.Common\FileTypeChecker.Common.csproj", "{C4706C8E-30D1-4CEB-827E-4D4EBB253E6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +35,6 @@ Global
 		{2C49FF06-90FF-442B-8757-210521AB22EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C49FF06-90FF-442B-8757-210521AB22EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C49FF06-90FF-442B-8757-210521AB22EE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C4706C8E-30D1-4CEB-827E-4D4EBB253E6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C4706C8E-30D1-4CEB-827E-4D4EBB253E6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C4706C8E-30D1-4CEB-827E-4D4EBB253E6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C4706C8E-30D1-4CEB-827E-4D4EBB253E6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

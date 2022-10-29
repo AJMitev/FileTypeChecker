@@ -2,9 +2,10 @@
 {
     using System;
     using System.IO;
-    using System.Linq;
     using System.Threading.Tasks;
     using Common;
+    using FileTypeChecker;
+    using FileTypeChecker.Extensions;
 
     public abstract class FileType : IFileType
     {
@@ -12,25 +13,25 @@
         private const int ByfferDefaultSize = 20;
         private string name;
         private string extension;
-        private byte[][] bytes;
+        private MagicSequence[] bytes;
 
-        protected FileType(string name, string extension, byte[] magicBytes, int skipBytes = 0)
+        protected FileType(string name, string extension, byte[] magicBytes) : this(name, extension, new MagicSequence(magicBytes))
+        {
+        }
+
+        protected FileType(string name, string extension, MagicSequence magicBytes)
         {
             this.Name = name;
             this.Extension = extension;
             this.Bytes = new[] { magicBytes };
-            SkipBytes = skipBytes;
         }
 
-        protected FileType(string name, string extension, byte[][] magicBytesJaggedArray, int skipBytes = 0)
+        protected FileType(string name, string extension, MagicSequence[] magicBytesSequance)
         {
             this.Name = name;
             this.Extension = extension;
-            this.Bytes = magicBytesJaggedArray;
-            SkipBytes = skipBytes;
+            this.Bytes = magicBytesSequance;
         }
-        
-        public int SkipBytes { get; }
 
         /// <inheritdoc />
         public string Name
@@ -57,7 +58,7 @@
             }
         }
 
-        private byte[][] Bytes
+        protected MagicSequence[] Bytes
         {
             get => this.bytes;
             set
@@ -85,7 +86,16 @@
 
             var buffer = new byte[ByfferDefaultSize];
             stream.Read(buffer, 0, buffer.Length);
-            return DoesMatchWith(buffer);
+
+            foreach (var byteArray in this.Bytes)
+            {
+                if (byteArray.Equals(buffer))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public async Task<bool> DoesMatchWithAsync(Stream stream, bool resetPosition = true)
@@ -104,7 +114,16 @@
 
             var buffer = new byte[ByfferDefaultSize];
             await stream.ReadAsync(buffer, 0, buffer.Length);
-            return DoesMatchWith(buffer);
+
+            foreach (var byteArray in this.Bytes)
+            {
+                if (byteArray.Equals(buffer))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public int GetMatchingNumber(Stream stream)
@@ -117,30 +136,14 @@
 
             foreach (var bytesArr in this.Bytes)
             {
-                var shrinkedBuffer = buffer.Skip(SkipBytes).Take(bytesArr.Length);
-
-                for (int i = counter; i < bytesArr.Length; i++)
+                var matchingBytes = bytesArr.CountMatchingBytes(buffer);
+                if (matchingBytes > counter)
                 {
-                    if (!bytesArr[i].Equals(buffer[i]))
-                        break;
-
-                    counter++;
+                    counter = matchingBytes;
                 }
             }
 
             return counter == 0 ? -1 : counter;
-        }
-
-        private bool DoesMatchWith(byte[] buffer)
-        {
-            foreach (var bytesArr in this.Bytes)
-            {
-                if (buffer.Skip(SkipBytes).Take(bytesArr.Length).SequenceEqual(bytesArr)) 
-                {
-                    return true;
-                }
-            }
-            return false;
         }
     }
 }
