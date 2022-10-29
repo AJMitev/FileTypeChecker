@@ -1,15 +1,13 @@
 ﻿namespace FileTypeChecker.Abstracts
 {
-    using System;
     using System.IO;
     using System.Threading.Tasks;
     using Common;
     using FileTypeChecker;
-    using FileTypeChecker.Extensions;
+    using FileTypeChecker.Exceptions;
 
     public abstract class FileType : IFileType
     {
-        private const string FileContentMustBeReadableErrorMessage = "File contents must be a readable stream";
         private const int ByfferDefaultSize = 20;
         private string name;
         private string extension;
@@ -76,7 +74,7 @@
 
             if (!stream.CanRead || (stream.Position != 0 && !stream.CanSeek))
             {
-                throw new ArgumentException(FileContentMustBeReadableErrorMessage, nameof(Stream));
+                throw new StreamMustBeReadableException();
             }
 
             if (stream.Position != 0 && resetPosition)
@@ -104,7 +102,7 @@
 
             if (!stream.CanRead || (stream.Position != 0 && !stream.CanSeek))
             {
-                throw new ArgumentException(FileContentMustBeReadableErrorMessage, nameof(Stream));
+                throw new StreamMustBeReadableException();
             }
 
             if (stream.Position != 0 && resetPosition)

@@ -4,13 +4,13 @@
 
     public class TypeNotFoundException : Exception
     {
-        private const string Message = "No registered type matches the provided sequence!";
+        private const string ErrorMessage = "No registered type matches the provided sequence!";
 
-        public TypeNotFoundException() : base(Message)
+        public TypeNotFoundException() : base(ErrorMessage)
         {
         }
 
-        public TypeNotFoundException(Exception innerException) : base(Message, innerException)
+        public TypeNotFoundException(Exception innerException) : base(ErrorMessage, innerException)
         {
         }
     }
