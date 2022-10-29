@@ -15,7 +15,14 @@
         public static bool Is<T>(this Stream fileContent) where T : FileType, IFileType, new()
         {
             var instance = new T();
-            var match = FileTypeValidator.GetBestMatch(fileContent);
+            var isRecognizable = FileTypeValidator.IsTypeRecognizable(fileContent);
+
+            if (!isRecognizable)
+            {
+                return false;
+            }
+
+            var match = FileTypeValidator.FindBestMatch(fileContent);
 
             return match?.GetType() == instance.GetType();
         }
@@ -27,6 +34,7 @@
         /// <returns>Returns true if the provided file is image otherwise returns false. Supported image types are: Bitmap, JPEG, GIF, PNG, and TIF.</returns>
         public static bool IsImage(this Stream fileContent)
             => fileContent.Is<Bitmap>()
+            || fileContent.Is<Webp>()
             || fileContent.Is<JointPhotographicExpertsGroup>()
             || fileContent.Is<GraphicsInterchangeFormat87>()
             || fileContent.Is<GraphicsInterchangeFormat89>()
