@@ -1,6 +1,7 @@
 ﻿namespace FileTypeChecker.Abstracts
 {
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
     using Common;
     using FileTypeChecker;
@@ -14,6 +15,10 @@
         private MagicSequence[] bytes;
 
         protected FileType(string name, string extension, byte[] magicBytes) : this(name, extension, new MagicSequence(magicBytes))
+        {
+        }
+
+        protected FileType(string name, string extension, byte[][] magicBytes) : this(name, extension, magicBytes.Select(x=> new MagicSequence(x)).ToArray())
         {
         }
 
