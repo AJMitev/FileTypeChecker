@@ -1,5 +1,6 @@
 ﻿namespace FileTypeChecker.Abstracts
 {
+    using System;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
@@ -18,7 +19,7 @@
         {
         }
 
-        protected FileType(string name, string extension, byte[][] magicBytes) : this(name, extension, magicBytes.Select(x=> new MagicSequence(x)).ToArray())
+        protected FileType(string name, string extension, byte[][] magicBytes) : this(name, extension, magicBytes.Select(x => new MagicSequence(x)).ToArray())
         {
         }
 
@@ -90,15 +91,14 @@
             var buffer = new byte[ByfferDefaultSize];
             stream.Read(buffer, 0, buffer.Length);
 
-            foreach (var byteArray in this.Bytes)
-            {
-                if (byteArray.Equals(buffer))
-                {
-                    return true;
-                }
-            }
+            return CompareBytes(buffer);
+        }
 
-            return false;
+        public bool DoesMatchWith(byte[] bytes)
+        {
+            DataValidator.ThrowIfNull(bytes, nameof(Array));
+
+            return CompareBytes(bytes);
         }
 
         public async Task<bool> DoesMatchWithAsync(Stream stream, bool resetPosition = true)
@@ -147,6 +147,35 @@
             }
 
             return counter == 0 ? -1 : counter;
+        }
+
+        public int GetMatchingNumber(byte[] bytes)
+        {
+            int counter = 0;
+        
+            foreach (var bytesArr in this.Bytes)
+            {
+                var matchingBytes = bytesArr.CountMatchingBytes(bytes);
+                if (matchingBytes > counter)
+                {
+                    counter = matchingBytes;
+                }
+            }
+
+            return counter == 0 ? -1 : counter;
+        }
+
+        private bool CompareBytes(byte[] bytes)
+        {
+            foreach (var byteArray in this.Bytes)
+            {
+                if (byteArray.Equals(bytes))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

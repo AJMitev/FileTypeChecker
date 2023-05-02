@@ -9,6 +9,7 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Xml.Linq;
 
     /// <summary>
     /// Provides you a method for file type validation.
@@ -60,7 +61,25 @@
         {
             DataValidator.ThrowIfNull(fileContent, nameof(Stream));
 
+            if(fileContent.Length == 0)
+                throw new ArgumentNullException(nameof(Stream));
+
             return FileTypes.Any(type => type.DoesMatchWith(fileContent));
+        }
+
+        /// <summary>
+        /// Checks that the particular type is supported.
+        /// </summary>
+        /// <param name="byteContent">Content to be checked</param>
+        /// <returns>If current type is supported</returns>
+        /// <exception cref="System.ArgumentException"></exception>
+        /// <exception cref="System.ArgumentNullException"></exception>
+        /// <exception cref="System.NotSupportedException"></exception>
+        /// <exception cref="System.ObjectDisposedException"></exception>
+        public static bool IsTypeRecognizable(byte[] byteContent)
+        {
+            DataValidator.ThrowIfNull(byteContent, nameof(Array));
+            return FileTypes.Any(type => type.DoesMatchWith(byteContent));
         }
 
         /// <summary>
@@ -129,6 +148,18 @@
             return ReturnBestMatch(fileContent, matches);
         }
 
+        internal static IFileType FindBestMatch(byte[] content)
+        {
+            var matches = FileTypes.Where(fileType => fileType.DoesMatchWith(content));
+
+            if (!matches.Any())
+            {
+                throw new TypeNotFoundException();
+            }
+
+            return ReturnBestMatch(content, matches);
+        }
+
         private static IEnumerable<Type> GetTypesInstance(Assembly assembly)
             => assembly.GetTypes()
                     .Where(type => typeof(IFileType).IsAssignableFrom(type)
@@ -163,6 +194,19 @@
             }
         }
 
+        private static IFileType FindBestMatch(byte[] content, IEnumerable<IFileType> result)
+        {
+            try
+            {
+                var scoreboard = CreateScoreboard(content, result);
+                return FindMaxScore(scoreboard);
+            }
+            catch (InvalidOperationException)
+            {
+                return null;
+            }
+        }
+
         private static IEnumerable<MatchScore> CreateScoreboard(Stream fileContent, IEnumerable<IFileType> result)
         {
             var scoreboard = new List<MatchScore>();
@@ -171,6 +215,21 @@
             {
                 var currentType = result.ElementAt(typeIndex) as FileType;
                 var currentScore = currentType.GetMatchingNumber(fileContent);
+
+                scoreboard.Add(new MatchScore(currentType, currentScore));
+            }
+
+            return scoreboard;
+        }
+
+        private static IEnumerable<MatchScore> CreateScoreboard(byte[] content, IEnumerable<IFileType> result)
+        {
+            var scoreboard = new List<MatchScore>();
+
+            for (int typeIndex = 0; typeIndex < result.Count(); typeIndex++)
+            {
+                var currentType = result.ElementAt(typeIndex) as FileType;
+                var currentScore = currentType.GetMatchingNumber(content);
 
                 scoreboard.Add(new MatchScore(currentType, currentScore));
             }
@@ -198,5 +257,12 @@
                 : matches.Count() == 1
                     ? matches.First()
                     : FindBestMatch(fileContent, matches);
+
+        private static IFileType ReturnBestMatch(byte[] content, IEnumerable<IFileType> matches)
+           => matches.Count() == 0
+               ? null
+               : matches.Count() == 1
+                   ? matches.First()
+                   : FindBestMatch(content, matches);
     }
 }

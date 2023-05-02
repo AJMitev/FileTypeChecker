@@ -30,6 +30,17 @@
         /// <summary>
         /// Checks if current <see cref="IFileType"/> matches with file from stream.
         /// </summary>
+        /// <param name="bytes">File as byte array.</param>
+        /// <returns>Does file from stream match with current.</returns>
+        /// <exception cref="System.ArgumentException"></exception>
+        /// <exception cref="System.ArgumentNullException"></exception>
+        /// <exception cref="System.NotSupportedException"></exception>
+        /// <exception cref="System.ObjectDisposedException"></exception>
+        bool DoesMatchWith(byte[] bytes);
+
+        /// <summary>
+        /// Checks if current <see cref="IFileType"/> matches with file from stream.
+        /// </summary>
         /// <param name="stream">File as stream.</param>
         /// <param name="resetPosition"></param>
         /// <returns>Does file from stream match with current.</returns>
