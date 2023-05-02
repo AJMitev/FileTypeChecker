@@ -13,7 +13,11 @@
 
         [Test]
         public void IsTypeRecognizable_ShouldThrowArgumentNullExceptionIfStreamIsNull()
-            => Assert.Catch<ArgumentNullException>(() => FileTypeValidator.IsTypeRecognizable(null));
+            => Assert.Catch<ArgumentNullException>(() => FileTypeValidator.IsTypeRecognizable(null as Stream));
+
+        [Test]
+        public void IsTypeRecognizable_ShouldThrowArgumentNullExceptionIfStreamIsEmpty()
+            => Assert.Catch<ArgumentNullException>(() => FileTypeValidator.IsTypeRecognizable(Stream.Null));
 
         [Test]
         public void IsTypeRecognizable_ShouldReturnFalseIfFormatIsUnknown()
