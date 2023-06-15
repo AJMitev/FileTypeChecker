@@ -193,7 +193,6 @@
             Assert.Throws<TypeNotFoundException>(() => FileTypeValidator.GetFileType(fileStream));
         }
         
-        
         [Test]
         public void TryGetFileType_ShouldReturnFalseWhenTypeIsNotRegistered()
         {
@@ -205,7 +204,6 @@
         [Test]
         public void GetFileType_ShouldThrowArgumentNullExceptionIfStreamIsNull()
             => Assert.Catch<ArgumentNullException>(() => FileTypeValidator.GetFileType(null));
-        
 
         [Test]
         public void Is_ShouldThrowExceptionIfStreamIsNull()
