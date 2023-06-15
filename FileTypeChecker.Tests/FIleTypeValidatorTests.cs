@@ -93,6 +93,37 @@
 
             Assert.AreEqual(expectedFileExtension, actualFileTypeExtension);
         }
+        
+        [Test]
+        [TestCase("test.bmp", Bitmap.TypeExtension)]
+        [TestCase("test.jpg", JointPhotographicExpertsGroup.TypeExtension)]
+        [TestCase("test.png", PortableNetworkGraphic.TypeExtension)]
+        [TestCase("test.gif", GraphicsInterchangeFormat87.TypeExtension)]
+        [TestCase("test.tif", TaggedImageFileFormat.TypeExtension)]
+        [TestCase("test.psd", PhotoshopDocumentFile.TypeExtension)]
+        [TestCase("test.pdf", PortableDocumentFormat.TypeExtension)]
+        [TestCase("test.doc", MicrosoftOfficeDocument.TypeExtension)]
+        [TestCase("test.xml", ExtensibleMarkupLanguage.TypeExtension)]
+        [TestCase("test.zip", ZipFile.TypeExtension)]
+        [TestCase("test.7z", SevenZipFile.TypeExtension)]
+        [TestCase("test.bz2", BZip2File.TypeExtension)]
+        [TestCase("test.gz", Gzip.TypeExtension)]
+        [TestCase("blob.mp3", Mp3.TypeExtension)]
+        [TestCase("test.wmf", WindowsMetaFileType.TypeExtension)]
+        [TestCase("test.ico", Icon.TypeExtension)]
+        [TestCase("365-doc.docx", MicrosoftOffice365Document.TypeExtension)]
+        [TestCase("testwin10.zip", ZipFile.TypeExtension)]
+        [TestCase("test.webp", Webp.TypeExtension)]
+        [TestCase("sample.heic", HighEfficiencyImageFile.TypeExtension)]
+        public void TryGetFileType_ShouldReturnFileExtension(string filePath, string expectedFileExtension)
+        {
+            using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
+
+            Assert.True(FileTypeValidator.TryGetFileType(fileStream, out var fileType));
+            var actualFileTypeExtension = fileType.Extension;
+
+            Assert.AreEqual(expectedFileExtension, actualFileTypeExtension);
+        }
 
         [Test]
         [TestCase("test.bmp", Bitmap.TypeName)]
@@ -123,6 +154,37 @@
 
             Assert.AreEqual(expectedFileTypeName, actualFileTypeName);
         }
+        
+        [Test]
+        [TestCase("test.bmp", Bitmap.TypeName)]
+        [TestCase("test.jpg", JointPhotographicExpertsGroup.TypeName)]
+        [TestCase("test.png", PortableNetworkGraphic.TypeName)]
+        [TestCase("test.gif", GraphicsInterchangeFormat89.TypeName)]
+        [TestCase("test.tif", TaggedImageFileFormat.TypeName)]
+        [TestCase("test.psd", PhotoshopDocumentFile.TypeName)]
+        [TestCase("test.pdf", PortableDocumentFormat.TypeName)]
+        [TestCase("test.doc", MicrosoftOfficeDocument.TypeName)]
+        [TestCase("test.xml", ExtensibleMarkupLanguage.TypeName)]
+        [TestCase("test.zip", ZipFile.TypeName)]
+        [TestCase("test.7z", SevenZipFile.TypeName)]
+        [TestCase("test.bz2", BZip2File.TypeName)]
+        [TestCase("test.gz", Gzip.TypeName)]
+        [TestCase("blob.mp3", Mp3.TypeName)]
+        [TestCase("test.wmf", WindowsMetaFileType.TypeName)]
+        [TestCase("test.ico", Icon.TypeName)]
+        [TestCase("365-doc.docx", MicrosoftOffice365Document.TypeName)]
+        [TestCase("testwin10.zip", ZipFile.TypeName)]
+        [TestCase("test.webp", Webp.TypeName)]
+        [TestCase("sample.heic", HighEfficiencyImageFile.TypeName)]
+        public void TryGetFileType_ShouldReturnFileName(string filePath, string expectedFileTypeName)
+        {
+            using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
+
+            Assert.True(FileTypeValidator.TryGetFileType(fileStream, out var fileType));
+            var actualFileTypeName = fileType.Name;
+
+            Assert.AreEqual(expectedFileTypeName, actualFileTypeName);
+        }
 
         [Test]
         public void GetFileType_ShouldThrowTypeNotFoundExceptionWhenTypeIsNotRegistered()
@@ -130,10 +192,20 @@
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test"));
             Assert.Throws<TypeNotFoundException>(() => FileTypeValidator.GetFileType(fileStream));
         }
+        
+        
+        [Test]
+        public void TryGetFileType_ShouldReturnFalseWhenTypeIsNotRegistered()
+        {
+            using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test"));
+            Assert.False(FileTypeValidator.TryGetFileType(fileStream, out var fileType));
+            Assert.Null(fileType);
+        }
 
         [Test]
         public void GetFileType_ShouldThrowArgumentNullExceptionIfStreamIsNull()
             => Assert.Catch<ArgumentNullException>(() => FileTypeValidator.GetFileType(null));
+        
 
         [Test]
         public void Is_ShouldThrowExceptionIfStreamIsNull()
