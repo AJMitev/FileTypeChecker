@@ -3,6 +3,13 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/jx9bcrxs95srhxsj?svg=true)](https://ci.appveyor.com/project/AJMitev/filetypechecker) [![NuGet Badge](https://buildstats.info/nuget/File.TypeChecker)](https://www.nuget.org/packages/File.TypeChecker/)  [![License: MIT](https://img.shields.io/github/license/ajmitev/filetypechecker)](https://github.com/AJMitev/FileTypeChecker/blob/master/LICENSE)  [![CodeFactor](https://www.codefactor.io/repository/github/ajmitev/filetypechecker/badge)](https://www.codefactor.io/repository/github/ajmitev/filetypechecker)  ![Discord](https://img.shields.io/discord/1035464819102470155?logo=discord)
 
+## Support the project
+
+- If you like this library, ⭐️ the repository and show it to your friends!
+- If you find this library usefull and it helps you please consider to support the project, you can do by buying me a cup of coffee.
+
+<a href="https://www.buymeacoffee.com/ajmitev" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+
 ## Project Description
 
 FileTypeChecker is a easy to use library that provides quality identification of a file type. This will help you to secure your applications and validate all files that are provided by external sources with few lines of code.
@@ -60,10 +67,3 @@ FileTypeChecker is able to identify more than 22 different types but also you ar
 Based on [mjolka](https://github.com/mjolka)'s answer to the Stack Overflow question [Guessing a file type based on its content](http://codereview.stackexchange.com/questions/85054/guessing-a-file-type-based-on-its-content).
 
 This repo is inspired from [0xbrock](https://github.com/0xbrock/FileTypeChecker) and the original code can be found in the "original" branch. I re-writed the all project with goal to make it Object oriented, with fluent API and easy to extend.
-
-## Support the project
-
-- If you like this library, ⭐️ the repository and show it to your friends!
-- If you find this library usefull and it helps you please consider to support the project, you can do by buying me a cup of coffee.
-
-<a href="https://www.buymeacoffee.com/ajmitev" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
