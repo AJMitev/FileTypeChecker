@@ -1,4 +1,4 @@
-﻿namespace FileTypeChecker
+namespace FileTypeChecker
 {
     using FileTypeChecker.Abstracts;
     using FileTypeChecker.Common;
@@ -23,7 +23,6 @@
 
         private static bool isInitialized = false;
         private static readonly object initializationLock = new();
-        private static readonly object whereLock = new();
 
         private static readonly HashSet<Type> knownTypes = new();
         private static readonly List<IFileType> fileTypes = new();
@@ -96,7 +95,19 @@
         {
             DataValidator.ThrowIfNull(fileContent, nameof(Stream));
 
-            return FindBestMatch(fileContent);
+            if (TryFindBestMatch(fileContent, out var fileType))
+            {
+                return fileType;
+            }
+
+            throw new TypeNotFoundException();
+        }
+        
+        public static bool TryGetFileType(Stream fileContent, out IFileType fileType)
+        {
+            DataValidator.ThrowIfNull(fileContent, nameof(Stream));
+
+            return TryFindBestMatch(fileContent, out fileType);
         }
 
         /// <summary>
@@ -136,28 +147,30 @@
         public static bool IsArchive(Stream fileContent)
             => fileContent.IsArchive();
 
-        internal static IFileType FindBestMatch(Stream fileContent)
+        internal static bool TryFindBestMatch(Stream fileContent, out IFileType fileType)
         {
-            var matches = FileTypes.Where(fileType => fileType.DoesMatchWith(fileContent));
+            var matches = FileTypes.Where(fileType => fileType.DoesMatchWith(fileContent)).ToList();
 
             if (!matches.Any())
             {
-                throw new TypeNotFoundException();
+                fileType = null;
+                return false;
             }
 
-            return ReturnBestMatch(fileContent, matches);
+            return TryReturnBestMatch(fileContent, matches, out fileType);
         }
 
-        internal static IFileType FindBestMatch(byte[] content)
+        internal static bool TryFindBestMatch(byte[] content, out IFileType fileType)
         {
-            var matches = FileTypes.Where(fileType => fileType.DoesMatchWith(content));
+            var matches = FileTypes.Where(fileType => fileType.DoesMatchWith(content)).ToList();
 
             if (!matches.Any())
             {
-                throw new TypeNotFoundException();
+                fileType = null;
+                return false;
             }
 
-            return ReturnBestMatch(content, matches);
+            return TryReturnBestMatch(content, matches, out fileType);
         }
 
         private static IEnumerable<Type> GetTypesInstance(Assembly assembly)
@@ -181,39 +194,25 @@
             }
         }
 
-        private static IFileType FindBestMatch(Stream fileContent, IEnumerable<IFileType> result)
+        private static bool TryFindBestMatch(Stream fileContent, ICollection<IFileType> result, out IFileType fileType)
         {
-            try
-            {
-                var scoreboard = CreateScoreboard(fileContent, result);
-                return FindMaxScore(scoreboard);
-            }
-            catch (InvalidOperationException)
-            {
-                return null;
-            }
+            var scoreboard = CreateScoreboard(fileContent, result);
+            return TryFindMaxScore(scoreboard, out fileType);
         }
 
-        private static IFileType FindBestMatch(byte[] content, IEnumerable<IFileType> result)
+        private static bool TryFindBestMatch(byte[] content, ICollection<IFileType> result, out IFileType fileType)
         {
-            try
-            {
-                var scoreboard = CreateScoreboard(content, result);
-                return FindMaxScore(scoreboard);
-            }
-            catch (InvalidOperationException)
-            {
-                return null;
-            }
+            var scoreboard = CreateScoreboard(content, result);
+            return TryFindMaxScore(scoreboard, out fileType);
         }
 
-        private static IEnumerable<MatchScore> CreateScoreboard(Stream fileContent, IEnumerable<IFileType> result)
+        private static ICollection<MatchScore> CreateScoreboard(Stream fileContent, ICollection<IFileType> result)
         {
             var scoreboard = new List<MatchScore>();
 
             for (int typeIndex = 0; typeIndex < result.Count(); typeIndex++)
             {
-                var currentType = result.ElementAt(typeIndex) as FileType;
+                var currentType = result.ElementAt(typeIndex);
                 var currentScore = currentType.GetMatchingNumber(fileContent);
 
                 scoreboard.Add(new MatchScore(currentType, currentScore));
@@ -222,13 +221,13 @@
             return scoreboard;
         }
 
-        private static IEnumerable<MatchScore> CreateScoreboard(byte[] content, IEnumerable<IFileType> result)
+        private static ICollection<MatchScore> CreateScoreboard(byte[] content, ICollection<IFileType> result)
         {
             var scoreboard = new List<MatchScore>();
 
             for (int typeIndex = 0; typeIndex < result.Count(); typeIndex++)
             {
-                var currentType = result.ElementAt(typeIndex) as FileType;
+                var currentType = (FileType)result.ElementAt(typeIndex);
                 var currentScore = currentType.GetMatchingNumber(content);
 
                 scoreboard.Add(new MatchScore(currentType, currentScore));
@@ -236,33 +235,56 @@
 
             return scoreboard;
         }
-
-        private static IFileType FindMaxScore(IEnumerable<MatchScore> matches)
+        
+        private static bool TryFindMaxScore(ICollection<MatchScore> matches, out IFileType fileType)
         {
-            if (matches.Count() == 0)
-                throw new EmptyCollectionException();
+            if (!matches.Any())
+            {
+                fileType = null;
+                return false;
+            }
 
             int maxScore = matches.Max(x => x.Score);
-            var bestMatch = matches.Where(x => x.Score.Equals(maxScore));
+            var bestMatch = matches.Where(x => x.Score.Equals(maxScore)).ToList();
 
-            if (bestMatch.Count() > 1)
-                throw new MoreThanOneTypeMatchesException(string.Join(", ", bestMatch.Select(x => x.Type.Extension)));
+            if (bestMatch.Count > 1)
+            {
+                fileType = null;
+                return false;
+            }
 
-            return bestMatch.First().Type;
+            fileType = bestMatch.First().Type;
+            return true;
         }
 
-        private static IFileType ReturnBestMatch(Stream fileContent, IEnumerable<IFileType> matches)
-            => matches.Count() == 0
-                ? null
-                : matches.Count() == 1
-                    ? matches.First()
-                    : FindBestMatch(fileContent, matches);
+        private static bool TryReturnBestMatch(Stream fileContent, ICollection<IFileType> matches, out IFileType fileType)
+        {
+            if (matches.Count == 0)
+            {
+                fileType = null;
+                return false;
+            }
+            if (matches.Count == 1)
+            {
+                fileType = matches.First();
+                return true;
+            }
+            return TryFindBestMatch(fileContent, matches, out fileType);
+        }
 
-        private static IFileType ReturnBestMatch(byte[] content, IEnumerable<IFileType> matches)
-           => matches.Count() == 0
-               ? null
-               : matches.Count() == 1
-                   ? matches.First()
-                   : FindBestMatch(content, matches);
+        private static bool TryReturnBestMatch(byte[] fileContent, ICollection<IFileType> matches, out IFileType fileType)
+        {
+            if (matches.Count == 0)
+            {
+                fileType = null;
+                return false;
+            }
+            if (matches.Count == 1)
+            {
+                fileType = matches.First();
+                return true;
+            }
+            return TryFindBestMatch(fileContent, matches, out fileType);
+        }
     }
 }

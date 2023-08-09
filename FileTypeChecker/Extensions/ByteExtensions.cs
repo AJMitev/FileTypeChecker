@@ -63,7 +63,10 @@
                 return false;
             }
 
-            var match = FileTypeValidator.FindBestMatch(fileContent);
+            if (!FileTypeValidator.TryFindBestMatch(fileContent, out var match))
+            {
+                return false;
+            }
 
             return match?.GetType() == instance.GetType();
         }
