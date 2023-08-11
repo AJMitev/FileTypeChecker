@@ -1,4 +1,4 @@
-﻿namespace FileTypeChecker
+namespace FileTypeChecker
 {
     using FileTypeChecker.Abstracts;
     using FileTypeChecker.Common;
@@ -86,7 +86,7 @@
         /// Get details about current file type.
         /// </summary>
         /// <param name="fileContent">File to check as stream.</param>
-        /// <returns>Instance of <see cref="IFileType}"/> type. If the type is not recognized returns <see cref="null}"/></returns>
+        /// <returns>Instance of <see cref="IFileType"/> type. If the type is not recognized returns <see cref="null"/></returns>
         /// /// <exception cref="System.ArgumentException"></exception>
         /// <exception cref="System.ArgumentNullException"></exception>
         /// <exception cref="System.NotSupportedException"></exception>
@@ -97,6 +97,25 @@
             DataValidator.ThrowIfNull(fileContent, nameof(Stream));
 
             return FindBestMatch(fileContent);
+        }
+
+        /// <summary>
+        /// Try get
+        /// </summary>
+        /// <param name="fileContent"></param>
+        /// <returns>Instance of <see cref="MatchResult"/> containing information about the success of searching and the type if found.</returns>
+        public static MatchResult TryGetFileType(Stream fileContent)
+        {
+            try
+            {
+                DataValidator.ThrowIfNull(fileContent, nameof(Stream));
+                var match = FindBestMatch(fileContent);
+                return new MatchResult(match);
+            }
+            catch (Exception)
+            {
+                return new MatchResult(null);
+            }
         }
 
         /// <summary>
