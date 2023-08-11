@@ -95,6 +95,82 @@
         }
 
         [Test]
+        [TestCase("test.bmp", Bitmap.TypeExtension)]
+        [TestCase("test.jpg", JointPhotographicExpertsGroup.TypeExtension)]
+        [TestCase("test.png", PortableNetworkGraphic.TypeExtension)]
+        [TestCase("test.gif", GraphicsInterchangeFormat87.TypeExtension)]
+        [TestCase("test.tif", TaggedImageFileFormat.TypeExtension)]
+        [TestCase("test.psd", PhotoshopDocumentFile.TypeExtension)]
+        [TestCase("test.pdf", PortableDocumentFormat.TypeExtension)]
+        [TestCase("test.doc", MicrosoftOfficeDocument.TypeExtension)]
+        [TestCase("test.xml", ExtensibleMarkupLanguage.TypeExtension)]
+        [TestCase("test.zip", ZipFile.TypeExtension)]
+        [TestCase("test.7z", SevenZipFile.TypeExtension)]
+        [TestCase("test.bz2", BZip2File.TypeExtension)]
+        [TestCase("test.gz", Gzip.TypeExtension)]
+        [TestCase("blob.mp3", Mp3.TypeExtension)]
+        [TestCase("test.wmf", WindowsMetaFileType.TypeExtension)]
+        [TestCase("test.ico", Icon.TypeExtension)]
+        [TestCase("365-doc.docx", MicrosoftOffice365Document.TypeExtension)]
+        [TestCase("testwin10.zip", ZipFile.TypeExtension)]
+        [TestCase("test.webp", Webp.TypeExtension)]
+        [TestCase("sample.heic", HighEfficiencyImageFile.TypeExtension)]
+        public void TryGetFileType_ShouldReturnFileExtension(string filePath, string expectedFileExtension)
+        {
+            using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
+            var match = FileTypeValidator.TryGetFileType(fileStream);
+
+            Assert.AreEqual(expectedFileExtension, match.Type?.Extension);
+        }
+
+        [Test]
+        [TestCase("test.png")]
+        [TestCase("test.webp")]
+        public void TryGetFileType_MatchShouldReturnTrueWhenTypeIsValid(string fileName)
+        {
+            using var fileStream = File.OpenRead(Path.Combine(FilesPath, fileName));
+            var match = FileTypeValidator.TryGetFileType(fileStream);
+
+            Assert.IsTrue(match.HasMatch);
+        }
+
+        [Test]
+        public void TryGetFileType_MatchShouldReturnFalseWhenStreamIsNull()
+        {
+            var match = FileTypeValidator.TryGetFileType(null);
+
+            Assert.IsFalse(match.HasMatch);
+        }
+
+        [Test]
+        public void TryGetFileType_TypeShouldNotBeNull()
+        {
+            using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.png"));
+            var match = FileTypeValidator.TryGetFileType(fileStream);
+
+            Assert.IsNotNull(match.Type);
+        }
+
+
+        [Test]
+        public void TryGetFileType_TypeShouldBeCorrectType()
+        {
+            using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.png"));
+            var match = FileTypeValidator.TryGetFileType(fileStream);
+            var expectedType = new PortableNetworkGraphic();
+
+            Assert.AreEqual(match.Type.Name, expectedType.Name);
+        }
+
+        [Test]
+        public void TryGetFileType_TypeShouldBeNullWhenNotMatching()
+        {
+            var match = FileTypeValidator.TryGetFileType(null);
+
+            Assert.IsNull(match.Type);
+        }
+
+        [Test]
         [TestCase("test.bmp", Bitmap.TypeName)]
         [TestCase("test.jpg", JointPhotographicExpertsGroup.TypeName)]
         [TestCase("test.png", PortableNetworkGraphic.TypeName)]
@@ -118,7 +194,6 @@
         public void GetFileType_ShouldReturnFileName(string filePath, string expectedFileTypeName)
         {
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
-
             var actualFileTypeName = FileTypeValidator.GetFileType(fileStream).Name;
 
             Assert.AreEqual(expectedFileTypeName, actualFileTypeName);
