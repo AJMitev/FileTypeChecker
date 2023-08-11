@@ -6,6 +6,8 @@
     using FileTypeChecker.Extensions;
     using System;
     using System.IO;
+    using Microsoft.VisualBasic.FileIO;
+    using System.IO.Pipes;
 
     public static class StartUp
     {
@@ -27,14 +29,29 @@
                 }
 
                 IFileType fileType = FileTypeValidator.GetFileType(fileStream);
-                                
-                Console.WriteLine("Is Image?: {0}", fileStream.IsImage());
-                Console.WriteLine("Is Bitmap?: {0}", fileStream.Is<Bitmap>());
-                Console.WriteLine("Is WebP?: {0}", fileStream.Is<Webp>());
-                Console.WriteLine("Type Name: {0}", fileType.Name);
-                Console.WriteLine("Type Extension: {0}", fileType.Extension);
-                Console.WriteLine(new string('=', 10));
+                Print(fileType, fileStream);
+
+                // Or you can use the safe method
+                var result = FileTypeValidator.TryGetFileType(fileStream);
+                if (!result.HasMatch)
+                {
+                    Console.WriteLine("Unknown file");
+                    Console.WriteLine(new string('=', 10));
+                    continue;
+                }
+
+                Print(result.Type, fileStream);
             }
+        }
+
+        private static void Print(IFileType fileType, FileStream fileStream)
+        {
+            Console.WriteLine("Is Image?: {0}", fileStream.IsImage());
+            Console.WriteLine("Is Bitmap?: {0}", fileStream.Is<Bitmap>());
+            Console.WriteLine("Is WebP?: {0}", fileStream.Is<Webp>());
+            Console.WriteLine("Type Name: {0}", fileType.Name);
+            Console.WriteLine("Type Extension: {0}", fileType.Extension);
+            Console.WriteLine(new string('=', 10));
         }
     }
 }
