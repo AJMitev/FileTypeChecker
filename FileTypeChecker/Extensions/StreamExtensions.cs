@@ -22,10 +22,7 @@
                 return false;
             }
 
-            if (!FileTypeValidator.TryFindBestMatch(fileContent, out var match))
-            {
-                return false;
-            }
+            var match = FileTypeValidator.FindBestMatch(fileContent);
 
             return match?.GetType() == instance.GetType();
         }
