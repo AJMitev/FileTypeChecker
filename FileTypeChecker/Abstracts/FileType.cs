@@ -10,10 +10,10 @@
 
     public abstract class FileType : IFileType
     {
-        private const int ByfferDefaultSize = 20;
-        private string name;
-        private string extension;
-        private MagicSequence[] bytes;
+        private const int BufferDefaultSize = 20;
+        private string _name;
+        private string _extension;
+        private MagicSequence[] _bytes;
 
         protected FileType(string name, string extension, byte[] magicBytes) : this(name, extension, new MagicSequence(magicBytes))
         {
@@ -40,36 +40,36 @@
         /// <inheritdoc />
         public string Name
         {
-            get => this.name;
+            get => this._name;
 
             private set
             {
                 DataValidator.ThrowIfNullOrEmpty(value, nameof(Name));
 
-                this.name = value;
+                this._name = value;
             }
         }
 
         /// <inheritdoc />
         public string Extension
         {
-            get => this.extension;
+            get => this._extension;
             private set
             {
                 DataValidator.ThrowIfNullOrEmpty(value, nameof(Extension));
 
-                this.extension = value;
+                this._extension = value;
             }
         }
 
         protected MagicSequence[] Bytes
         {
-            get => this.bytes;
+            get => this._bytes;
             set
             {
                 DataValidator.ThrowIfNull(value, nameof(Bytes));
 
-                this.bytes = value;
+                this._bytes = value;
             }
         }
 
@@ -88,7 +88,7 @@
                 stream.Position = 0;
             }
 
-            var buffer = new byte[ByfferDefaultSize];
+            var buffer = new byte[BufferDefaultSize];
             stream.Read(buffer, 0, buffer.Length);
 
             return CompareBytes(buffer);
@@ -115,7 +115,7 @@
                 stream.Position = 0;
             }
 
-            var buffer = new byte[ByfferDefaultSize];
+            var buffer = new byte[BufferDefaultSize];
             await stream.ReadAsync(buffer, 0, buffer.Length);
 
             foreach (var byteArray in this.Bytes)
@@ -134,7 +134,7 @@
             stream.Position = 0;
 
             int counter = 0;
-            var buffer = new byte[ByfferDefaultSize];
+            var buffer = new byte[BufferDefaultSize];
             stream.Read(buffer, 0, buffer.Length);
 
             foreach (var bytesArr in this.Bytes)

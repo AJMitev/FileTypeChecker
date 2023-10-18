@@ -6,9 +6,9 @@
     {
         public const string TypeName = "Audio Video Interleave video format";
         public const string TypeExtension = "avi";
-        private static readonly byte[] magicBytes = new byte[] { 0x52, 0x49, 0x46, 0x46 };
+        private static readonly byte[] MagicBytes = { 0x52, 0x49, 0x46, 0x46 };
 
-        public AudioVideoInterleaveVideoFormat() : base(TypeName, TypeExtension, magicBytes)
+        public AudioVideoInterleaveVideoFormat() : base(TypeName, TypeExtension, MagicBytes)
         {
         }
     }

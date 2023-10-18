@@ -1,6 +1,6 @@
 ﻿namespace FileTypeChecker
 {
-    using FileTypeChecker.Abstracts;
+    using Abstracts;
 
     public class MatchScore
     {
@@ -10,7 +10,7 @@
             this.Score = score;
         }
 
-        public IFileType Type { get; set; }
-        public int Score { get; set; }
+        public IFileType Type { get; }
+        public int Score { get; }
     }
 }

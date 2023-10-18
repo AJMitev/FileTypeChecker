@@ -6,9 +6,9 @@
     {
         public const string TypeName = "Bitmap";
         public const string TypeExtension = "bmp";
-        private static readonly byte[] magicBytes = new byte[] { 0x42, 0x4d };
+        private static readonly byte[] MagicBytes = { 0x42, 0x4d };
 
-        public Bitmap() : base(TypeName, TypeExtension, magicBytes)
+        public Bitmap() : base(TypeName, TypeExtension, MagicBytes)
         {
         }
     }

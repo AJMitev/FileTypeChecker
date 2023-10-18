@@ -6,9 +6,9 @@
     {
         public const string TypeName = "JPEG";
         public const string TypeExtension = "jpg";
-        private static readonly byte[] magicBytes = new byte[] { 0xFF, 0xD8, 0xFF };
+        private static readonly byte[] MagicBytes = { 0xFF, 0xD8, 0xFF };
 
-        public JointPhotographicExpertsGroup() : base(TypeName, TypeExtension, magicBytes)
+        public JointPhotographicExpertsGroup() : base(TypeName, TypeExtension, MagicBytes)
         {
         }
     }

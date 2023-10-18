@@ -6,9 +6,9 @@
     {
         public const string TypeName = "ISO9660 CD/DVD image file";
         public const string TypeExtension = "iso";
-        private static readonly byte[] magicBytes = new byte[] { 0x43, 0x44, 0x30, 0x30, 0x31 };
+        private static readonly byte[] MagicBytes = { 0x43, 0x44, 0x30, 0x30, 0x31 };
 
-        public DiskImageFile() : base(TypeName, TypeExtension, magicBytes)
+        public DiskImageFile() : base(TypeName, TypeExtension, MagicBytes)
         {
         }
     }

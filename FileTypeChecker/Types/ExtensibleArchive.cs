@@ -6,9 +6,9 @@
     {
         public const string TypeName = "eXtensible ARchive format";
         public const string TypeExtension = "xar";
-        private static readonly byte[] magicBytes = new byte[] { 0x78, 0x61, 0x72, 0x21 };
+        private static readonly byte[] MagicBytes = { 0x78, 0x61, 0x72, 0x21 };
 
-        public ExtensibleArchive() : base(TypeName, TypeExtension, magicBytes)
+        public ExtensibleArchive() : base(TypeName, TypeExtension, MagicBytes)
         {
         }
     }

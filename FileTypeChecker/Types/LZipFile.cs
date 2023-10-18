@@ -6,9 +6,9 @@
     {
         public const string TypeName = "LZIP file";
         public const string TypeExtension = "lz";
-        private static readonly MagicSequence magicBytes = new(new[] { (byte)'L', (byte)'Z', (byte)'I', (byte)'P', (byte)1 });
+        private static readonly MagicSequence MagicBytes = new(new[] { (byte)'L', (byte)'Z', (byte)'I', (byte)'P', (byte)1 });
 
-        public LZipFile() : base(TypeName, TypeExtension, magicBytes)
+        public LZipFile() : base(TypeName, TypeExtension, MagicBytes)
         {
         }
     }

@@ -16,35 +16,34 @@ namespace FileTypeChecker
     /// </summary>
     public abstract class FileTypeValidator
     {
-        private static readonly List<Assembly> typesAssemblies = new()
+        private static readonly List<Assembly> TypesAssemblies = new()
         {
             typeof(FileType).Assembly
         };
 
-        private static bool isInitialized = false;
-        private static readonly object initializationLock = new();
-        private static readonly object whereLock = new();
+        private static bool _isInitialized = false;
+        private static readonly object InitializationLock = new();
 
-        private static readonly HashSet<Type> knownTypes = new();
-        private static readonly List<IFileType> fileTypes = new();
+        private static readonly HashSet<Type> KnownTypes = new();
+        private static readonly List<IFileType> FileTypes = new();
 
-        protected static IReadOnlyCollection<IFileType> FileTypes
+        private static IReadOnlyCollection<IFileType> Types
         {
             get
             {
-                if (!isInitialized)
+                if (_isInitialized) 
+                    return FileTypes;
+                
+                lock (InitializationLock)
                 {
-                    lock (initializationLock)
-                    {
-                        if (!isInitialized)
-                        {
-                            RegisterTypes(typesAssemblies);
-                            isInitialized = true;
-                        }
-                    }
+                    if (_isInitialized) 
+                        return FileTypes;
+                    
+                    RegisterTypes(TypesAssemblies);
+                    _isInitialized = true;
                 }
 
-                return fileTypes;
+                return FileTypes;
             }
         }
 
@@ -64,7 +63,7 @@ namespace FileTypeChecker
             if(fileContent.Length == 0)
                 throw new ArgumentNullException(nameof(Stream));
 
-            return FileTypes.Any(type => type.DoesMatchWith(fileContent));
+            return Types.Any(type => type.DoesMatchWith(fileContent));
         }
 
         /// <summary>
@@ -79,7 +78,7 @@ namespace FileTypeChecker
         public static bool IsTypeRecognizable(byte[] byteContent)
         {
             DataValidator.ThrowIfNull(byteContent, nameof(Array));
-            return FileTypes.Any(type => type.DoesMatchWith(byteContent));
+            return Types.Any(type => type.DoesMatchWith(byteContent));
         }
 
         /// <summary>
@@ -126,7 +125,7 @@ namespace FileTypeChecker
         {
             DataValidator.ThrowIfNull(assemblies, nameof(Assembly));
 
-            typesAssemblies.AddRange(assemblies);
+            TypesAssemblies.AddRange(assemblies);
             RegisterTypes(assemblies);
         }
 
@@ -157,7 +156,7 @@ namespace FileTypeChecker
 
         internal static IFileType FindBestMatch(Stream fileContent)
         {
-            var matches = FileTypes.Where(fileType => fileType.DoesMatchWith(fileContent));
+            var matches = Types.Where(fileType => fileType.DoesMatchWith(fileContent));
 
             if (!matches.Any())
             {
@@ -169,7 +168,7 @@ namespace FileTypeChecker
 
         internal static IFileType FindBestMatch(byte[] content)
         {
-            var matches = FileTypes.Where(fileType => fileType.DoesMatchWith(content));
+            var matches = Types.Where(fileType => fileType.DoesMatchWith(content));
 
             if (!matches.Any())
             {
@@ -191,10 +190,10 @@ namespace FileTypeChecker
             {
                 foreach (var type in GetTypesInstance(assembly))
                 {
-                    if (knownTypes.Add(type))
+                    if (KnownTypes.Add(type))
                     {
                         var fileType = (IFileType)Activator.CreateInstance(type);
-                        fileTypes.Add(fileType);
+                        FileTypes.Add(fileType);
                     }
                 }
             }

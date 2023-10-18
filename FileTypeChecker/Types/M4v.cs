@@ -2,14 +2,14 @@ using FileTypeChecker.Abstracts;
 
 namespace FileTypeChecker.Types
 {
-    public class M4v : FileType, IFileType
+    public class M4V : FileType, IFileType
     {
         public const string TypeName = "M4v file";
         public const string TypeExtension = "M4v";
 
-        private static readonly MagicSequence magicBytesSequence = new(new byte[] { 0x66, 0x74, 0x79, 0x70, 0x6D, 0x70, 0x34, 0x32 }, 4);
+        private static readonly MagicSequence MagicBytesSequence = new(new byte[] { 0x66, 0x74, 0x79, 0x70, 0x6D, 0x70, 0x34, 0x32 }, 4);
 
-        public M4v() : base(TypeName, TypeExtension, magicBytesSequence)
+        public M4V() : base(TypeName, TypeExtension, MagicBytesSequence)
         {
         }
     }

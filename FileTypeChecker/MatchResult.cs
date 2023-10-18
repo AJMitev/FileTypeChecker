@@ -10,6 +10,6 @@ namespace FileTypeChecker
 		}
 
 		public bool HasMatch => this.Type != null;
-		public IFileType Type { get; set; }
+		public IFileType Type { get; }
 	}
 }
