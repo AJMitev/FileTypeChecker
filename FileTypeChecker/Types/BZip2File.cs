@@ -1,6 +1,6 @@
 ﻿namespace FileTypeChecker.Types
 {
-    using FileTypeChecker.Abstracts;
+    using Abstracts;
 
     public class BZip2File : FileType, IFileType
     {

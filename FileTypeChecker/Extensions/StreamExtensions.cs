@@ -1,7 +1,7 @@
 ﻿namespace FileTypeChecker.Extensions
 {
-    using FileTypeChecker.Abstracts;
-    using FileTypeChecker.Types;
+    using Abstracts;
+    using Types;
     using System.IO;
 
     public static class StreamExtensions

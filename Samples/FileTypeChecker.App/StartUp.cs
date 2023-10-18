@@ -1,9 +1,9 @@
 ﻿namespace FileTypeChecker.App
 {
-    using FileTypeChecker.Abstracts;
-    using FileTypeChecker.App.MyCustomTypes;
-    using FileTypeChecker.Types;
-    using FileTypeChecker.Extensions;
+    using Abstracts;
+    using MyCustomTypes;
+    using Types;
+    using Extensions;
     using System;
     using System.IO;
 

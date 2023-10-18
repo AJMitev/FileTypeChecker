@@ -1,6 +1,6 @@
 ﻿namespace FileTypeChecker.Tests
 {
-    using FileTypeChecker.Exceptions;
+    using Exceptions;
     using NUnit.Framework;
 
     [TestFixture]

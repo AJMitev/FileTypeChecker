@@ -1,6 +1,6 @@
 ﻿namespace FileTypeChecker.Types
 {
-    using FileTypeChecker.Abstracts;
+    using Abstracts;
     public class Mp3 : FileType, IFileType
     {
         public const string TypeName = "MPEG audio file frame synch pattern";

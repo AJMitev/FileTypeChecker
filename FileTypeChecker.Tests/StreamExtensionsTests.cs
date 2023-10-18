@@ -1,7 +1,7 @@
 ﻿namespace FileTypeChecker.Tests
 {
-    using FileTypeChecker.Types;
-    using FileTypeChecker.Extensions;
+    using Types;
+    using Extensions;
     using NUnit.Framework;
     using System.IO;
 

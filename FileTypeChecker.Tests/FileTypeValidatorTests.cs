@@ -2,8 +2,8 @@
 {
     using System;
     using System.IO;
-    using FileTypeChecker.Exceptions;
-    using FileTypeChecker.Types;
+    using Exceptions;
+    using Types;
     using NUnit.Framework;
 
     [TestFixture]
@@ -250,6 +250,7 @@
         [TestCase("test.wmf", typeof(WindowsMetaFileType))]
         [TestCase("test.ico", typeof(Icon))]
         [TestCase("365-doc.docx", typeof(MicrosoftOffice365Document))]
+        [TestCase("365-doc-empty.docx", typeof(MicrosoftOffice365Document))]
         [TestCase("testwin10.zip", typeof(ZipFile))]
         [TestCase("test.webp",typeof(Webp))]
         [TestCase("sample.heic", typeof(HighEfficiencyImageFile))]

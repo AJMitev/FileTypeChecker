@@ -1,7 +1,7 @@
 ﻿namespace FileTypeChecker.App.MyCustomTypes
 {
     using FileTypeChecker;
-    using FileTypeChecker.Abstracts;
+    using Abstracts;
 
     class MyCustomFileTypeWithManyVersions : FileType
     {
