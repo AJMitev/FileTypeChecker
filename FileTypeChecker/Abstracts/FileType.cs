@@ -6,7 +6,7 @@
     using System.Threading.Tasks;
     using Common;
     using FileTypeChecker;
-    using FileTypeChecker.Exceptions;
+    using Exceptions;
 
     public abstract class FileType : IFileType
     {
@@ -30,11 +30,11 @@
             this.Bytes = new[] { magicBytes };
         }
 
-        protected FileType(string name, string extension, MagicSequence[] magicBytesSequance)
+        protected FileType(string name, string extension, MagicSequence[] magicBytesSequence)
         {
             this.Name = name;
             this.Extension = extension;
-            this.Bytes = magicBytesSequance;
+            this.Bytes = magicBytesSequence;
         }
 
         /// <inheritdoc />
@@ -79,14 +79,10 @@
             DataValidator.ThrowIfNull(stream, nameof(Stream));
 
             if (!stream.CanRead || (stream.Position != 0 && !stream.CanSeek))
-            {
                 throw new StreamMustBeReadableException();
-            }
 
-            if (stream.Position != 0 && resetPosition)
-            {
+            if (stream.Position != 0 && resetPosition) 
                 stream.Position = 0;
-            }
 
             var buffer = new byte[BufferDefaultSize];
             stream.Read(buffer, 0, buffer.Length);
@@ -106,76 +102,36 @@
             DataValidator.ThrowIfNull(stream, nameof(Stream));
 
             if (!stream.CanRead || (stream.Position != 0 && !stream.CanSeek))
-            {
                 throw new StreamMustBeReadableException();
-            }
 
-            if (stream.Position != 0 && resetPosition)
-            {
+            if (stream.Position != 0 && resetPosition) 
                 stream.Position = 0;
-            }
 
             var buffer = new byte[BufferDefaultSize];
             await stream.ReadAsync(buffer, 0, buffer.Length);
 
-            foreach (var byteArray in this.Bytes)
-            {
-                if (byteArray.Equals(buffer))
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return CompareBytes(buffer);
         }
 
         public int GetMatchingNumber(Stream stream)
         {
-            stream.Position = 0;
-
-            int counter = 0;
             var buffer = new byte[BufferDefaultSize];
+            stream.Position = 0;
             stream.Read(buffer, 0, buffer.Length);
 
-            foreach (var bytesArr in this.Bytes)
-            {
-                var matchingBytes = bytesArr.CountMatchingBytes(buffer);
-                if (matchingBytes > counter)
-                {
-                    counter = matchingBytes;
-                }
-            }
-
-            return counter == 0 ? -1 : counter;
+            return GetMatchingNumber(buffer);
         }
 
         public int GetMatchingNumber(byte[] bytes)
         {
-            int counter = 0;
-        
-            foreach (var bytesArr in this.Bytes)
-            {
-                var matchingBytes = bytesArr.CountMatchingBytes(bytes);
-                if (matchingBytes > counter)
-                {
-                    counter = matchingBytes;
-                }
-            }
+            var counter = this.Bytes
+                .Select(bytesArr => bytesArr.CountMatchingBytes(bytes))
+                .Prepend(0)
+                .Max();
 
             return counter == 0 ? -1 : counter;
         }
 
-        private bool CompareBytes(byte[] bytes)
-        {
-            foreach (var byteArray in this.Bytes)
-            {
-                if (byteArray.Equals(bytes))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
+        private bool CompareBytes(byte[] bytes) => this.Bytes.Any(byteArray => byteArray.Equals(bytes));
     }
 }

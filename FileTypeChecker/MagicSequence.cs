@@ -62,13 +62,13 @@
             return new ReadOnlyCollection<byte>(result);
         }
 
-        private byte[] TakeComparableSequence(byte[] bytes)
+        private byte[] TakeComparableSequence(IReadOnlyCollection<byte> bytes)
         {
             var first = bytes.Take(_indexToStart)
                 .ToList();
 
             var second = bytes.Skip(_bytesToSkip + first.Count)
-                .Take(bytes.Length - (_bytesToSkip + first.Count));
+                .Take(bytes.Count - (_bytesToSkip + first.Count));
 
             first.AddRange(second);
             return first.ToArray();

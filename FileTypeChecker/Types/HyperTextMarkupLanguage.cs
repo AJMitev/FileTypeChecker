@@ -1,7 +1,6 @@
 ﻿namespace FileTypeChecker.Types
 {
-    using FileTypeChecker;
-    using FileTypeChecker.Abstracts;
+    using Abstracts;
 
     public class HyperTextMarkupLanguage : FileType, IFileType
     {

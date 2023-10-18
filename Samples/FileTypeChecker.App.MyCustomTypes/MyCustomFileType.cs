@@ -2,9 +2,6 @@
 {
     using FileTypeChecker;
     using FileTypeChecker.Abstracts;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     public class MyCustomFileType : FileType
     {

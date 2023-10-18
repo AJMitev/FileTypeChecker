@@ -208,30 +208,66 @@
 
         [Test]
         public void GetFileType_ShouldThrowArgumentNullExceptionIfStreamIsNull()
-            => Assert.Catch<ArgumentNullException>(() => FileTypeValidator.GetFileType(null));
+            => Assert.Catch<ArgumentNullException>(() => FileTypeValidator.GetFileType(fileContent: null));
 
         [Test]
         public void Is_ShouldThrowExceptionIfStreamIsNull()
-            => Assert.Catch<ArgumentNullException>(() => FileTypeValidator.Is<Bitmap>(null));
+            => Assert.Catch<ArgumentNullException>(() => FileTypeValidator.Is<Bitmap>(Stream.Null));
 
         [Test]
         public void Is_ShouldReturnTrueIfTheTypesMatch()
         {
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.bmp"));
-            var expected = true;
             var actual = FileTypeValidator.Is<Bitmap>(fileStream);
 
-            Assert.AreEqual(expected, actual);
+            Assert.IsTrue(actual);
         }
 
         [Test]
         public void Is_ShouldReturnFalseIfTypesDidNotMatch()
         {
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.bmp"));
-            var expected = false;
             var actual = FileTypeValidator.Is<Gzip>(fileStream);
 
-            Assert.AreEqual(expected, actual);
+            Assert.IsFalse(actual);
+        }
+
+        [Test]
+        [TestCase("test.bmp",typeof(Bitmap))]
+        [TestCase("test.jpg", typeof(JointPhotographicExpertsGroup))]
+        [TestCase("test.png", typeof(PortableNetworkGraphic))]
+        [TestCase("test.gif", typeof(GraphicsInterchangeFormat89))]
+        [TestCase("test.tif", typeof(TaggedImageFileFormat))]
+        [TestCase("test.psd", typeof(PhotoshopDocumentFile))]
+        [TestCase("test.pdf", typeof(PortableDocumentFormat))]
+        [TestCase("test.doc", typeof(MicrosoftOfficeDocument))]
+        [TestCase("test.xml", typeof(ExtensibleMarkupLanguage))]
+        [TestCase("test.zip", typeof(ZipFile))]
+        [TestCase("test.7z", typeof(SevenZipFile))]
+        [TestCase("test.bz2", typeof(BZip2File))]
+        [TestCase("test.gz", typeof(Gzip))]
+        [TestCase("blob.mp3", typeof(MpegAudio))]
+        [TestCase("test.wmf", typeof(WindowsMetaFileType))]
+        [TestCase("test.ico", typeof(Icon))]
+        [TestCase("365-doc.docx", typeof(MicrosoftOffice365Document))]
+        [TestCase("testwin10.zip", typeof(ZipFile))]
+        [TestCase("test.webp",typeof(Webp))]
+        [TestCase("sample.heic", typeof(HighEfficiencyImageFile))]
+        public void GetFileType_ShouldReturnAccurateTypeWhenUsingBytes(string fileName,Type expectedType)
+        {
+            var buffer = GetFileBytes(fileName);
+            var type = FileTypeValidator.GetFileType(buffer).GetType();
+
+            Assert.AreEqual(expectedType, type);
+        }
+
+        private static byte[] GetFileBytes(string fileName)
+        {
+            using var fileStream = File.OpenRead(Path.Combine(FilesPath, fileName));
+            var buffer = new byte[24];
+            fileStream.Position = 0;
+            fileStream.Read(buffer, 0, buffer.Length);
+            return buffer;
         }
     }
 }

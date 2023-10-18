@@ -6,8 +6,6 @@
     using FileTypeChecker.Extensions;
     using System;
     using System.IO;
-    using Microsoft.VisualBasic.FileIO;
-    using System.IO.Pipes;
 
     public static class StartUp
     {
