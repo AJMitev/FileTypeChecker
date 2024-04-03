@@ -10,7 +10,8 @@
 
     public abstract class FileType : IFileType
     {
-        private static int BufferDefaultSize => Math.Max( FileTypeValidator.MinimalBufferSize, 20);
+
+        private int BufferSize => Math.Max( MaxMagicSequenceLength, 20);
         private string _name;
         private string _extension;
         private MagicSequence[] _bytes;
@@ -87,7 +88,7 @@
             if (stream.Position != 0 && resetPosition) 
                 stream.Position = 0;
 
-            var buffer = new byte[BufferDefaultSize];
+            var buffer = new byte[BufferSize];
             stream.Read(buffer, 0, buffer.Length);
 
             return CompareBytes(buffer);
@@ -110,7 +111,7 @@
             if (stream.Position != 0 && resetPosition) 
                 stream.Position = 0;
 
-            var buffer = new byte[BufferDefaultSize];
+            var buffer = new byte[BufferSize];
             await stream.ReadAsync(buffer, 0, buffer.Length);
 
             return CompareBytes(buffer);
@@ -118,7 +119,7 @@
 
         public int GetMatchingNumber(Stream stream)
         {
-            var buffer = new byte[BufferDefaultSize];
+            var buffer = new byte[BufferSize];
             stream.Position = 0;
             stream.Read(buffer, 0, buffer.Length);
 
