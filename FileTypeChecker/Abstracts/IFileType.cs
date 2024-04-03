@@ -14,7 +14,12 @@
         /// Returns the extension of the current <see cref="IFileType"/> without dot.
         /// </summary>
         string Extension { get; }
-        
+
+        /// <summary>
+        /// Returns the max length of all the magic sequences added to the <see cref="FileType"/>.
+        /// </summary>
+        int MaxMagicSequenceLength { get; }
+
         /// <summary>
         /// Checks if current <see cref="IFileType"/> matches with file from stream.
         /// </summary>

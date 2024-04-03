@@ -10,7 +10,7 @@
 
     public abstract class FileType : IFileType
     {
-        private const int BufferDefaultSize = 20;
+        private static int BufferDefaultSize => Math.Max( FileTypeValidator.MinimalBufferSize, 20);
         private string _name;
         private string _extension;
         private MagicSequence[] _bytes;
@@ -72,6 +72,9 @@
                 this._bytes = value;
             }
         }
+
+        /// <inheritdoc />
+        public int MaxMagicSequenceLength => Bytes.Max(o => o.Length);
 
         /// <inheritdoc />
         public bool DoesMatchWith(Stream stream, bool resetPosition = true)

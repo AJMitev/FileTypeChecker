@@ -26,6 +26,11 @@ namespace FileTypeChecker
         private static readonly HashSet<Type> KnownTypes = new();
         private static readonly List<IFileType> FileTypes = new();
 
+        /// <summary>
+        /// The minimal buffer size required to validate all the known <see cref="FileType"/>s.
+        /// </summary>
+        internal static int MinimalBufferSize { private set; get; }
+
         private static IReadOnlyCollection<IFileType> Types
         {
             get
@@ -241,6 +246,7 @@ namespace FileTypeChecker
                     }
                 }
             }
+            MinimalBufferSize = FileTypes.Max(o => o.MaxMagicSequenceLength);
         }
 
         private static IFileType FindBestMatch(Stream fileContent, IList<IFileType> result)

@@ -13,6 +13,8 @@
         private readonly int _bytesToSkip;
         private readonly int _indexToStart;
 
+        public int Length => _data.Length;
+
         public MagicSequence(byte[] data, int offset) : this(data, offset, 0)
         { }
 
