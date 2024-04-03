@@ -28,6 +28,12 @@
     <None Update="files\365-test.docx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="files\arbitrary_csv_1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="files\arbitrary_csv_2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Files\blob.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

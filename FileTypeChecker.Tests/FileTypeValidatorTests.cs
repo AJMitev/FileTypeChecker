@@ -5,6 +5,9 @@
     using Exceptions;
     using Types;
     using NUnit.Framework;
+    using FileTypeChecker.Abstracts;
+    using System.Text;
+    using System.Reflection;
 
     [TestFixture]
     public class FileTypeValidatorTests
@@ -233,7 +236,7 @@
         }
 
         [Test]
-        [TestCase("test.bmp",typeof(Bitmap))]
+        [TestCase("test.bmp", typeof(Bitmap))]
         [TestCase("test.jpg", typeof(JointPhotographicExpertsGroup))]
         [TestCase("test.png", typeof(PortableNetworkGraphic))]
         [TestCase("test.gif", typeof(GraphicsInterchangeFormat89))]
@@ -252,13 +255,23 @@
         [TestCase("365-doc.docx", typeof(MicrosoftOffice365Document))]
         [TestCase("365-doc-empty.docx", typeof(MicrosoftOffice365Document))]
         [TestCase("testwin10.zip", typeof(ZipFile))]
-        [TestCase("test.webp",typeof(Webp))]
+        [TestCase("test.webp", typeof(Webp))]
         [TestCase("sample.heic", typeof(HighEfficiencyImageFile))]
-        public void GetFileType_ShouldReturnAccurateTypeWhenUsingBytes(string fileName,Type expectedType)
+        public void GetFileType_ShouldReturnAccurateTypeWhenUsingBytes(string fileName, Type expectedType)
         {
             var buffer = GetFileBytes(fileName);
             var type = FileTypeValidator.GetFileType(buffer).GetType();
 
+            Assert.AreEqual(expectedType, type);
+        }
+
+        [Test]
+        [TestCase("arbitrary_csv_1.txt", typeof(ArbitraryCsv1FileType))]
+        [TestCase("arbitrary_csv_2.txt", typeof(ArbitraryCsv2FileType))]
+        public void GetFileType_ShouldUseTheMinimalBufferSizeWhenUsingStream(string fileName, Type expectedType)
+        {
+            using var stream = File.OpenRead(Path.Combine(FilesPath, fileName));
+            var type = FileTypeValidator.GetFileType(stream).GetType();
             Assert.AreEqual(expectedType, type);
         }
 
@@ -270,5 +283,26 @@
             fileStream.Read(buffer, 0, buffer.Length);
             return buffer;
         }
+
     }
+
+    public class ArbitraryCsv1FileType : FileType
+    {
+        private static readonly string name = "Arbitrary Csv 1 FileType";
+        private static readonly string extension = "arbitrarycsv1filetype";
+        private static readonly byte[] magicBytes1 = Encoding.UTF8.GetBytes("ID;field_1;field_2;field_3;field_4;field_5;field_6;field_7;field_8");
+        private static readonly MagicSequence[] magicBytesJaggedArray = { new MagicSequence(magicBytes1) };
+        public ArbitraryCsv1FileType() : base(name, extension, magicBytesJaggedArray) { }
+    }
+
+    public class ArbitraryCsv2FileType : FileType
+    {
+        private static readonly string name = "Arbitrary Csv 2 FileType";
+        private static readonly string extension = "arbitrarycsv2filetype";
+        private static readonly byte[] magicBytes1 = Encoding.UTF8.GetBytes("ID;field_1;field_2;field_3;field_4;field_5;field_6;field_7;field_8;field_9");
+        private static readonly MagicSequence[] magicBytesJaggedArray = { new MagicSequence(magicBytes1) };
+        public ArbitraryCsv2FileType() : base(name, extension, magicBytesJaggedArray) { }
+    }
+
+
 }
