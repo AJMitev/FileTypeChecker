@@ -1,12 +1,12 @@
-﻿namespace FileTypeChecker.Tests
+﻿using FileTypeChecker.Types;
+
+namespace FileTypeChecker.Tests
 {
     using System;
     using System.IO;
     using Exceptions;
     using Types;
     using NUnit.Framework;
-    using FileTypeChecker.Abstracts;
-    using System.Text;
     using System.Reflection;
 
     [TestFixture]
@@ -285,24 +285,4 @@
         }
 
     }
-
-    public class ArbitraryCsv1FileType : FileType
-    {
-        private static readonly string name = "Arbitrary Csv 1 FileType";
-        private static readonly string extension = "arbitrarycsv1filetype";
-        private static readonly byte[] magicBytes1 = Encoding.UTF8.GetBytes("ID;field_1;field_2;field_3;field_4;field_5;field_6;field_7;field_8");
-        private static readonly MagicSequence[] magicBytesJaggedArray = { new MagicSequence(magicBytes1) };
-        public ArbitraryCsv1FileType() : base(name, extension, magicBytesJaggedArray) { }
-    }
-
-    public class ArbitraryCsv2FileType : FileType
-    {
-        private static readonly string name = "Arbitrary Csv 2 FileType";
-        private static readonly string extension = "arbitrarycsv2filetype";
-        private static readonly byte[] magicBytes1 = Encoding.UTF8.GetBytes("ID;field_1;field_2;field_3;field_4;field_5;field_6;field_7;field_8;field_9");
-        private static readonly MagicSequence[] magicBytesJaggedArray = { new MagicSequence(magicBytes1) };
-        public ArbitraryCsv2FileType() : base(name, extension, magicBytesJaggedArray) { }
-    }
-
-
 }

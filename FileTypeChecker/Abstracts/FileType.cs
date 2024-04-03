@@ -10,17 +10,18 @@
 
     public abstract class FileType : IFileType
     {
-
-        private int BufferSize => Math.Max( MaxMagicSequenceLength, 20);
+        private int BufferSize => Math.Max(MaxMagicSequenceLength, 20);
         private string _name;
         private string _extension;
         private MagicSequence[] _bytes;
 
-        protected FileType(string name, string extension, byte[] magicBytes) : this(name, extension, new MagicSequence(magicBytes))
+        protected FileType(string name, string extension, byte[] magicBytes) : this(name, extension,
+            new MagicSequence(magicBytes))
         {
         }
 
-        protected FileType(string name, string extension, byte[][] magicBytes) : this(name, extension, magicBytes.Select(x => new MagicSequence(x)).ToArray())
+        protected FileType(string name, string extension, byte[][] magicBytes) : this(name, extension,
+            magicBytes.Select(x => new MagicSequence(x)).ToArray())
         {
         }
 
@@ -85,7 +86,7 @@
             if (!stream.CanRead || (stream.Position != 0 && !stream.CanSeek))
                 throw new StreamMustBeReadableException();
 
-            if (stream.Position != 0 && resetPosition) 
+            if (stream.Position != 0 && resetPosition)
                 stream.Position = 0;
 
             var buffer = new byte[BufferSize];
@@ -108,7 +109,7 @@
             if (!stream.CanRead || (stream.Position != 0 && !stream.CanSeek))
                 throw new StreamMustBeReadableException();
 
-            if (stream.Position != 0 && resetPosition) 
+            if (stream.Position != 0 && resetPosition)
                 stream.Position = 0;
 
             var buffer = new byte[BufferSize];

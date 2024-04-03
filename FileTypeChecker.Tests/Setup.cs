@@ -1,17 +1,11 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FileTypeChecker.Tests
 {
     [SetUpFixture]
     public class Setup
     {
-
         [OneTimeSetUp]
         public void SetUp()
         {
@@ -22,7 +16,5 @@ namespace FileTypeChecker.Tests
         public void TearDown()
         {
         }
-
-
     }
 }

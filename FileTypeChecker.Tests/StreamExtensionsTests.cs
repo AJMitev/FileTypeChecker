@@ -1,4 +1,6 @@
-﻿namespace FileTypeChecker.Tests
+﻿using FileTypeChecker.Types;
+
+namespace FileTypeChecker.Tests
 {
     using Types;
     using Extensions;
