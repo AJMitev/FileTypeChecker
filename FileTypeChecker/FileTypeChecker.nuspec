@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>File.TypeChecker</id>
-    <version>4.0.0</version>
+    <version>4.1.1</version>
     <title>FileTypeChecker</title>
     <authors>Aleksandar J. Mitev</authors>
     <owners>Aleksandar J. Mitev</owners>
@@ -10,10 +10,10 @@
     <projectUrl>https://github.com/AJMitev/FileTypeChecker</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>FileTypeChecker is a easy to use library that provides quality identification of a file type. This will help you to secure your applications and validate all files that are provided by external sources with few lines of code.</description>
-    <copyright>2019-2023</copyright>
+    <copyright>2019-2024</copyright>
     <tags>TypeChecking TypeValidating Files FileChecking FileValidation Validation File Type Validator Checker Magic Numbers Identifying Bytes</tags>
-	  <readme>docs\README.md</readme>
-	  <icon>images\FileTypeCheckerLogo-150.png</icon>
+	<readme>docs\README.md</readme>
+	<icon>images\FileTypeCheckerLogo-150.png</icon>
   </metadata>
 
   <files>

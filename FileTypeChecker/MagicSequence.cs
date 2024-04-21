@@ -25,7 +25,9 @@
             this._indexToStart = indexToStart;
         }
 
-        private ReadOnlyCollection<byte> Bytes => this.GetBytes(_data);
+        private ReadOnlyCollection<byte> Bytes => _indexToStart == 0 
+            ? new ReadOnlyCollection<byte>(_data) 
+            : new ReadOnlyCollection<byte>(this.TakeComparableSequence(_data));
 
         public bool Equals(byte[] buffer) => this.GetBytes(buffer).SequenceEqual(Bytes);
 

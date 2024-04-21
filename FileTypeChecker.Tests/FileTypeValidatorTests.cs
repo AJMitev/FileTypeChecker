@@ -56,6 +56,7 @@ namespace FileTypeChecker.Tests
         [TestCase("testwin10.zip")]
         [TestCase("test.webp")]
         [TestCase("sample.heic")]
+        [TestCase("test.mp4")]
         public void IsTypeRecognizable_ShouldReturnTrueIfFileIsRecognized(string filePath)
         {
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
