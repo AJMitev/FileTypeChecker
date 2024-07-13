@@ -119,6 +119,7 @@ namespace FileTypeChecker.Tests
         [TestCase("testwin10.zip", ZipFile.TypeExtension)]
         [TestCase("test.webp", Webp.TypeExtension)]
         [TestCase("sample.heic", HighEfficiencyImageFile.TypeExtension)]
+        [TestCase("test-offset.mp4", M4V.TypeExtension)]
         public void TryGetFileType_ShouldReturnFileExtension(string filePath, string expectedFileExtension)
         {
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
@@ -130,6 +131,7 @@ namespace FileTypeChecker.Tests
         [Test]
         [TestCase("test.png")]
         [TestCase("test.webp")]
+        [TestCase("test.mp4")]
         public void TryGetFileType_MatchShouldReturnTrueWhenTypeIsValid(string fileName)
         {
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, fileName));
