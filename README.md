@@ -76,7 +76,7 @@ FileTypeChecker is able to identify more than 22 different types but also you ar
 
 ## Web Applications
 
-If you are planning to use this library in a Web application you can [check here](https://github.com/AJMitev/FileTypeChecker.Web). That library is designed to be used in ASP.NET applications and contains some very useful predefined validation attributes that can be used for IFormFile.
+If you are developing Web application you can [check this](https://github.com/AJMitev/FileTypeChecker.Web). That package is designed for ASP.NET applications and contains very useful predefined validation attributes that can be used for IFormFile.
 
 ## Credits
 
