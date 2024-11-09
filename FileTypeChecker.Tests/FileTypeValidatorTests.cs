@@ -257,6 +257,7 @@ namespace FileTypeChecker.Tests
         [TestCase("test.ico", typeof(Icon))]
         [TestCase("365-doc.docx", typeof(MicrosoftOffice365Document))]
         [TestCase("365-doc-empty.docx", typeof(MicrosoftOffice365Document))]
+        [TestCase("365-issue311.docx", typeof(MicrosoftOffice365Document))]
         [TestCase("testwin10.zip", typeof(ZipFile))]
         [TestCase("test.webp", typeof(Webp))]
         [TestCase("sample.heic", typeof(HighEfficiencyImageFile))]
