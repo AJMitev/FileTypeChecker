@@ -275,7 +275,7 @@ namespace FileTypeChecker
 
             for (var typeIndex = 0; typeIndex < result.Count(); typeIndex++)
             {
-                if (result.ElementAt(typeIndex) is not FileType currentType)
+                if (result.ElementAt(typeIndex) is not IFileType currentType)
                     throw new TypeNotFoundException();
                     
                 var currentScore = currentType.GetMatchingNumber(fileContent);
@@ -292,7 +292,7 @@ namespace FileTypeChecker
 
             for (var typeIndex = 0; typeIndex < result.Count(); typeIndex++)
             {
-                if (result.ElementAt(typeIndex) is not FileType currentType)
+                if (result.ElementAt(typeIndex) is not IFileType currentType)
                     throw new TypeNotFoundException();
                 
                 var currentScore = currentType.GetMatchingNumber(content);
