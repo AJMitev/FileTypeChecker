@@ -260,6 +260,8 @@ namespace FileTypeChecker.Tests
         [TestCase("testwin10.zip", typeof(ZipFile))]
         [TestCase("test.webp", typeof(Webp))]
         [TestCase("sample.heic", typeof(HighEfficiencyImageFile))]
+        [TestCase("issue311docx.testfile", typeof(MicrosoftOffice365Document))]
+        [TestCase("test-issue-41.xlsx", typeof(MicrosoftOffice365Document))]
         public void GetFileType_ShouldReturnAccurateTypeWhenUsingBytes(string fileName, Type expectedType)
         {
             var buffer = GetFileBytes(fileName);
