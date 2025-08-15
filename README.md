@@ -1,6 +1,6 @@
 <h1><img src="https://raw.githubusercontent.com/AJMitev/FileTypeChecker/master/tools/FileTypeCheckerLogo-150.png" align="left" alt="FileTypeChecker" width="90">FileTypeChecker - Protect your application from malicious files</h1>
 
-[![Build status](https://ci.appveyor.com/api/projects/status/jx9bcrxs95srhxsj?svg=true)](https://ci.appveyor.com/project/AJMitev/filetypechecker) ![NuGet Downloads](https://img.shields.io/nuget/dt/File.TypeChecker?color=blue)(https://www.nuget.org/packages/File.TypeChecker/) [![License: MIT](https://img.shields.io/github/license/ajmitev/filetypechecker)](https://github.com/AJMitev/FileTypeChecker/blob/master/LICENSE) [![CodeFactor](https://www.codefactor.io/repository/github/ajmitev/filetypechecker/badge)](https://www.codefactor.io/repository/github/ajmitev/filetypechecker) ![Discord](https://img.shields.io/discord/1035464819102470155?logo=discord)
+[![Build status](https://ci.appveyor.com/api/projects/status/jx9bcrxs95srhxsj?svg=true)](https://ci.appveyor.com/project/AJMitev/filetypechecker) [![NuGet Downloads](https://img.shields.io/nuget/dt/File.TypeChecker?color=blue)](https://www.nuget.org/packages/File.TypeChecker/) [![License: MIT](https://img.shields.io/github/license/ajmitev/filetypechecker)](https://github.com/AJMitev/FileTypeChecker/blob/master/LICENSE) [![CodeFactor](https://www.codefactor.io/repository/github/ajmitev/filetypechecker/badge)](https://www.codefactor.io/repository/github/ajmitev/filetypechecker) ![Discord](https://img.shields.io/discord/1035464819102470155?logo=discord)
 
 ## Support the project
 
