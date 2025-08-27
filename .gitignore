@@ -332,3 +332,6 @@ ASALocalRun/
 # Nuget
 nuget.exe
 .DS_Store
+
+# Claude Code documentation
+CLAUDE.md

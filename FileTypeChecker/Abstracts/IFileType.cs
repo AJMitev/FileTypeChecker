@@ -21,11 +21,11 @@
         int MaxMagicSequenceLength { get; }
 
         /// <summary>
-        /// Checks if current <see cref="IFileType"/> matches with file from stream.
+        /// Checks if current <see cref="IFileType"/> matches with a file from stream.
         /// </summary>
-        /// <param name="stream">File as stream.</param>
+        /// <param name="stream">File as a stream.</param>
         /// <param name="resetPosition"></param>
-        /// <returns>Does file from stream match with current.</returns>
+        /// <returns>Does file from stream match with current?</returns>
         /// <exception cref="System.ArgumentException"></exception>
         /// <exception cref="System.ArgumentNullException"></exception>
         /// <exception cref="System.NotSupportedException"></exception>
@@ -33,10 +33,10 @@
         bool DoesMatchWith(Stream stream, bool resetPosition = true);
 
         /// <summary>
-        /// Checks if current <see cref="IFileType"/> matches with file from stream.
+        /// Checks if current <see cref="IFileType"/> matches with a file from stream.
         /// </summary>
-        /// <param name="bytes">File as byte array.</param>
-        /// <returns>Does file from stream match with current.</returns>
+        /// <param name="bytes">File as a byte array.</param>
+        /// <returns>Does file from stream match with current?</returns>
         /// <exception cref="System.ArgumentException"></exception>
         /// <exception cref="System.ArgumentNullException"></exception>
         /// <exception cref="System.NotSupportedException"></exception>
@@ -44,30 +44,28 @@
         bool DoesMatchWith(byte[] bytes);
 
         /// <summary>
-        /// Checks if current <see cref="IFileType"/> matches with file from stream.
+        /// Asynchronously checks if the current <see cref="IFileType"/> matches with the file from stream.
         /// </summary>
-        /// <param name="stream">File as stream.</param>
-        /// <param name="resetPosition"></param>
-        /// <returns>Does file from stream match with current.</returns>
-        /// <exception cref="System.ArgumentException"></exception>
-        /// <exception cref="System.ArgumentNullException"></exception>
-        /// <exception cref="System.NotSupportedException"></exception>
-        /// <exception cref="System.ObjectDisposedException"></exception>
-        /// <returns></returns>
+        /// <param name="stream">File as a stream.</param>
+        /// <param name="resetPosition">Whether to reset the stream position to the beginning before reading.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains true if the file matches; otherwise, false.</returns>
+        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="stream"/> is null.</exception>
+        /// <exception cref="System.NotSupportedException">Thrown when the stream does not support reading or seeking.</exception>
+        /// <exception cref="System.ObjectDisposedException">Thrown when the stream has been disposed.</exception>
         Task<bool> DoesMatchWithAsync(Stream stream, bool resetPosition = true);
 
         /// <summary>
-        /// Returns an integer that represents how much that filetype matches the input. The bigger the number the best it match.
+        /// Returns a score that represents how closely the file type matches the input. Higher values indicate better matches.
         /// </summary>
-        /// <param name="stream">File as stream.</param>
-        /// <returns>Integer</returns>
+        /// <param name="stream">File content as a stream.</param>
+        /// <returns>A numeric score representing the match quality.</returns>
         int GetMatchingNumber(Stream stream);
 
         /// <summary>
-        /// Returns an integer that represents how much that filetype matches the input. The bigger the number the best it match.
+        /// Returns a score that represents how closely the file type matches the input. Higher values indicate better matches.
         /// </summary>
-        /// <param name="stream">File as bytes.</param>
-        /// <returns>Integer</returns>
+        /// <param name="bytes">File content as a byte array.</param>
+        /// <returns>A numeric score representing the match quality.</returns>
         int GetMatchingNumber(byte[] bytes);
     }
 }
