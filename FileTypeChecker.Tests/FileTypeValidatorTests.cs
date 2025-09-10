@@ -57,6 +57,8 @@ namespace FileTypeChecker.Tests
         [TestCase("test.webp")]
         [TestCase("sample.heic")]
         [TestCase("test.mp4")]
+        [TestCase("file_example_AVI_480_750kB.avi")]
+        [TestCase("file_example_WAV_1MG.wav")]
         public void IsTypeRecognizable_ShouldReturnTrueIfFileIsRecognized(string filePath)
         {
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
@@ -89,6 +91,8 @@ namespace FileTypeChecker.Tests
         [TestCase("testwin10.zip", ZipFile.TypeExtension)]
         [TestCase("test.webp", Webp.TypeExtension)]
         [TestCase("sample.heic", HighEfficiencyImageFile.TypeExtension)]
+        [TestCase("file_example_AVI_480_750kB.avi", AudioVideoInterleaveVideoFormat.TypeExtension)]
+        [TestCase("file_example_WAV_1MG.wav", WaveformAudioFileFormat.TypeExtension)]
         public void GetFileType_ShouldReturnFileExtension(string filePath, string expectedFileExtension)
         {
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
@@ -120,6 +124,8 @@ namespace FileTypeChecker.Tests
         [TestCase("test.webp", Webp.TypeExtension)]
         [TestCase("sample.heic", HighEfficiencyImageFile.TypeExtension)]
         [TestCase("test-offset.mp4", M4V.TypeExtension)]
+        [TestCase("file_example_AVI_480_750kB.avi", AudioVideoInterleaveVideoFormat.TypeExtension)]
+        [TestCase("file_example_WAV_1MG.wav", WaveformAudioFileFormat.TypeExtension)]
         public void TryGetFileType_ShouldReturnFileExtension(string filePath, string expectedFileExtension)
         {
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
@@ -197,6 +203,8 @@ namespace FileTypeChecker.Tests
         [TestCase("testwin10.zip", ZipFile.TypeName)]
         [TestCase("test.webp", Webp.TypeName)]
         [TestCase("sample.heic", HighEfficiencyImageFile.TypeName)]
+        [TestCase("file_example_AVI_480_750kB.avi", AudioVideoInterleaveVideoFormat.TypeName)]
+        [TestCase("file_example_WAV_1MG.wav", WaveformAudioFileFormat.TypeName)]
         public void GetFileType_ShouldReturnFileName(string filePath, string expectedFileTypeName)
         {
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
@@ -262,6 +270,8 @@ namespace FileTypeChecker.Tests
         [TestCase("sample.heic", typeof(HighEfficiencyImageFile))]
         [TestCase("issue311docx.testfile", typeof(MicrosoftOffice365Document))]
         [TestCase("test-issue-41.xlsx", typeof(MicrosoftOffice365Document))]
+        [TestCase("file_example_AVI_480_750kB.avi", typeof(AudioVideoInterleaveVideoFormat))]
+        [TestCase("file_example_WAV_1MG.wav", typeof(WaveformAudioFileFormat))]
         public void GetFileType_ShouldReturnAccurateTypeWhenUsingBytes(string fileName, Type expectedType)
         {
             var buffer = GetFileBytes(fileName);
