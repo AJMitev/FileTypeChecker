@@ -56,6 +56,8 @@ namespace FileTypeChecker.Tests
         [TestCase("test.webp")]
         [TestCase("sample.heic")]
         [TestCase("test.mp4")]
+        [TestCase("file_example_AVI_480_750kB.avi")]
+        [TestCase("file_example_WAV_1MG.wav")]
         public async Task IsTypeRecognizableAsync_ShouldReturnTrueIfFileIsRecognized(string fileName)
         {
             await using var fileStream = File.OpenRead(Path.Combine(FilesPath, fileName));
@@ -98,6 +100,8 @@ namespace FileTypeChecker.Tests
         [TestCase("sample.heic", typeof(HighEfficiencyImageFile))]
         [TestCase("issue311docx.testfile", typeof(MicrosoftOffice365Document))]
         [TestCase("test-issue-41.xlsx", typeof(MicrosoftOffice365Document))]
+        [TestCase("file_example_AVI_480_750kB.avi", typeof(AudioVideoInterleaveVideoFormat))]
+        [TestCase("file_example_WAV_1MG.wav", typeof(WaveformAudioFileFormat))]
         public async Task GetFileTypeAsync_ShouldReturnAccurateType(string fileName, Type expectedType)
         {
             await using var fileStream = File.OpenRead(Path.Combine(FilesPath, fileName));
