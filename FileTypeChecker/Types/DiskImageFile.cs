@@ -5,10 +5,11 @@
     public class DiskImageFile : FileType, IFileType
     {
         public const string TypeName = "ISO9660 CD/DVD image file";
+        public const string TypeMimeType = "application/x-iso9660-image";
         public const string TypeExtension = "iso";
         private static readonly byte[] MagicBytes = { 0x43, 0x44, 0x30, 0x30, 0x31 };
 
-        public DiskImageFile() : base(TypeName, TypeExtension, MagicBytes)
+        public DiskImageFile() : base(TypeName, TypeMimeType, TypeExtension, MagicBytes)
         {
         }
     }

@@ -50,6 +50,7 @@
             Console.WriteLine($"Is Bitmap?: {await fileStream.IsAsync<Bitmap>()}");
             Console.WriteLine($"Is WebP?: {await fileStream.IsAsync<Webp>()}");
             Console.WriteLine($"Type Name: {fileType.Name}");
+            Console.WriteLine($"Mime Type: {fileType.MimeType}");
             Console.WriteLine($"Type Extension: {fileType.Extension}");
             Console.WriteLine(new string('=', 50));
         }

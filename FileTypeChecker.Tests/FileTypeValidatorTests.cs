@@ -69,6 +69,69 @@ namespace FileTypeChecker.Tests
 
             Assert.AreEqual(expected, actual);
         }
+        
+        [Test]
+        [TestCase("test.bmp", Bitmap.TypeMimeType)]
+        [TestCase("test.jpg", JointPhotographicExpertsGroup.TypeMimeType)]
+        [TestCase("test.png", PortableNetworkGraphic.TypeMimeType)]
+        [TestCase("test.gif", GraphicsInterchangeFormat87.TypeMimeType)]
+        [TestCase("test.tif", TaggedImageFileFormat.TypeMimeType)]
+        [TestCase("test.psd", PhotoshopDocumentFile.TypeMimeType)]
+        [TestCase("test.pdf", PortableDocumentFormat.TypeMimeType)]
+        [TestCase("test.doc", MicrosoftOfficeDocument.TypeMimeType)]
+        [TestCase("test.xml", ExtensibleMarkupLanguage.TypeMimeType)]
+        [TestCase("test.zip", ZipFile.TypeMimeType)]
+        [TestCase("test.7z", SevenZipFile.TypeMimeType)]
+        [TestCase("test.bz2", BZip2File.TypeMimeType)]
+        [TestCase("test.gz", Gzip.TypeMimeType)]
+        [TestCase("blob.mp3", Mp3.TypeMimeType)]
+        [TestCase("test.wmf", WindowsMetaFileType.TypeMimeType)]
+        [TestCase("test.ico", Icon.TypeMimeType)]
+        [TestCase("365-doc.docx", MicrosoftOffice365Document.TypeMimeType)]
+        [TestCase("testwin10.zip", ZipFile.TypeMimeType)]
+        [TestCase("test.webp", Webp.TypeMimeType)]
+        [TestCase("sample.heic", HighEfficiencyImageFile.TypeMimeType)]
+        [TestCase("file_example_AVI_480_750kB.avi", AudioVideoInterleaveVideoFormat.TypeMimeType)]
+        [TestCase("file_example_WAV_1MG.wav", WaveformAudioFileFormat.TypeMimeType)]
+        public void GetFileType_ShouldReturnFileMimeType(string filePath, string expectedFileExtension)
+        {
+            using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
+
+            var actualFileTypeExtension = FileTypeValidator.GetFileType(fileStream).MimeType;
+
+            Assert.AreEqual(expectedFileExtension, actualFileTypeExtension);
+        }
+
+        [Test]
+        [TestCase("test.bmp", Bitmap.TypeMimeType)]
+        [TestCase("test.jpg", JointPhotographicExpertsGroup.TypeMimeType)]
+        [TestCase("test.png", PortableNetworkGraphic.TypeMimeType)]
+        [TestCase("test.gif", GraphicsInterchangeFormat87.TypeMimeType)]
+        [TestCase("test.tif", TaggedImageFileFormat.TypeMimeType)]
+        [TestCase("test.psd", PhotoshopDocumentFile.TypeMimeType)]
+        [TestCase("test.pdf", PortableDocumentFormat.TypeMimeType)]
+        [TestCase("test.doc", MicrosoftOfficeDocument.TypeMimeType)]
+        [TestCase("test.xml", ExtensibleMarkupLanguage.TypeMimeType)]
+        [TestCase("test.zip", ZipFile.TypeMimeType)]
+        [TestCase("test.7z", SevenZipFile.TypeMimeType)]
+        [TestCase("test.bz2", BZip2File.TypeMimeType)]
+        [TestCase("test.gz", Gzip.TypeMimeType)]
+        [TestCase("blob.mp3", Mp3.TypeMimeType)]
+        [TestCase("test.wmf", WindowsMetaFileType.TypeMimeType)]
+        [TestCase("test.ico", Icon.TypeMimeType)]
+        [TestCase("365-doc.docx", MicrosoftOffice365Document.TypeMimeType)]
+        [TestCase("testwin10.zip", ZipFile.TypeMimeType)]
+        [TestCase("test.webp", Webp.TypeMimeType)]
+        [TestCase("sample.heic", HighEfficiencyImageFile.TypeMimeType)]
+        [TestCase("file_example_AVI_480_750kB.avi", AudioVideoInterleaveVideoFormat.TypeMimeType)]
+        [TestCase("file_example_WAV_1MG.wav", WaveformAudioFileFormat.TypeMimeType)]
+        public void TryGetFileType_ShouldReturnFileMimeType(string filePath, string expectedFileExtension)
+        {
+            using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
+            var match = FileTypeValidator.TryGetFileType(fileStream);
+            
+            Assert.AreEqual(expectedFileExtension, match.Type?.MimeType);
+        }
 
         [Test]
         [TestCase("test.bmp", Bitmap.TypeExtension)]

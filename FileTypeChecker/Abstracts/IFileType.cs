@@ -14,6 +14,11 @@
         /// Returns the extension of the current <see cref="IFileType"/> without dot.
         /// </summary>
         string Extension { get; }
+        
+        /// <summary>
+        /// Returns the MIME type of the current <see cref="IFileType"/>
+        /// </summary>
+        string MimeType { get; }
 
         /// <summary>
         /// Returns the max length of all the magic sequences added to the <see cref="FileType"/>.

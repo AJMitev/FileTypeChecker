@@ -5,6 +5,7 @@
     public class HighEfficiencyImageFile : FileType, IFileType
     {
         public const string TypeName = "High Efficiency Image File Format";
+        public const string TypeMimeType = "image/heic";
         public const string TypeExtension = "heic";
         private static readonly MagicSequence[] MagicBytes =
         {
@@ -13,7 +14,7 @@
         };
 
 
-        public HighEfficiencyImageFile() : base(TypeName, TypeExtension, MagicBytes)
+        public HighEfficiencyImageFile() : base(TypeName, TypeMimeType, TypeExtension, MagicBytes)
         {
         }
     }
