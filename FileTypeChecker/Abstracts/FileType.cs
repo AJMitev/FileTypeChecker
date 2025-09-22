@@ -138,5 +138,33 @@
         }
 
         private bool CompareBytes(byte[] bytes) => this.Bytes.Any(byteArray => byteArray.Equals(bytes));
+
+        // High-performance ReadOnlySpan<byte> overloads
+
+        /// <inheritdoc />
+        public bool DoesMatchWith(System.ReadOnlySpan<byte> bytes) => CompareBytes(bytes);
+
+        /// <inheritdoc />
+        public int GetMatchingNumber(System.ReadOnlySpan<byte> bytes) 
+        {
+            var matches = 0;
+            
+            foreach (var magicSequence in this.Bytes)
+            {
+                matches += magicSequence.CountMatchingBytes(bytes);
+            }
+
+            return matches;
+        }
+
+        private bool CompareBytes(System.ReadOnlySpan<byte> bytes) 
+        {
+            foreach (var byteArray in this.Bytes)
+            {
+                if (byteArray.Equals(bytes))
+                    return true;
+            }
+            return false;
+        }
     }
 }

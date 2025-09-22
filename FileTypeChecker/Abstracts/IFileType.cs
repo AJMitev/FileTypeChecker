@@ -67,5 +67,23 @@
         /// <param name="bytes">File content as a byte array.</param>
         /// <returns>A numeric score representing the match quality.</returns>
         int GetMatchingNumber(byte[] bytes);
+
+        // ReadOnlySpan<byte> overloads for high-performance scenarios
+
+        /// <summary>
+        /// Checks if the current <see cref="IFileType"/> matches with the file data.
+        /// This is a high-performance overload that avoids memory allocations.
+        /// </summary>
+        /// <param name="bytes">File content as ReadOnlySpan of bytes.</param>
+        /// <returns>True if the file matches; otherwise, false.</returns>
+        bool DoesMatchWith(System.ReadOnlySpan<byte> bytes);
+
+        /// <summary>
+        /// Returns a score that represents how closely the file type matches the input. Higher values indicate better matches.
+        /// This is a high-performance overload that avoids memory allocations.
+        /// </summary>
+        /// <param name="bytes">File content as ReadOnlySpan of bytes.</param>
+        /// <returns>A numeric score representing the match quality.</returns>
+        int GetMatchingNumber(System.ReadOnlySpan<byte> bytes);
     }
 }

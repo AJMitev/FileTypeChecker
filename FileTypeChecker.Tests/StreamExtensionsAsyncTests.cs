@@ -16,7 +16,7 @@ namespace FileTypeChecker.Tests
         [Test]
         public async Task IsAsync_ShouldReturnTrueIfTheTypesMatch()
         {
-            using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.png"));
+            await using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.png"));
             var result = await fileStream.IsAsync<PortableNetworkGraphic>();
 
             Assert.IsTrue(result);
@@ -25,7 +25,7 @@ namespace FileTypeChecker.Tests
         [Test]
         public async Task IsAsync_ShouldReturnFalseIfTypesDidNotMatch()
         {
-            using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.png"));
+            await using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.png"));
             var result = await fileStream.IsAsync<Bitmap>();
 
             Assert.IsFalse(result);
@@ -34,7 +34,7 @@ namespace FileTypeChecker.Tests
         [Test]
         public async Task IsAsync_ShouldReturnFalseIfRandomInput()
         {
-            using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test"));
+            await using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test"));
             var result = await fileStream.IsAsync<Bitmap>();
 
             Assert.IsFalse(result);
@@ -43,7 +43,7 @@ namespace FileTypeChecker.Tests
         [Test]
         public async Task IsImageAsync_ShouldReturnTrueIfTheTypesMatch()
         {
-            using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.png"));
+            await using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.png"));
             var result = await fileStream.IsImageAsync();
 
             Assert.IsTrue(result);
@@ -52,7 +52,7 @@ namespace FileTypeChecker.Tests
         [Test]
         public async Task IsImageAsync_ShouldReturnFalseIfTypesDidNotMatch()
         {
-            using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.pdf"));
+            await using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.pdf"));
             var result = await fileStream.IsImageAsync();
 
             Assert.IsFalse(result);
@@ -61,7 +61,7 @@ namespace FileTypeChecker.Tests
         [Test]
         public async Task IsArchiveAsync_ShouldReturnTrueIfTheTypesMatch()
         {
-            using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.zip"));
+            await using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.zip"));
             var result = await fileStream.IsArchiveAsync();
 
             Assert.IsTrue(result);
@@ -70,7 +70,7 @@ namespace FileTypeChecker.Tests
         [Test]
         public async Task IsArchiveAsync_ShouldReturnFalseIfTypesDidNotMatch()
         {
-            using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.png"));
+            await using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.png"));
             var result = await fileStream.IsArchiveAsync();
 
             Assert.IsFalse(result);
@@ -79,7 +79,7 @@ namespace FileTypeChecker.Tests
         [Test]
         public async Task IsExecutableAsync_ShouldReturnTrueIfTheTypesMatch()
         {
-            using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.exe"));
+            await using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.exe"));
             var result = await fileStream.IsExecutableAsync();
 
             Assert.IsTrue(result);
@@ -88,7 +88,7 @@ namespace FileTypeChecker.Tests
         [Test]
         public async Task IsExecutableAsync_ShouldReturnFalseIfTypesDidNotMatch()
         {
-            using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.png"));
+            await using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.png"));
             var result = await fileStream.IsExecutableAsync();
 
             Assert.IsFalse(result);
@@ -97,7 +97,7 @@ namespace FileTypeChecker.Tests
         [Test]
         public async Task IsDocumentAsync_ShouldReturnTrueIfTheTypesMatch()
         {
-            using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.pdf"));
+            await using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.pdf"));
             var result = await fileStream.IsDocumentAsync();
 
             Assert.IsTrue(result);
@@ -106,7 +106,7 @@ namespace FileTypeChecker.Tests
         [Test]
         public async Task IsDocumentAsync_ShouldReturnFalseIfTypesDidNotMatch()
         {
-            using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.png"));
+            await using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.png"));
             var result = await fileStream.IsDocumentAsync();
 
             Assert.IsFalse(result);
@@ -125,7 +125,7 @@ namespace FileTypeChecker.Tests
 
             foreach (var (fileName, isImage, isArchive, isExecutable, isDocument) in testFiles)
             {
-                using var fileStream = File.OpenRead(Path.Combine(FilesPath, fileName));
+                await using var fileStream = File.OpenRead(Path.Combine(FilesPath, fileName));
                 
                 var actualIsImage = await fileStream.IsImageAsync();
                 var actualIsArchive = await fileStream.IsArchiveAsync();

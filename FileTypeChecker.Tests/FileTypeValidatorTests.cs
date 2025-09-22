@@ -143,7 +143,7 @@ namespace FileTypeChecker.Tests
         [Test]
         public void TryGetFileType_MatchShouldReturnFalseWhenStreamIsNull()
         {
-            var match = FileTypeValidator.TryGetFileType(null);
+            var match = FileTypeValidator.TryGetFileType((Stream)null);
 
             Assert.IsFalse(match.HasMatch);
         }
@@ -171,7 +171,7 @@ namespace FileTypeChecker.Tests
         [Test]
         public void TryGetFileType_TypeShouldBeNullWhenNotMatching()
         {
-            var match = FileTypeValidator.TryGetFileType(null);
+            var match = FileTypeValidator.TryGetFileType((Stream)null);
 
             Assert.IsNull(match.Type);
         }
@@ -214,7 +214,7 @@ namespace FileTypeChecker.Tests
 
         [Test]
         public void GetFileType_ShouldThrowArgumentNullExceptionIfStreamIsNull()
-            => Assert.Catch<ArgumentNullException>(() => FileTypeValidator.GetFileType(fileContent: null));
+            => Assert.Catch<ArgumentNullException>(() => FileTypeValidator.GetFileType(fileContent: (Stream)null));
 
         [Test]
         public void Is_ShouldThrowExceptionIfStreamIsNull()
