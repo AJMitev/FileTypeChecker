@@ -6,6 +6,7 @@
     public class ZipFile : FileType, IFileType
     {
         public const string TypeName = "ZIP file";
+        public const string TypeMimeType = "application/zip";
         public const string TypeExtension = "zip";
         private static readonly MagicSequence[] MagicBytes =
             {
@@ -14,7 +15,7 @@
             new(new byte[] { 0x50, 0x4B, 0x07, 0x08 })
         };
 
-        public ZipFile() : base(TypeName, TypeExtension, MagicBytes)
+        public ZipFile() : base(TypeName, TypeMimeType, TypeExtension, MagicBytes)
         {
         }
     }

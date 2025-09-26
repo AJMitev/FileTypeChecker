@@ -77,6 +77,7 @@
             Console.WriteLine($"Is Bitmap?: {fileStream.Is<Bitmap>()}");
             Console.WriteLine($"Is WebP?: {fileStream.Is<Webp>()}");
             Console.WriteLine($"Type Name: {fileType.Name}");
+            Console.WriteLine($"Mime Type {fileType.MimeType}");
             Console.WriteLine($"Type Extension: {fileType.Extension}");
             Console.WriteLine(new string('=', 50));
         }

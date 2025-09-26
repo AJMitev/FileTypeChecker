@@ -5,6 +5,7 @@ namespace FileTypeChecker.Types
     public class Mp4 : FileType, IFileType
     {
         public const string TypeName = "MP4 file";
+        public const string TypeMimeType = "video/mp4";
         public const string TypeExtension = "mp4";
         private static readonly MagicSequence[] MagicBytesJaggedArray =
         {
@@ -12,7 +13,7 @@ namespace FileTypeChecker.Types
             new (new byte[] { 0x66, 0x74 , 0x79 , 0x70 , 0x69 , 0x73 , 0x6F , 0x6D },4)
         };
 
-        public Mp4() : base(TypeName, TypeExtension, MagicBytesJaggedArray)
+        public Mp4() : base(TypeName, TypeMimeType, TypeExtension, MagicBytesJaggedArray)
         {
         }
     }

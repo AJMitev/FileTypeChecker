@@ -12,29 +12,32 @@
     {
         private int BufferSize => Math.Max(MaxMagicSequenceLength, 20);
         private string _name;
+        private string _mimeType;
         private string _extension;
         private MagicSequence[] _bytes;
 
-        protected FileType(string name, string extension, byte[] magicBytes) : this(name, extension,
-            new MagicSequence(magicBytes))
+        protected FileType(string name, string mimeType, string extension, byte[] magicBytes) : this(name, mimeType, 
+            extension, new MagicSequence(magicBytes))
         {
         }
 
-        protected FileType(string name, string extension, byte[][] magicBytes) : this(name, extension,
-            magicBytes.Select(x => new MagicSequence(x)).ToArray())
+        protected FileType(string name, string mimeType, string extension, byte[][] magicBytes) : this(name, mimeType, 
+            extension, magicBytes.Select(x => new MagicSequence(x)).ToArray())
         {
         }
 
-        protected FileType(string name, string extension, MagicSequence magicBytes)
+        protected FileType(string name, string mimeType, string extension, MagicSequence magicBytes)
         {
             this.Name = name;
+            this.MimeType = mimeType;
             this.Extension = extension;
             this.Bytes = new[] { magicBytes };
         }
 
-        protected FileType(string name, string extension, MagicSequence[] magicBytesSequence)
+        protected FileType(string name, string mimeType, string extension, MagicSequence[] magicBytesSequence)
         {
             this.Name = name;
+            this.MimeType =  mimeType;
             this.Extension = extension;
             this.Bytes = magicBytesSequence;
         }
@@ -61,6 +64,17 @@
                 DataValidator.ThrowIfNullOrEmpty(value, nameof(Extension));
 
                 this._extension = value;
+            }
+        }
+
+        public string MimeType
+        {
+            get => this._mimeType;
+            private set
+            {
+                DataValidator.ThrowIfNullOrEmpty(value, nameof(MimeType));
+                
+                this._mimeType = value;
             }
         }
 
