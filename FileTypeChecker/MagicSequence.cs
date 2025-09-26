@@ -86,14 +86,14 @@
         /// </summary>
         /// <param name="buffer">The byte data to compare against.</param>
         /// <returns>True if the sequences match; otherwise, false.</returns>
-        public bool Equals(System.ReadOnlySpan<byte> buffer) => this.GetBytes(buffer).SequenceEqual(Bytes);
+        public bool Equals(ReadOnlySpan<byte> buffer) => this.GetBytes(buffer).SequenceEqual(Bytes);
 
         /// <summary>
         /// Counts the number of matching bytes using ReadOnlySpan for high performance.
         /// </summary>
         /// <param name="buffer">The byte data to compare against.</param>
         /// <returns>The number of matching bytes.</returns>
-        public int CountMatchingBytes(System.ReadOnlySpan<byte> buffer)
+        public int CountMatchingBytes(ReadOnlySpan<byte> buffer)
         {
             if (buffer.IsEmpty)
                 throw new InvalidInputException("The byte span should not be empty!");
@@ -101,7 +101,7 @@
             return this.Bytes.CountMatchingBytes(this.GetBytes(buffer));
         }
 
-        private ReadOnlyCollection<byte> GetBytes(System.ReadOnlySpan<byte> bytes)
+        private ReadOnlyCollection<byte> GetBytes(ReadOnlySpan<byte> bytes)
         {
             if (bytes.IsEmpty)
                 throw new InvalidInputException("The byte span should not be empty!");
@@ -113,7 +113,7 @@
             return new ReadOnlyCollection<byte>(result);
         }
 
-        private byte[] TakeComparableSequenceSpan(System.ReadOnlySpan<byte> bytes)
+        private byte[] TakeComparableSequenceSpan(ReadOnlySpan<byte> bytes)
         {
             var first = bytes.Slice(0, _indexToStart).ToArray().ToList();
             var secondStart = _bytesToSkip + first.Count;

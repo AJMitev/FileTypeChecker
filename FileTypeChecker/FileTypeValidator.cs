@@ -301,7 +301,7 @@ namespace FileTypeChecker
         /// <param name="fileContent">File content as ReadOnlySpan of bytes.</param>
         /// <returns>True if the current type is supported; otherwise, false.</returns>
         /// <exception cref="System.ArgumentException">Thrown when <paramref name="fileContent"/> is empty.</exception>
-        public static bool IsTypeRecognizable(System.ReadOnlySpan<byte> fileContent)
+        public static bool IsTypeRecognizable(ReadOnlySpan<byte> fileContent)
         {
             if (fileContent.IsEmpty)
                 throw new ArgumentException("File content cannot be empty.", nameof(fileContent));
@@ -322,7 +322,7 @@ namespace FileTypeChecker
         /// <returns>Instance of <see cref="IFileType"/> if the type is recognized; otherwise, throws an exception.</returns>
         /// <exception cref="System.ArgumentException">Thrown when <paramref name="fileContent"/> is empty.</exception>
         /// <exception cref="TypeNotFoundException">Thrown when the file type cannot be determined.</exception>
-        public static IFileType GetFileType(System.ReadOnlySpan<byte> fileContent)
+        public static IFileType GetFileType(ReadOnlySpan<byte> fileContent)
         {
             if (fileContent.IsEmpty)
                 throw new ArgumentException("File content cannot be empty.", nameof(fileContent));
@@ -336,7 +336,7 @@ namespace FileTypeChecker
         /// </summary>
         /// <param name="fileContent">File content as ReadOnlySpan of bytes.</param>
         /// <returns>Instance of <see cref="MatchResult"/> with information about the success of the search and the type if found.</returns>
-        public static MatchResult TryGetFileType(System.ReadOnlySpan<byte> fileContent)
+        public static MatchResult TryGetFileType(ReadOnlySpan<byte> fileContent)
         {
             try
             {
@@ -359,7 +359,7 @@ namespace FileTypeChecker
         /// <typeparam name="T">The file type that implements <see cref="FileType"/> and <see cref="IFileType"/>.</typeparam>
         /// <param name="fileContent">File content as ReadOnlySpan of bytes.</param>
         /// <returns>True if the file matches the desired type; otherwise, false.</returns>
-        public static bool Is<T>(System.ReadOnlySpan<byte> fileContent) where T : FileType, IFileType, new()
+        public static bool Is<T>(ReadOnlySpan<byte> fileContent) where T : FileType, IFileType, new()
             => fileContent.Is<T>();
 
         /// <summary>
@@ -368,7 +368,7 @@ namespace FileTypeChecker
         /// </summary>
         /// <param name="fileContent">File content as ReadOnlySpan of bytes.</param>
         /// <returns>True if the provided file is an image; otherwise, false. Supported image types include: Bitmap, JPEG, GIF, PNG, TIFF, WebP, PSD, HEIC, and ICO.</returns>
-        public static bool IsImage(System.ReadOnlySpan<byte> fileContent)
+        public static bool IsImage(ReadOnlySpan<byte> fileContent)
             => fileContent.IsImage();
 
         /// <summary>
@@ -377,7 +377,7 @@ namespace FileTypeChecker
         /// </summary>
         /// <param name="fileContent">File content as ReadOnlySpan of bytes.</param>
         /// <returns>True if the provided file is an archive; otherwise, false. Supported archive types include: ZIP, RAR, 7-Zip, TAR, GZIP, BZIP2, LZIP, and XZ.</returns>
-        public static bool IsArchive(System.ReadOnlySpan<byte> fileContent)
+        public static bool IsArchive(ReadOnlySpan<byte> fileContent)
             => fileContent.IsArchive();
 
         internal static IFileType FindBestMatch(Stream fileContent)
@@ -408,7 +408,7 @@ namespace FileTypeChecker
             return ReturnBestMatch(content, matches);
         }
 
-        internal static IFileType FindBestMatch(System.ReadOnlySpan<byte> content)
+        internal static IFileType FindBestMatch(ReadOnlySpan<byte> content)
         {
             var matches = new List<IFileType>();
             
@@ -475,7 +475,7 @@ namespace FileTypeChecker
             }
         }
 
-        private static IFileType FindBestMatch(System.ReadOnlySpan<byte> content, IList<IFileType> result)
+        private static IFileType FindBestMatch(ReadOnlySpan<byte> content, IList<IFileType> result)
         {
             try
             {
@@ -522,7 +522,7 @@ namespace FileTypeChecker
             return scoreboard;
         }
 
-        private static IList<MatchScore> CreateScoreboard(System.ReadOnlySpan<byte> content, IList<IFileType> result)
+        private static IList<MatchScore> CreateScoreboard(ReadOnlySpan<byte> content, IList<IFileType> result)
         {
             var scoreboard = new List<MatchScore>();
 
@@ -569,7 +569,7 @@ namespace FileTypeChecker
                     : FindBestMatch(content, matches)
                 : null;
 
-        private static IFileType ReturnBestMatch(System.ReadOnlySpan<byte> content, IList<IFileType> matches)
+        private static IFileType ReturnBestMatch(ReadOnlySpan<byte> content, IList<IFileType> matches)
             => matches.Any()
                 ? matches.Count() == 1
                     ? matches.First()

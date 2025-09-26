@@ -126,7 +126,7 @@
         /// <typeparam name="T">Type that implements FileType</typeparam>
         /// <param name="fileContent">File content as ReadOnlySpan of bytes</param>
         /// <returns>True, if a file matches the desired type otherwise returns false.</returns>
-        public static bool Is<T>(this System.ReadOnlySpan<byte> fileContent) where T : FileType, IFileType, new()
+        public static bool Is<T>(this ReadOnlySpan<byte> fileContent) where T : FileType, IFileType, new()
         {
             var instance = new T();
             var isRecognizable = FileTypeValidator.IsTypeRecognizable(fileContent);
@@ -147,7 +147,7 @@
         /// </summary>
         /// <param name="fileContent">File content as ReadOnlySpan of bytes.</param>
         /// <returns>Returns true if the provided file is an image otherwise returns false. Supported image types are: Bitmap, JPEG, GIF, PNG, and TIF.</returns>
-        public static bool IsImage(this System.ReadOnlySpan<byte> fileContent)
+        public static bool IsImage(this ReadOnlySpan<byte> fileContent)
             => fileContent.Is<Bitmap>()
             || fileContent.Is<Webp>()
             || fileContent.Is<JointPhotographicExpertsGroup>()
@@ -162,7 +162,7 @@
         /// </summary>
         /// <param name="content">File content as ReadOnlySpan of bytes.</param>
         /// <returns>Returns true if the provided file is archive otherwise returns false. Supported archive types are: Extensible archive, Gzip, Rar, 7Zip, Tar, Zip, BZip2, LZip, and Xz.</returns>
-        public static bool IsArchive(this System.ReadOnlySpan<byte> content)
+        public static bool IsArchive(this ReadOnlySpan<byte> content)
             => content.Is<ExtensibleArchive>()
             || content.Is<Gzip>()
             || content.Is<RarArchive>()
@@ -179,7 +179,7 @@
         /// </summary>
         /// <param name="content">File content as ReadOnlySpan of bytes.</param>
         /// <returns>Returns true if the provided file is an executable otherwise returns false.</returns>
-        public static bool IsExecutable(this System.ReadOnlySpan<byte> content)
+        public static bool IsExecutable(this ReadOnlySpan<byte> content)
             => content.Is<Executable>()
             || content.Is<ExecutableAndLinkableFormat>();
 
@@ -189,7 +189,7 @@
         /// </summary>
         /// <param name="content">File content as ReadOnlySpan of bytes.</param>
         /// <returns>Returns true if the provided file is a document otherwise returns false. Supported document types are: Extensible Markup Language, Microsoft Office 365 Document, Microsoft Office Document, Portable Document Format.</returns>
-        public static bool IsDocument(this System.ReadOnlySpan<byte> content)
+        public static bool IsDocument(this ReadOnlySpan<byte> content)
             => content.Is<ExtensibleMarkupLanguage>()
             || content.Is<MicrosoftOffice365Document>()
             || content.Is<MicrosoftOfficeDocument>()

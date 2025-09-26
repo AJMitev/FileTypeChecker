@@ -156,13 +156,12 @@
         // High-performance ReadOnlySpan<byte> overloads
 
         /// <inheritdoc />
-        public bool DoesMatchWith(System.ReadOnlySpan<byte> bytes) => CompareBytes(bytes);
+        public bool DoesMatchWith(ReadOnlySpan<byte> bytes) => CompareBytes(bytes);
 
         /// <inheritdoc />
-        public int GetMatchingNumber(System.ReadOnlySpan<byte> bytes) 
+        public int GetMatchingNumber(ReadOnlySpan<byte> bytes) 
         {
             var matches = 0;
-            
             foreach (var magicSequence in this.Bytes)
             {
                 matches += magicSequence.CountMatchingBytes(bytes);
@@ -171,7 +170,7 @@
             return matches;
         }
 
-        private bool CompareBytes(System.ReadOnlySpan<byte> bytes) 
+        private bool CompareBytes(ReadOnlySpan<byte> bytes) 
         {
             foreach (var byteArray in this.Bytes)
             {
