@@ -2,6 +2,7 @@
 {
     using Exceptions;
     using Extensions;
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -75,6 +76,55 @@
                 .Take(bytes.Count - (_bytesToSkip + first.Count));
 
             first.AddRange(second);
+            return first.ToArray();
+        }
+
+        // High-performance ReadOnlySpan<byte> overloads
+
+        /// <summary>
+        /// Checks if the magic sequence equals the provided bytes using ReadOnlySpan for high performance.
+        /// </summary>
+        /// <param name="buffer">The byte data to compare against.</param>
+        /// <returns>True if the sequences match; otherwise, false.</returns>
+        public bool Equals(System.ReadOnlySpan<byte> buffer) => this.GetBytes(buffer).SequenceEqual(Bytes);
+
+        /// <summary>
+        /// Counts the number of matching bytes using ReadOnlySpan for high performance.
+        /// </summary>
+        /// <param name="buffer">The byte data to compare against.</param>
+        /// <returns>The number of matching bytes.</returns>
+        public int CountMatchingBytes(System.ReadOnlySpan<byte> buffer)
+        {
+            if (buffer.IsEmpty)
+                throw new InvalidInputException("The byte span should not be empty!");
+
+            return this.Bytes.CountMatchingBytes(this.GetBytes(buffer));
+        }
+
+        private ReadOnlyCollection<byte> GetBytes(System.ReadOnlySpan<byte> bytes)
+        {
+            if (bytes.IsEmpty)
+                throw new InvalidInputException("The byte span should not be empty!");
+
+            var result = _indexToStart != 0
+                ? this.TakeComparableSequenceSpan(bytes)
+                : bytes.Slice(_bytesToSkip, bytes.Length - _bytesToSkip).ToArray();
+
+            return new ReadOnlyCollection<byte>(result);
+        }
+
+        private byte[] TakeComparableSequenceSpan(System.ReadOnlySpan<byte> bytes)
+        {
+            var first = bytes.Slice(0, _indexToStart).ToArray().ToList();
+            var secondStart = _bytesToSkip + first.Count;
+            var secondLength = bytes.Length - secondStart;
+            
+            if (secondLength > 0)
+            {
+                var second = bytes.Slice(secondStart, secondLength).ToArray();
+                first.AddRange(second);
+            }
+            
             return first.ToArray();
         }
     }
