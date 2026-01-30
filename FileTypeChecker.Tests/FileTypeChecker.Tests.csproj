@@ -41,6 +41,9 @@
     <None Update="files\sample.heic">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="files\FileTypeCheckerLogo-150.heic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Files\test-bom.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

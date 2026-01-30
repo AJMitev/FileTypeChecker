@@ -56,6 +56,7 @@ namespace FileTypeChecker.Tests
         [TestCase("testwin10.zip")]
         [TestCase("test.webp")]
         [TestCase("sample.heic")]
+        [TestCase("FileTypeCheckerLogo-150.heic")]
         [TestCase("test.mp4")]
         [TestCase("file_example_AVI_480_750kB.avi")]
         [TestCase("file_example_WAV_1MG.wav")]
@@ -69,7 +70,7 @@ namespace FileTypeChecker.Tests
 
             Assert.AreEqual(expected, actual);
         }
-        
+
         [Test]
         [TestCase("test.bmp", Bitmap.TypeMimeType)]
         [TestCase("test.jpg", JointPhotographicExpertsGroup.TypeMimeType)]
@@ -91,6 +92,7 @@ namespace FileTypeChecker.Tests
         [TestCase("testwin10.zip", ZipFile.TypeMimeType)]
         [TestCase("test.webp", Webp.TypeMimeType)]
         [TestCase("sample.heic", HighEfficiencyImageFile.TypeMimeType)]
+        [TestCase("FileTypeCheckerLogo-150.heic", HighEfficiencyImageFile.TypeMimeType)]
         [TestCase("file_example_AVI_480_750kB.avi", AudioVideoInterleaveVideoFormat.TypeMimeType)]
         [TestCase("file_example_WAV_1MG.wav", WaveformAudioFileFormat.TypeMimeType)]
         public void GetFileType_ShouldReturnFileMimeType(string filePath, string expectedFileExtension)
@@ -123,13 +125,14 @@ namespace FileTypeChecker.Tests
         [TestCase("testwin10.zip", ZipFile.TypeMimeType)]
         [TestCase("test.webp", Webp.TypeMimeType)]
         [TestCase("sample.heic", HighEfficiencyImageFile.TypeMimeType)]
+        [TestCase("FileTypeCheckerLogo-150.heic", HighEfficiencyImageFile.TypeMimeType)]
         [TestCase("file_example_AVI_480_750kB.avi", AudioVideoInterleaveVideoFormat.TypeMimeType)]
         [TestCase("file_example_WAV_1MG.wav", WaveformAudioFileFormat.TypeMimeType)]
         public void TryGetFileType_ShouldReturnFileMimeType(string filePath, string expectedFileExtension)
         {
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
             var match = FileTypeValidator.TryGetFileType(fileStream);
-            
+
             Assert.AreEqual(expectedFileExtension, match.Type?.MimeType);
         }
 
@@ -154,6 +157,7 @@ namespace FileTypeChecker.Tests
         [TestCase("testwin10.zip", ZipFile.TypeExtension)]
         [TestCase("test.webp", Webp.TypeExtension)]
         [TestCase("sample.heic", HighEfficiencyImageFile.TypeExtension)]
+        [TestCase("FileTypeCheckerLogo-150.heic", HighEfficiencyImageFile.TypeExtension)]
         [TestCase("file_example_AVI_480_750kB.avi", AudioVideoInterleaveVideoFormat.TypeExtension)]
         [TestCase("file_example_WAV_1MG.wav", WaveformAudioFileFormat.TypeExtension)]
         public void GetFileType_ShouldReturnFileExtension(string filePath, string expectedFileExtension)
@@ -186,6 +190,7 @@ namespace FileTypeChecker.Tests
         [TestCase("testwin10.zip", ZipFile.TypeExtension)]
         [TestCase("test.webp", Webp.TypeExtension)]
         [TestCase("sample.heic", HighEfficiencyImageFile.TypeExtension)]
+        [TestCase("FileTypeCheckerLogo-150.heic", HighEfficiencyImageFile.TypeExtension)]
         [TestCase("test-offset.mp4", M4V.TypeExtension)]
         [TestCase("file_example_AVI_480_750kB.avi", AudioVideoInterleaveVideoFormat.TypeExtension)]
         [TestCase("file_example_WAV_1MG.wav", WaveformAudioFileFormat.TypeExtension)]
@@ -266,6 +271,7 @@ namespace FileTypeChecker.Tests
         [TestCase("testwin10.zip", ZipFile.TypeName)]
         [TestCase("test.webp", Webp.TypeName)]
         [TestCase("sample.heic", HighEfficiencyImageFile.TypeName)]
+        [TestCase("FileTypeCheckerLogo-150.heic", HighEfficiencyImageFile.TypeName)]
         [TestCase("file_example_AVI_480_750kB.avi", AudioVideoInterleaveVideoFormat.TypeName)]
         [TestCase("file_example_WAV_1MG.wav", WaveformAudioFileFormat.TypeName)]
         public void GetFileType_ShouldReturnFileName(string filePath, string expectedFileTypeName)
@@ -331,6 +337,7 @@ namespace FileTypeChecker.Tests
         [TestCase("testwin10.zip", typeof(ZipFile))]
         [TestCase("test.webp", typeof(Webp))]
         [TestCase("sample.heic", typeof(HighEfficiencyImageFile))]
+        [TestCase("FileTypeCheckerLogo-150.heic", typeof(HighEfficiencyImageFile))]
         [TestCase("issue311docx.testfile", typeof(MicrosoftOffice365Document))]
         [TestCase("test-issue-41.xlsx", typeof(MicrosoftOffice365Document))]
         [TestCase("file_example_AVI_480_750kB.avi", typeof(AudioVideoInterleaveVideoFormat))]

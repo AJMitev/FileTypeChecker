@@ -55,6 +55,7 @@ namespace FileTypeChecker.Tests
         [TestCase("testwin10.zip")]
         [TestCase("test.webp")]
         [TestCase("sample.heic")]
+        [TestCase("FileTypeCheckerLogo-150.heic")]
         [TestCase("test.mp4")]
         [TestCase("file_example_AVI_480_750kB.avi")]
         [TestCase("file_example_WAV_1MG.wav")]
@@ -98,6 +99,7 @@ namespace FileTypeChecker.Tests
         [TestCase("testwin10.zip", typeof(ZipFile))]
         [TestCase("test.webp", typeof(Webp))]
         [TestCase("sample.heic", typeof(HighEfficiencyImageFile))]
+        [TestCase("FileTypeCheckerLogo-150.heic", typeof(HighEfficiencyImageFile))]
         [TestCase("issue311docx.testfile", typeof(MicrosoftOffice365Document))]
         [TestCase("test-issue-41.xlsx", typeof(MicrosoftOffice365Document))]
         [TestCase("file_example_AVI_480_750kB.avi", typeof(AudioVideoInterleaveVideoFormat))]
@@ -217,11 +219,11 @@ namespace FileTypeChecker.Tests
         {
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.png"));
             using var cts = new CancellationTokenSource();
-            
+
             // Cancel immediately to test cancellation support
             cts.Cancel();
 
-            Assert.ThrowsAsync<TaskCanceledException>(async () => 
+            Assert.ThrowsAsync<TaskCanceledException>(async () =>
             {
                 var buffer = new byte[1024];
                 await fileStream.ReadAsync(buffer, 0, buffer.Length, cts.Token);
@@ -233,7 +235,7 @@ namespace FileTypeChecker.Tests
         {
             // Test with one of the larger test files
             await using var fileStream = File.OpenRead(Path.Combine(FilesPath, "365-doc.docx"));
-            
+
             var isRecognizable = await FileTypeValidator.IsTypeRecognizableAsync(fileStream);
             var fileType = await FileTypeValidator.GetFileTypeAsync(fileStream);
             var tryResult = await FileTypeValidator.TryGetFileTypeAsync(fileStream);
