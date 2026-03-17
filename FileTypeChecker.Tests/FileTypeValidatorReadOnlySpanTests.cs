@@ -199,7 +199,7 @@ namespace FileTypeChecker.Tests
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, fileName));
             var buffer = new byte[64]; // Read first 64 bytes for magic number detection
             fileStream.Position = 0;
-            fileStream.Read(buffer, 0, buffer.Length);
+            fileStream.ReadExactly(buffer);
             return buffer;
         }
     }

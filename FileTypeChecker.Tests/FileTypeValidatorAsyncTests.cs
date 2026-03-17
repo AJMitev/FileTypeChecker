@@ -226,7 +226,7 @@ namespace FileTypeChecker.Tests
             Assert.ThrowsAsync<TaskCanceledException>(async () =>
             {
                 var buffer = new byte[1024];
-                await fileStream.ReadAsync(buffer, 0, buffer.Length, cts.Token);
+                await fileStream.ReadExactlyAsync(buffer, 0, buffer.Length, cts.Token);
             });
         }
 

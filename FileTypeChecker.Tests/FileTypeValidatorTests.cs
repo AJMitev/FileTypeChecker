@@ -365,7 +365,7 @@ namespace FileTypeChecker.Tests
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, fileName));
             var buffer = new byte[24];
             fileStream.Position = 0;
-            fileStream.Read(buffer, 0, buffer.Length);
+            fileStream.ReadExactly(buffer);
             return buffer;
         }
 
