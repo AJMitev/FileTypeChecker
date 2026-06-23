@@ -110,11 +110,14 @@
         /// Validates that the current file is a document.
         /// </summary>
         /// <param name="content">File to check as stream.></param>
-        /// <returns>Returns true if the provided file is a document otherwise returns false. Supported document types are: Extensible Markup Language, Microsoft Office 365 Document, Microsoft Office Document, Portable Document Format.</returns>
+        /// <returns>Returns true if the provided file is a document otherwise returns false. Supported document types are: Extensible Markup Language, Microsoft Office 365 Document, Microsoft Office Document, OpenDocument Text, OpenDocument Spreadsheet, OpenDocument Presentation, Portable Document Format.</returns>
         public static bool IsDocument(this byte[] content)
             => content.Is<ExtensibleMarkupLanguage>()
             || content.Is<MicrosoftOffice365Document>()
             || content.Is<MicrosoftOfficeDocument>()
+            || content.Is<OpenDocumentText>()
+            || content.Is<OpenDocumentSpreadsheet>()
+            || content.Is<OpenDocumentPresentation>()
             || content.Is<PortableDocumentFormat>();
 
         // High-performance ReadOnlySpan<byte> overloads
@@ -188,11 +191,14 @@
         /// This overload avoids memory allocations and provides optimal performance.
         /// </summary>
         /// <param name="content">File content as ReadOnlySpan of bytes.</param>
-        /// <returns>Returns true if the provided file is a document otherwise returns false. Supported document types are: Extensible Markup Language, Microsoft Office 365 Document, Microsoft Office Document, Portable Document Format.</returns>
+        /// <returns>Returns true if the provided file is a document otherwise returns false. Supported document types are: Extensible Markup Language, Microsoft Office 365 Document, Microsoft Office Document, OpenDocument Text, OpenDocument Spreadsheet, OpenDocument Presentation, Portable Document Format.</returns>
         public static bool IsDocument(this ReadOnlySpan<byte> content)
             => content.Is<ExtensibleMarkupLanguage>()
             || content.Is<MicrosoftOffice365Document>()
             || content.Is<MicrosoftOfficeDocument>()
+            || content.Is<OpenDocumentText>()
+            || content.Is<OpenDocumentSpreadsheet>()
+            || content.Is<OpenDocumentPresentation>()
             || content.Is<PortableDocumentFormat>();
     }
 }

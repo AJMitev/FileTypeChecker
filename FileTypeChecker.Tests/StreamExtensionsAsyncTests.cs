@@ -95,9 +95,13 @@ namespace FileTypeChecker.Tests
         }
 
         [Test]
-        public async Task IsDocumentAsync_ShouldReturnTrueIfTheTypesMatch()
+        [TestCase("test.pdf")]
+        [TestCase("test.odt")]
+        [TestCase("test.ods")]
+        [TestCase("test.odp")]
+        public async Task IsDocumentAsync_ShouldReturnTrueIfTheTypesMatch(string fileName)
         {
-            await using var fileStream = File.OpenRead(Path.Combine(FilesPath, "test.pdf"));
+            await using var fileStream = File.OpenRead(Path.Combine(FilesPath, fileName));
             var result = await fileStream.IsDocumentAsync();
 
             Assert.IsTrue(result);

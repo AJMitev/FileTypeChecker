@@ -72,11 +72,14 @@
         /// Validates that the current file is a document.
         /// </summary>
         /// <param name="fileContent">File to check as a stream.</param>
-        /// <returns>True if the provided file is a document; otherwise, false. Supported document types include: XML, Microsoft Office documents (DOC/DOCX/XLS/XLSX), and PDF.</returns>
+        /// <returns>True if the provided file is a document; otherwise, false. Supported document types include: XML, Microsoft Office documents (DOC/DOCX/XLS/XLSX), OpenDocument (ODT/ODS/ODP), and PDF.</returns>
         public static bool IsDocument(this Stream fileContent)
             => fileContent.Is<ExtensibleMarkupLanguage>()
             || fileContent.Is<MicrosoftOffice365Document>()
             || fileContent.Is<MicrosoftOfficeDocument>()
+            || fileContent.Is<OpenDocumentText>()
+            || fileContent.Is<OpenDocumentSpreadsheet>()
+            || fileContent.Is<OpenDocumentPresentation>()
             || fileContent.Is<PortableDocumentFormat>();
 
         // Async Extension Methods
@@ -156,12 +159,15 @@
         /// </summary>
         /// <param name="fileContent">File to check as a stream.</param>
         /// <param name="cancellationToken">A cancellation token that can be used to cancel the asynchronous operation.</param>
-        /// <returns>A task that represents the asynchronous operation. The task result contains true if the provided file is a document; otherwise, false. Supported document types include: XML, Microsoft Office documents (DOC/DOCX/XLS/XLSX), and PDF.</returns>
+        /// <returns>A task that represents the asynchronous operation. The task result contains true if the provided file is a document; otherwise, false. Supported document types include: XML, Microsoft Office documents (DOC/DOCX/XLS/XLSX), OpenDocument (ODT/ODS/ODP), and PDF.</returns>
         public static async Task<bool> IsDocumentAsync(this Stream fileContent, CancellationToken cancellationToken = default)
         {
             return await fileContent.IsAsync<ExtensibleMarkupLanguage>(cancellationToken).ConfigureAwait(false)
             || await fileContent.IsAsync<MicrosoftOffice365Document>(cancellationToken).ConfigureAwait(false)
             || await fileContent.IsAsync<MicrosoftOfficeDocument>(cancellationToken).ConfigureAwait(false)
+            || await fileContent.IsAsync<OpenDocumentText>(cancellationToken).ConfigureAwait(false)
+            || await fileContent.IsAsync<OpenDocumentSpreadsheet>(cancellationToken).ConfigureAwait(false)
+            || await fileContent.IsAsync<OpenDocumentPresentation>(cancellationToken).ConfigureAwait(false)
             || await fileContent.IsAsync<PortableDocumentFormat>(cancellationToken).ConfigureAwait(false);
         }
     }

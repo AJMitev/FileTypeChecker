@@ -17,6 +17,9 @@ namespace FileTypeChecker.Tests
         [TestCase("test.png", true)]
         [TestCase("test.pdf", true)]
         [TestCase("test.zip", true)]
+        [TestCase("test.odt", true)]
+        [TestCase("test.ods", true)]
+        [TestCase("test.odp", true)]
         public void IsTypeRecognizable_ReadOnlySpan_ShouldReturnTrueForKnownTypes(string fileName, bool expected)
         {
             var fileBytes = GetFileBytes(fileName);
@@ -46,6 +49,9 @@ namespace FileTypeChecker.Tests
         [TestCase("test.png", typeof(PortableNetworkGraphic))]
         [TestCase("test.pdf", typeof(PortableDocumentFormat))]
         [TestCase("test.zip", typeof(ZipFile))]
+        [TestCase("test.odt", typeof(OpenDocumentText))]
+        [TestCase("test.ods", typeof(OpenDocumentSpreadsheet))]
+        [TestCase("test.odp", typeof(OpenDocumentPresentation))]
         public void GetFileType_ReadOnlySpan_ShouldReturnCorrectType(string fileName, Type expectedType)
         {
             var fileBytes = GetFileBytes(fileName);
@@ -165,6 +171,9 @@ namespace FileTypeChecker.Tests
         [Test]
         [TestCase("test.pdf", true)]
         [TestCase("test.xml", true)]
+        [TestCase("test.odt", true)]
+        [TestCase("test.ods", true)]
+        [TestCase("test.odp", true)]
         [TestCase("test.png", false)]
         public void IsDocument_ReadOnlySpan_Extension_ShouldReturnCorrectResult(string fileName, bool expected)
         {

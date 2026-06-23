@@ -198,6 +198,9 @@ FileTypeChecker supports **30+ file formats** across multiple categories:
 - **PDF** - Portable Document Format
 - **DOC/DOCX** - Microsoft Word Documents
 - **XLS/XLSX** - Microsoft Excel Spreadsheets
+- **ODT** - OpenDocument Text
+- **ODS** - OpenDocument Spreadsheet
+- **ODP** - OpenDocument Presentation
 - **HTML** - HyperText Markup Language
 - **XML** - Extensible Markup Language
 
