@@ -93,7 +93,7 @@
         public int MaxMagicSequenceLength => Bytes.Max(o => o.Length);
 
         /// <inheritdoc />
-        public bool DoesMatchWith(Stream stream, bool resetPosition = true)
+        public virtual bool DoesMatchWith(Stream stream, bool resetPosition = true)
         {
             DataValidator.ThrowIfNull(stream, nameof(Stream));
 
@@ -109,7 +109,7 @@
             return CompareBytes(buffer);
         }
 
-        public bool DoesMatchWith(byte[] bytes)
+        public virtual bool DoesMatchWith(byte[] bytes)
         {
             DataValidator.ThrowIfNull(bytes, nameof(Array));
 
@@ -156,7 +156,7 @@
         // High-performance ReadOnlySpan<byte> overloads
 
         /// <inheritdoc />
-        public bool DoesMatchWith(ReadOnlySpan<byte> bytes) => CompareBytes(bytes);
+        public virtual bool DoesMatchWith(ReadOnlySpan<byte> bytes) => CompareBytes(bytes);
 
         /// <inheritdoc />
         public int GetMatchingNumber(ReadOnlySpan<byte> bytes) 
