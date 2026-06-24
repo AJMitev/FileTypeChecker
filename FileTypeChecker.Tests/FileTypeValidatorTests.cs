@@ -53,6 +53,9 @@ namespace FileTypeChecker.Tests
         [TestCase("test.wmf")]
         [TestCase("test.ico")]
         [TestCase("365-doc.docx")]
+        [TestCase("test.odt")]
+        [TestCase("test.ods")]
+        [TestCase("test.odp")]
         [TestCase("testwin10.zip")]
         [TestCase("test.webp")]
         [TestCase("sample.heic")]
@@ -92,6 +95,9 @@ namespace FileTypeChecker.Tests
         [TestCase("test.wmf", WindowsMetaFileType.TypeMimeType)]
         [TestCase("test.ico", Icon.TypeMimeType)]
         [TestCase("365-doc.docx", MicrosoftOffice365Document.TypeMimeType)]
+        [TestCase("test.odt", OpenDocumentText.TypeMimeType)]
+        [TestCase("test.ods", OpenDocumentSpreadsheet.TypeMimeType)]
+        [TestCase("test.odp", OpenDocumentPresentation.TypeMimeType)]
         [TestCase("testwin10.zip", ZipFile.TypeMimeType)]
         [TestCase("test.webp", Webp.TypeMimeType)]
         [TestCase("sample.heic", HighEfficiencyImageFile.TypeMimeType)]
@@ -128,6 +134,9 @@ namespace FileTypeChecker.Tests
         [TestCase("test.wmf", WindowsMetaFileType.TypeMimeType)]
         [TestCase("test.ico", Icon.TypeMimeType)]
         [TestCase("365-doc.docx", MicrosoftOffice365Document.TypeMimeType)]
+        [TestCase("test.odt", OpenDocumentText.TypeMimeType)]
+        [TestCase("test.ods", OpenDocumentSpreadsheet.TypeMimeType)]
+        [TestCase("test.odp", OpenDocumentPresentation.TypeMimeType)]
         [TestCase("testwin10.zip", ZipFile.TypeMimeType)]
         [TestCase("test.webp", Webp.TypeMimeType)]
         [TestCase("sample.heic", HighEfficiencyImageFile.TypeMimeType)]
@@ -163,6 +172,9 @@ namespace FileTypeChecker.Tests
         [TestCase("test.wmf", WindowsMetaFileType.TypeExtension)]
         [TestCase("test.ico", Icon.TypeExtension)]
         [TestCase("365-doc.docx", MicrosoftOffice365Document.TypeExtension)]
+        [TestCase("test.odt", OpenDocumentText.TypeExtension)]
+        [TestCase("test.ods", OpenDocumentSpreadsheet.TypeExtension)]
+        [TestCase("test.odp", OpenDocumentPresentation.TypeExtension)]
         [TestCase("testwin10.zip", ZipFile.TypeExtension)]
         [TestCase("test.webp", Webp.TypeExtension)]
         [TestCase("sample.heic", HighEfficiencyImageFile.TypeExtension)]
@@ -199,6 +211,9 @@ namespace FileTypeChecker.Tests
         [TestCase("test.wmf", WindowsMetaFileType.TypeExtension)]
         [TestCase("test.ico", Icon.TypeExtension)]
         [TestCase("365-doc.docx", MicrosoftOffice365Document.TypeExtension)]
+        [TestCase("test.odt", OpenDocumentText.TypeExtension)]
+        [TestCase("test.ods", OpenDocumentSpreadsheet.TypeExtension)]
+        [TestCase("test.odp", OpenDocumentPresentation.TypeExtension)]
         [TestCase("testwin10.zip", ZipFile.TypeExtension)]
         [TestCase("test.webp", Webp.TypeExtension)]
         [TestCase("sample.heic", HighEfficiencyImageFile.TypeExtension)]
@@ -283,6 +298,9 @@ namespace FileTypeChecker.Tests
         [TestCase("test.wmf", WindowsMetaFileType.TypeName)]
         [TestCase("test.ico", Icon.TypeName)]
         [TestCase("365-doc.docx", MicrosoftOffice365Document.TypeName)]
+        [TestCase("test.odt", OpenDocumentText.TypeName)]
+        [TestCase("test.ods", OpenDocumentSpreadsheet.TypeName)]
+        [TestCase("test.odp", OpenDocumentPresentation.TypeName)]
         [TestCase("testwin10.zip", ZipFile.TypeName)]
         [TestCase("test.webp", Webp.TypeName)]
         [TestCase("sample.heic", HighEfficiencyImageFile.TypeName)]
@@ -334,6 +352,36 @@ namespace FileTypeChecker.Tests
         }
 
         [Test]
+        public void Is_ShouldDistinguishOpenDocumentTypesOnSmallBuffers()
+        {
+            // GetFileBytes reads only 24 bytes; within that window the three OpenDocument
+            // formats share an identical prefix and are told apart solely by the stored
+            // mimetype size field. This pins that discriminator so it cannot regress silently.
+            var odt = GetFileBytes("test.odt");
+            var ods = GetFileBytes("test.ods");
+            var odp = GetFileBytes("test.odp");
+
+            Assert.Multiple(() =>
+            {
+                Assert.IsTrue(FileTypeValidator.Is<OpenDocumentText>(odt));
+                Assert.IsTrue(FileTypeValidator.Is<OpenDocumentSpreadsheet>(ods));
+                Assert.IsTrue(FileTypeValidator.Is<OpenDocumentPresentation>(odp));
+
+                // Not a sibling OpenDocument type, despite the shared prefix.
+                Assert.IsFalse(FileTypeValidator.Is<OpenDocumentSpreadsheet>(odt));
+                Assert.IsFalse(FileTypeValidator.Is<OpenDocumentPresentation>(odt));
+                Assert.IsFalse(FileTypeValidator.Is<OpenDocumentText>(ods));
+                Assert.IsFalse(FileTypeValidator.Is<OpenDocumentText>(odp));
+
+                // Not a generic ZIP or an OOXML (docx) container, and vice versa.
+                Assert.IsFalse(FileTypeValidator.Is<ZipFile>(odt));
+                Assert.IsFalse(FileTypeValidator.Is<MicrosoftOffice365Document>(odt));
+                Assert.IsFalse(FileTypeValidator.Is<OpenDocumentText>(GetFileBytes("365-doc.docx")));
+                Assert.IsFalse(FileTypeValidator.Is<OpenDocumentText>(GetFileBytes("test.zip")));
+            });
+        }
+
+        [Test]
         [TestCase("test.bmp", typeof(Bitmap))]
         [TestCase("test.jpg", typeof(JointPhotographicExpertsGroup))]
         [TestCase("test.png", typeof(PortableNetworkGraphic))]
@@ -351,6 +399,9 @@ namespace FileTypeChecker.Tests
         [TestCase("test.wmf", typeof(WindowsMetaFileType))]
         [TestCase("test.ico", typeof(Icon))]
         [TestCase("365-doc.docx", typeof(MicrosoftOffice365Document))]
+        [TestCase("test.odt", typeof(OpenDocumentText))]
+        [TestCase("test.ods", typeof(OpenDocumentSpreadsheet))]
+        [TestCase("test.odp", typeof(OpenDocumentPresentation))]
         [TestCase("365-doc-empty.docx", typeof(MicrosoftOffice365Document))]
         [TestCase("testwin10.zip", typeof(ZipFile))]
         [TestCase("test.webp", typeof(Webp))]

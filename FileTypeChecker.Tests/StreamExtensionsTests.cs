@@ -92,9 +92,13 @@ namespace FileTypeChecker.Tests
         }
 
         [Test]
-        public void IsDocument_ShouldReturnTrueIfTheTypesMatch()
+        [TestCase("test.doc")]
+        [TestCase("test.odt")]
+        [TestCase("test.ods")]
+        [TestCase("test.odp")]
+        public void IsDocument_ShouldReturnTrueIfTheTypesMatch(string fileName)
         {
-            using var fileStream = File.OpenRead("./files/test.doc");
+            using var fileStream = File.OpenRead($"./files/{fileName}");
             var actual = fileStream.IsDocument();
 
             Assert.IsTrue(actual);

@@ -131,6 +131,15 @@
     <None Update="files\file_example_WAV_1MG.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="files\test.odt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="files\test.ods">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="files\test.odp">
+       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="files\test.m4a">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
