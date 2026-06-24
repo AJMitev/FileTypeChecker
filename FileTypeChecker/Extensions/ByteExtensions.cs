@@ -98,6 +98,20 @@
             || content.Is<XzFile>();
 
         /// <summary>
+        /// Validates that the current file is an audio file.
+        /// </summary>
+        /// <param name="content">File content as byte array.</param>
+        /// <returns>Returns true if the provided file is an audio file otherwise returns false. Supported audio types are: MP3, WAV, FLAC, OGG, M4A, and WMA.</returns>
+        public static bool IsAudio(this byte[] content)
+            => content.Is<Mp3>()
+            || content.Is<MpegAudio>()
+            || content.Is<WaveformAudioFileFormat>()
+            || content.Is<Flac>()
+            || content.Is<Ogg>()
+            || content.Is<M4a>()
+            || content.Is<WindowsAudio>();
+
+        /// <summary>
         /// Validates that the current file is executable or executable and linkable.
         /// </summary>
         /// <param name="content">Returns true if the provided file is an executable otherwise returns false.</param>
@@ -175,6 +189,21 @@
             || content.Is<BZip2File>()
             || content.Is<LZipFile>()
             || content.Is<XzFile>();
+
+        /// <summary>
+        /// Validates that the current file is an audio file using high-performance ReadOnlySpan.
+        /// This overload avoids memory allocations and provides optimal performance.
+        /// </summary>
+        /// <param name="content">File content as ReadOnlySpan of bytes.</param>
+        /// <returns>Returns true if the provided file is an audio file otherwise returns false. Supported audio types are: MP3, WAV, FLAC, OGG, M4A, and WMA.</returns>
+        public static bool IsAudio(this ReadOnlySpan<byte> content)
+            => content.Is<Mp3>()
+            || content.Is<MpegAudio>()
+            || content.Is<WaveformAudioFileFormat>()
+            || content.Is<Flac>()
+            || content.Is<Ogg>()
+            || content.Is<M4a>()
+            || content.Is<WindowsAudio>();
 
         /// <summary>
         /// Validates that the current file is executable or executable and linkable using high-performance ReadOnlySpan.

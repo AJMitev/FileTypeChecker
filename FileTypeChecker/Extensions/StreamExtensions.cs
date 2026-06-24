@@ -60,6 +60,20 @@
             || fileContent.Is<XzFile>();
 
         /// <summary>
+        /// Validates that the current file is an audio file.
+        /// </summary>
+        /// <param name="fileContent">File to check as a stream.</param>
+        /// <returns>True if the provided file is an audio file; otherwise, false. Supported audio types include: MP3, WAV, FLAC, OGG, M4A, and WMA.</returns>
+        public static bool IsAudio(this Stream fileContent)
+            => fileContent.Is<Mp3>()
+            || fileContent.Is<MpegAudio>()
+            || fileContent.Is<WaveformAudioFileFormat>()
+            || fileContent.Is<Flac>()
+            || fileContent.Is<Ogg>()
+            || fileContent.Is<M4a>()
+            || fileContent.Is<WindowsAudio>();
+
+        /// <summary>
         /// Validates that the current file is an executable.
         /// </summary>
         /// <param name="fileContent">File to check as a stream.</param>
@@ -140,6 +154,23 @@
             || await fileContent.IsAsync<BZip2File>(cancellationToken).ConfigureAwait(false)
             || await fileContent.IsAsync<LZipFile>(cancellationToken).ConfigureAwait(false)
             || await fileContent.IsAsync<XzFile>(cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Asynchronously validates that the current file is an audio file.
+        /// </summary>
+        /// <param name="fileContent">File to check as a stream.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used to cancel the asynchronous operation.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains true if the provided file is an audio file; otherwise, false. Supported audio types include: MP3, WAV, FLAC, OGG, M4A, and WMA.</returns>
+        public static async Task<bool> IsAudioAsync(this Stream fileContent, CancellationToken cancellationToken = default)
+        {
+            return await fileContent.IsAsync<Mp3>(cancellationToken).ConfigureAwait(false)
+            || await fileContent.IsAsync<MpegAudio>(cancellationToken).ConfigureAwait(false)
+            || await fileContent.IsAsync<WaveformAudioFileFormat>(cancellationToken).ConfigureAwait(false)
+            || await fileContent.IsAsync<Flac>(cancellationToken).ConfigureAwait(false)
+            || await fileContent.IsAsync<Ogg>(cancellationToken).ConfigureAwait(false)
+            || await fileContent.IsAsync<M4a>(cancellationToken).ConfigureAwait(false)
+            || await fileContent.IsAsync<WindowsAudio>(cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>

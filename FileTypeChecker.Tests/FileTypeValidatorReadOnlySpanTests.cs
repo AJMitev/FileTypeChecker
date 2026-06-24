@@ -9,7 +9,7 @@ namespace FileTypeChecker.Tests
     [TestFixture]
     public class FileTypeValidatorReadOnlySpanTests
     {
-        private static readonly string FilesPath = Path.Combine(Directory.GetCurrentDirectory(), "Files");
+        private static readonly string FilesPath = Path.Combine(Directory.GetCurrentDirectory(), "files");
 
         [Test]
         [TestCase("test.bmp", true)]
