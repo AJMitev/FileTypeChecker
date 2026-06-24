@@ -60,6 +60,9 @@ namespace FileTypeChecker.Tests
         [TestCase("test.mp4")]
         [TestCase("file_example_AVI_480_750kB.avi")]
         [TestCase("file_example_WAV_1MG.wav")]
+        [TestCase("test.m4a")]
+        [TestCase("test.flac")]
+        [TestCase("test.ogg")]
         public void IsTypeRecognizable_ShouldReturnTrueIfFileIsRecognized(string filePath)
         {
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
@@ -95,6 +98,9 @@ namespace FileTypeChecker.Tests
         [TestCase("FileTypeCheckerLogo-150.heic", HighEfficiencyImageFile.TypeMimeType)]
         [TestCase("file_example_AVI_480_750kB.avi", AudioVideoInterleaveVideoFormat.TypeMimeType)]
         [TestCase("file_example_WAV_1MG.wav", WaveformAudioFileFormat.TypeMimeType)]
+        [TestCase("test.m4a", M4a.TypeMimeType)]
+        [TestCase("test.flac", Flac.TypeMimeType)]
+        [TestCase("test.ogg", Ogg.TypeMimeType)]
         public void GetFileType_ShouldReturnFileMimeType(string filePath, string expectedFileExtension)
         {
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
@@ -128,6 +134,9 @@ namespace FileTypeChecker.Tests
         [TestCase("FileTypeCheckerLogo-150.heic", HighEfficiencyImageFile.TypeMimeType)]
         [TestCase("file_example_AVI_480_750kB.avi", AudioVideoInterleaveVideoFormat.TypeMimeType)]
         [TestCase("file_example_WAV_1MG.wav", WaveformAudioFileFormat.TypeMimeType)]
+        [TestCase("test.m4a", M4a.TypeMimeType)]
+        [TestCase("test.flac", Flac.TypeMimeType)]
+        [TestCase("test.ogg", Ogg.TypeMimeType)]
         public void TryGetFileType_ShouldReturnFileMimeType(string filePath, string expectedFileExtension)
         {
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
@@ -160,6 +169,9 @@ namespace FileTypeChecker.Tests
         [TestCase("FileTypeCheckerLogo-150.heic", HighEfficiencyImageFile.TypeExtension)]
         [TestCase("file_example_AVI_480_750kB.avi", AudioVideoInterleaveVideoFormat.TypeExtension)]
         [TestCase("file_example_WAV_1MG.wav", WaveformAudioFileFormat.TypeExtension)]
+        [TestCase("test.m4a", M4a.TypeExtension)]
+        [TestCase("test.flac", Flac.TypeExtension)]
+        [TestCase("test.ogg", Ogg.TypeExtension)]
         public void GetFileType_ShouldReturnFileExtension(string filePath, string expectedFileExtension)
         {
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
@@ -194,6 +206,9 @@ namespace FileTypeChecker.Tests
         [TestCase("test-offset.mp4", M4V.TypeExtension)]
         [TestCase("file_example_AVI_480_750kB.avi", AudioVideoInterleaveVideoFormat.TypeExtension)]
         [TestCase("file_example_WAV_1MG.wav", WaveformAudioFileFormat.TypeExtension)]
+        [TestCase("test.m4a", M4a.TypeExtension)]
+        [TestCase("test.flac", Flac.TypeExtension)]
+        [TestCase("test.ogg", Ogg.TypeExtension)]
         public void TryGetFileType_ShouldReturnFileExtension(string filePath, string expectedFileExtension)
         {
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
@@ -274,6 +289,9 @@ namespace FileTypeChecker.Tests
         [TestCase("FileTypeCheckerLogo-150.heic", HighEfficiencyImageFile.TypeName)]
         [TestCase("file_example_AVI_480_750kB.avi", AudioVideoInterleaveVideoFormat.TypeName)]
         [TestCase("file_example_WAV_1MG.wav", WaveformAudioFileFormat.TypeName)]
+        [TestCase("test.m4a", M4a.TypeName)]
+        [TestCase("test.flac", Flac.TypeName)]
+        [TestCase("test.ogg", Ogg.TypeName)]
         public void GetFileType_ShouldReturnFileName(string filePath, string expectedFileTypeName)
         {
             using var fileStream = File.OpenRead(Path.Combine(FilesPath, filePath));
@@ -342,6 +360,9 @@ namespace FileTypeChecker.Tests
         [TestCase("test-issue-41.xlsx", typeof(MicrosoftOffice365Document))]
         [TestCase("file_example_AVI_480_750kB.avi", typeof(AudioVideoInterleaveVideoFormat))]
         [TestCase("file_example_WAV_1MG.wav", typeof(WaveformAudioFileFormat))]
+        [TestCase("test.m4a", typeof(M4a))]
+        [TestCase("test.flac", typeof(Flac))]
+        [TestCase("test.ogg", typeof(Ogg))]
         public void GetFileType_ShouldReturnAccurateTypeWhenUsingBytes(string fileName, Type expectedType)
         {
             var buffer = GetFileBytes(fileName);

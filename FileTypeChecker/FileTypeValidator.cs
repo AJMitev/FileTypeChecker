@@ -157,6 +157,14 @@ namespace FileTypeChecker
             => fileContent.Is<T>();
 
         /// <summary>
+        /// Validates that the current file is an audio file.
+        /// </summary>
+        /// <param name="fileContent">File to check as a stream.</param>
+        /// <returns>Returns true if the provided file is an audio file otherwise returns false. Supported audio types are: MP3, WAV, FLAC, OGG, M4A, and WMA.</returns>
+        public static bool IsAudio(Stream fileContent)
+            => fileContent.IsAudio();
+
+        /// <summary>
         /// Validates that the current file is an image.
         /// </summary>
         /// <param name="fileContent">File to check as a stream.</param>
@@ -180,6 +188,14 @@ namespace FileTypeChecker
         /// <returns>True, if a file matches the desired type otherwise returns false.</returns>
         public static bool Is<T>(byte[] fileContent) where T : FileType, IFileType, new()
             => fileContent.Is<T>();
+
+        /// <summary>
+        /// Validates that the current file is an audio file.
+        /// </summary>
+        /// <param name="fileContent">File bytes.</param>
+        /// <returns>Returns true if the provided file is an audio file otherwise returns false. Supported audio types are: MP3, WAV, FLAC, OGG, M4A, and WMA.</returns>
+        public static bool IsAudio(byte[] fileContent)
+            => fileContent.IsAudio();
 
         /// <summary>
         /// Validates that the current file is an image.
@@ -275,6 +291,15 @@ namespace FileTypeChecker
             => await fileContent.IsAsync<T>(cancellationToken).ConfigureAwait(false);
 
         /// <summary>
+        /// Asynchronously validates that the current file is an audio file.
+        /// </summary>
+        /// <param name="fileContent">File to check as a stream.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used to cancel the asynchronous operation.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains true if the provided file is an audio file; otherwise, false. Supported audio types include: MP3, WAV, FLAC, OGG, M4A, and WMA.</returns>
+        public static async Task<bool> IsAudioAsync(Stream fileContent, CancellationToken cancellationToken = default)
+            => await fileContent.IsAudioAsync(cancellationToken).ConfigureAwait(false);
+
+        /// <summary>
         /// Asynchronously validates that the current file is an image.
         /// </summary>
         /// <param name="fileContent">File to check as a stream.</param>
@@ -361,6 +386,15 @@ namespace FileTypeChecker
         /// <returns>True if the file matches the desired type; otherwise, false.</returns>
         public static bool Is<T>(ReadOnlySpan<byte> fileContent) where T : FileType, IFileType, new()
             => fileContent.Is<T>();
+
+        /// <summary>
+        /// Validates that the current file is an audio file using high-performance ReadOnlySpan.
+        /// This overload avoids memory allocations and provides optimal performance.
+        /// </summary>
+        /// <param name="fileContent">File content as ReadOnlySpan of bytes.</param>
+        /// <returns>True if the provided file is an audio file; otherwise, false. Supported audio types include: MP3, WAV, FLAC, OGG, M4A, and WMA.</returns>
+        public static bool IsAudio(ReadOnlySpan<byte> fileContent)
+            => fileContent.IsAudio();
 
         /// <summary>
         /// Validates that the current file is an image using high-performance ReadOnlySpan.
