@@ -409,6 +409,7 @@ namespace FileTypeChecker.Tests
         [TestCase("FileTypeCheckerLogo-150.heic", typeof(HighEfficiencyImageFile))]
         [TestCase("issue311docx.testfile", typeof(MicrosoftOffice365Document))]
         [TestCase("test-issue-41.xlsx", typeof(MicrosoftOffice365Document))]
+        [TestCase("test-issue-59.xlsx", typeof(MicrosoftOffice365Document))]
         [TestCase("file_example_AVI_480_750kB.avi", typeof(AudioVideoInterleaveVideoFormat))]
         [TestCase("file_example_WAV_1MG.wav", typeof(WaveformAudioFileFormat))]
         [TestCase("test.m4a", typeof(M4a))]
