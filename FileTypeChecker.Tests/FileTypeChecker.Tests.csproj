@@ -125,6 +125,9 @@
     <None Update="files\test-issue-41.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="files\test-issue-59.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="files\file_example_AVI_480_750kB.avi">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
